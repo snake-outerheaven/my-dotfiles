@@ -1,0 +1,58 @@
+[window]
+
+opacity = 0.75
+padding.x = 10
+padding.y = 10
+blur = true
+
+[colors.primary]
+background = '#272e33' # Versão Hard (mais escura)
+foreground = '#d3c6aa'
+
+[colors.normal]
+black   = '#414b50'
+red     = '#e67e80'
+green   = '#a7c080'
+yellow  = '#dbbc7f'
+blue    = '#7fbbb3'
+magenta = '#d699b6'
+cyan    = '#83c092'
+white   = '#d3c6aa'
+
+[colors.bright]
+black   = '#475258'
+red     = '#e67e80'
+green   = '#a7c080'
+yellow  = '#dbbc7f'
+blue    = '#7fbbb3'
+magenta = '#d699b6'
+cyan    = '#83c092'
+white   = '#d3c6aa'
+
+[colors.cursor]
+text   = '#272e33'
+cursor = '#d3c6aa'
+
+[colors.selection]
+text       = 'CellForeground'
+background = '#543a48'
+
+[font]
+size = 9.0
+
+[font.normal]
+family = "Cascadia Code"
+style = "Regular"
+
+
+[font.bold]
+family = "Cascadia Code"
+style = "Bold"
+
+[font.italic]
+family = "Cascadia Code"
+style = "Italic"
+
+[font.bold_italic]
+family = "Cascadia Code"
+style = "Bold Italic"

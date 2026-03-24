@@ -1,0 +1,32 @@
+[global]
+    monitor = 0
+    follow = mouse
+    width = 300
+    height = 300
+    origin = top-right
+    offset = 10x50
+    scale = 0
+    notification_limit = 0
+
+    ### Estética Everforest ###
+    font = Cascadia Mono 10
+    frame_width = 2
+    frame_color = "#a7c080"
+    separator_color = frame
+    corner_radius = 4
+
+[urgency_low]
+    background = "#2d353b"
+    foreground = "#d3c6aa"
+    timeout = 10
+
+[urgency_normal]
+    background = "#2d353b"
+    foreground = "#d3c6aa"
+    timeout = 10
+
+[urgency_critical]
+    background = "#2d353b"
+    foreground = "#d3c6aa"
+    frame_color = "#e67e80"
+    timeout = 0# vim: ft=cfg
