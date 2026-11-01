@@ -77,11 +77,11 @@ bindsym $mod+Shift+x exec swaylock -f
 bindsym Print exec $scripts/print.sh
 bindsym $mod+Print exec $scripts/print.sh area
 
-# Volume (pactl funciona com PipeWire e PulseAudio)
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+# Volume pelo wpctl (PipeWire), travado entre 0 e 100% (-l 1.0)
+bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
 # Midia (Spotify, mpv, navegador...)
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -221,9 +221,9 @@ bar {
     status_command ~/.config/sway/scripts/status.sh
 
     # Mouse na barra: roda = volume, botao do meio = mudo, direito = mixer
-    bindsym button4 exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-    bindsym button5 exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-    bindsym button2 exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym button4 exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
+    bindsym button5 exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+    bindsym button2 exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
     bindsym button3 exec pavucontrol
 
     colors {
