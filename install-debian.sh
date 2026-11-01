@@ -8,7 +8,7 @@ grim slurp wl-clipboard libnotify-bin
 fuzzel alacritty dunst tmux
 xdg-desktop-portal-wlr xdg-desktop-portal-gtk
 network-manager-gnome gnome-keyring dex
-bumblebee-status pulseaudio-utils brightnessctl playerctl
+pulseaudio-utils brightnessctl playerctl
 fonts-noto-core fonts-noto-color-emoji fonts-cascadia-code
 libglib2.0-bin dconf-gsettings-backend stow"
 

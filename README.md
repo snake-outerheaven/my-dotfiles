@@ -59,7 +59,7 @@ Depois, escolha **Sway** na tela de login (ou rode `sway` num TTY).
 | `restart` | não existe: só `reload` |
 | `xsettingsd` | `gsettings` |
 | layout do teclado no X | bloco `input` (br abnt2) |
-| `i3bar` | `swaybar`, com o mesmo bumblebee-status (tema `gruvbox-powerline`) |
+| `i3bar` + bumblebee-status | `swaybar` com status simples (data e hora) |
 
 Correções aproveitadas no caminho: `bindsym $mod + r` (com espaços) virou `$mod+r`; o print de área salvava em `~/Pictures` e o de tela em `~/Imagens` (agora os dois vão para `~/Imagens/Printscreens`); o componente `pkcs` do gnome-keyring virou `pkcs11`; o `timeout = 0# vim` do dunst foi separado.
 

@@ -151,12 +151,13 @@ mode "resize" {
     bindsym $mod+r mode "default"
 }
 
-### Barra (swaybar fala o protocolo do i3bar: o bumblebee-status continua funcionando)
+### Barra (status simples com a data)
 bar {
     font Cascadia Mono 10
     position top
     height 25
-    status_command bumblebee-status -m pasink pasource playerctl datetime battery -t gruvbox-powerline
+    # status simples (o bumblebee-status foi removido)
+    status_command while date +'%a %d/%m %H:%M'; do sleep 30; done
 
     colors {
         background $bg
