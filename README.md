@@ -39,7 +39,8 @@ Depois, escolha **Sway** na tela de login (ou rode `sway` num TTY).
 | `Super+Espaço` | alterna foco tiling / flutuante |
 | `Super+A` | foca o container pai |
 | `Super+R` | modo redimensionar |
-| `Super+1..0` | workspaces |
+| `Super+1..0` | workspaces I a X (números romanos) |
+| `Super+Shift+1..0` | move a janela para o workspace |
 | `Super+Shift+X` | bloqueia a tela |
 | `Print` / `Super+Print` | print da tela / de uma área |
 | `Super+V` | histórico do clipboard (cliphist + fuzzel) |
