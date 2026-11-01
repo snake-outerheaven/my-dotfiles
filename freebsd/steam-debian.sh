@@ -44,6 +44,15 @@ say "1. arquitetura i386 e lista de pacotes"
 inchroot dpkg --add-architecture i386
 inchroot apt-get update
 
+# --- 1b. preparar o chroot (sem systemd) ---------------------------------
+# O pacote dbus exige o usuario/grupo 'messagebus', que o systemd criaria; sem eles o dpkg
+# para e os ~25 pacotes que dependem do dbus ficam sem configurar. Tambem impede o dpkg
+# de tentar iniciar servicos (policy-rc.d) e conserta uma instalacao interrompida antes.
+say "1b. usuario messagebus, policy-rc.d e configuracao pendente"
+inchroot sh -c "printf '#!/bin/sh\nexit 101\n' > /usr/sbin/policy-rc.d; chmod +x /usr/sbin/policy-rc.d"
+inchroot sh -c "getent group messagebus >/dev/null || groupadd -r messagebus; id messagebus >/dev/null 2>&1 || useradd -r -g messagebus -d /nonexistent -s /usr/sbin/nologin messagebus"
+inchroot dpkg --configure -a || true
+
 # --- 2. licenca da Steam respondida de antemao ---------------------------
 say "2. aceitar a licenca da Steam (debconf)"
 if [ "$DRY_RUN" = 1 ]; then
@@ -58,6 +67,8 @@ say "3. steam-installer e Mesa (OpenGL/Vulkan, 64 e 32 bits)"
 inchroot apt-get install -y steam-installer ca-certificates xdg-utils locales \
     libgl1-mesa-dri libgl1-mesa-dri:i386 libglx-mesa0 libglx-mesa0:i386 \
     mesa-vulkan-drivers mesa-vulkan-drivers:i386
+inchroot apt-get -f install -y
+inchroot dpkg --configure -a
 
 # --- 4. HOME da Steam dentro do chroot -----------------------------------
 say "4. pasta pessoal do $STEAM_USER dentro do Debian"
