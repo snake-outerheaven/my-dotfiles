@@ -27,18 +27,16 @@ done
 mkdir -p "$HOME/Imagens/Printscreens"
 
 echo "== wallpaper"
-WALL="$HOME/Imagens/wallpapers/wall.jpg"
-BASE="https://raw.githubusercontent.com/vctrblck/gruvbox-wallpapers/main"
+# Initial D (AE86), da colecao AngelJumbo/gruvbox-wallpapers
+WALL="$HOME/Imagens/wallpapers/wall.png"
+URL="https://raw.githubusercontent.com/AngelJumbo/gruvbox-wallpapers/main/wallpapers/anime/light/initialdgruvlight.png"
 mkdir -p "$(dirname "$WALL")"
 if [ -f "$WALL" ]; then
     echo "ja existe: $WALL (mantido)"
+elif wget -q -O "$WALL.tmp" "$URL"; then
+    mv "$WALL.tmp" "$WALL"; echo "baixado: $WALL"
 else
-    for img in forest.jpg cabin.png buildings.png; do
-        if wget -q -O "$WALL.tmp" "$BASE/$img"; then
-            mv "$WALL.tmp" "$WALL"; echo "baixado: $img -> $WALL"; break
-        fi
-        rm -f "$WALL.tmp"; echo "nao achei $img, tentando o proximo"
-    done
+    rm -f "$WALL.tmp"; echo "nao consegui baixar o wallpaper (fica a cor solida)"
 fi
 # aplica na hora se o Sway ja estiver aberto
 if [ -f "$WALL" ] && command -v swaymsg >/dev/null && swaymsg -t get_version >/dev/null 2>&1; then

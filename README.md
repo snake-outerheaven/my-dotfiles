@@ -14,13 +14,13 @@ Depois, escolha **Sway** na tela de login (ou rode `sway` num TTY).
 
 ## Wallpaper
 
-Coloque a imagem em `~/Imagens/wallpapers/wall.jpg` e rode `swaymsg reload`. Sem ela, o fundo fica na cor sólida `#282828`.
+O `install-debian.sh` baixa o wallpaper do **Initial D** (AE86) da coleção [AngelJumbo/gruvbox-wallpapers](https://github.com/AngelJumbo/gruvbox-wallpapers) para `~/Imagens/wallpapers/wall.png`. Para trocar, substitua esse arquivo (ou use `wall.jpg`) e rode `swaymsg reload`. Sem imagem, o fundo fica na cor sólida `#282828`.
 
 ## Pacotes do stow
 
 | Pasta | Vai para |
 |---|---|
-| `sway` | `~/.config/sway/config` e `scripts/` (`print.sh`, `clipboard.sh`) |
+| `sway` | `~/.config/sway/config` e `scripts/` (`print.sh`, `clipboard.sh`, `wallpaper.sh`) |
 | `swaylock` | `~/.config/swaylock/config` |
 | `fuzzel` | `~/.config/fuzzel/fuzzel.ini` |
 | `alacritty` | `~/.config/alacritty/alacritty.toml` |
