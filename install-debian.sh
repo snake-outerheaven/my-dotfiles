@@ -4,7 +4,7 @@
 set -eu
 
 PACOTES="sway swaybg swayidle swaylock xwayland
-grim slurp wl-clipboard libnotify-bin
+grim slurp wl-clipboard cliphist libnotify-bin
 fuzzel alacritty dunst tmux
 xdg-desktop-portal-wlr xdg-desktop-portal-gtk
 network-manager-gnome gnome-keyring dex

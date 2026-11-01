@@ -52,6 +52,9 @@ exec dex --autostart --environment sway
 # nm-applet: o dex abre o do /etc/xdg/autostart; o override em ~/.config/autostart (pacote autostart) poe --indicator para a bandeja do swaybar
 exec '/usr/bin/gnome-keyring-daemon --start --components=secrets,pkcs11'
 exec dunst
+# Historico do clipboard (texto e imagens) para o Super+V
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
 # Tema escuro para apps GTK (substitui o xsettingsd do X)
 exec gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 exec gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
@@ -85,6 +88,10 @@ floating_modifier $mod normal
 
 # Terminal
 bindsym $mod+Return exec $term
+
+# Clipboard: historico / apagar historico
+bindsym $mod+v exec $scripts/clipboard.sh
+bindsym $mod+Shift+v exec $scripts/clipboard.sh limpar
 
 # Fechar janela
 bindsym $mod+Shift+q kill

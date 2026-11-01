@@ -16,7 +16,7 @@ Depois, escolha **Sway** na tela de login (ou rode `sway` num TTY).
 
 | Pasta | Vai para |
 |---|---|
-| `sway` | `~/.config/sway/config` e `scripts/print.sh` |
+| `sway` | `~/.config/sway/config` e `scripts/` (`print.sh`, `clipboard.sh`) |
 | `swaylock` | `~/.config/swaylock/config` |
 | `fuzzel` | `~/.config/fuzzel/fuzzel.ini` |
 | `alacritty` | `~/.config/alacritty/alacritty.toml` |
@@ -42,6 +42,8 @@ Depois, escolha **Sway** na tela de login (ou rode `sway` num TTY).
 | `Super+1..0` | workspaces |
 | `Super+Shift+X` | bloqueia a tela |
 | `Print` / `Super+Print` | print da tela / de uma área |
+| `Super+V` | histórico do clipboard (cliphist + fuzzel) |
+| `Super+Shift+V` | apaga o histórico do clipboard |
 | `Super+Shift+C` | recarrega a config |
 | `Super+Shift+E` | sai do Sway |
 
