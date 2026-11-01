@@ -31,6 +31,9 @@ steam
 | `sudo` pede senha no usuário `steam` | Ele não é `wheel`, de propósito | Rodar os comandos de administração no seu usuário |
 | `su - steam` pede senha que não existe | `pw useradd` sem `-h` deixa a conta sem senha | `sudo su - steam` ou `sudo passwd steam` |
 | A Steam não abre a janela | `/tmp` não estava montado dentro de `/compat/linux`, e o socket do X11 fica em `/tmp/.X11-unix` | Linha `nullfs` do `/tmp` no fstab e `mount -al` |
+| `mount: /compat/linux/tmp: No such file or directory` | O ponto de montagem não existia, então o nullfs do `/tmp` nunca montou (era a causa real da linha acima) | `mkdir -p /compat/linux/tmp` e `mount /compat/linux/tmp` |
+| `dpkg-statoverride: group 'messagebus' does not exist` ao instalar a Steam no Debian | O `dbus` espera o usuário do sistema que o systemd cria, e o chroot não tem systemd | `groupadd -r messagebus` e `useradd -r -g messagebus -d /nonexistent -s /usr/sbin/nologin messagebus`, depois `dpkg --configure -a` |
+| `/proc/ is not mounted` dentro do Debian | O fstab estava certo, mas faltava rodar o `mount -al` | `sudo mount -al` e conferir com `mount \| grep compat/debian` |
 | Erro de display / autorização | O usuário `steam` não tinha permissão na tela | `xhost +si:localuser:steam` |
 
 ## Estado dos testes

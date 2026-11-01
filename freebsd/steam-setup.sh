@@ -65,8 +65,12 @@ if [ "$DRY_RUN" = 1 ]; then
     printf '   [dry-run] acrescentar as montagens do /compat/linux em /etc/fstab (com backup)\n'
     printf '   [dry-run] mount -al\n'
 elif grep -q 'linprocfs' /etc/fstab 2>/dev/null; then
-    echo "   /etc/fstab ja tem as montagens do linuxulator; nao mexi"
+    echo "   /etc/fstab ja tem as montagens do linuxulator; nao mexi no arquivo"
+    mkdir -p /compat/linux/dev/shm /compat/linux/dev/fd /compat/linux/proc /compat/linux/sys /compat/linux/tmp
+    mount -al || true
 else
+    # os pontos de montagem precisam existir (sem /compat/linux/tmp o 'mount -al' falha e a Steam nao ve o X11)
+    mkdir -p /compat/linux/dev/shm /compat/linux/dev/fd /compat/linux/proc /compat/linux/sys /compat/linux/tmp
     cp /etc/fstab "/etc/fstab.bak.$(date +%Y%m%d%H%M%S)"
     cat >> /etc/fstab <<'FSTAB'
 
