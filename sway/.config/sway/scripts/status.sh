@@ -1,10 +1,11 @@
 #!/bin/sh
 # status.sh: linha de status da swaybar (volume, bateria, data)
 # Volume pelo wpctl (PipeWire); se nao tiver, tenta o pactl.
+# LC_ALL=C no awk: em pt_BR o awk le "0.45" como 0 (virgula decimal) e o volume so mostrava 0 ou 100.
 volume() {
     if command -v wpctl >/dev/null; then
         v=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ 2>/dev/null) || return
-        pct=$(printf '%s' "$v" | awk '{printf "%d", $2*100}')
+        pct=$(printf '%s' "$v" | LC_ALL=C awk '{printf "%d", $2*100 + 0.5}')
         case "$v" in *MUTED*) printf 'vol mudo' ;; *) printf 'vol %s%%' "$pct" ;; esac
     elif command -v pactl >/dev/null; then
         pct=$(pactl get-sink-volume @DEFAULT_SINK@ 2>/dev/null | awk -F/ 'NR==1{gsub(/ /,"",$2); print $2}')
