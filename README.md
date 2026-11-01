@@ -20,7 +20,7 @@ O `install-debian.sh` baixa o wallpaper do **Initial D** (AE86) da coleção [An
 
 | Pasta | Vai para |
 |---|---|
-| `sway` | `~/.config/sway/config` e `scripts/` (`print.sh`, `clipboard.sh`, `wallpaper.sh`) |
+| `sway` | `~/.config/sway/config` e `scripts/` (`print.sh`, `clipboard.sh`, `wallpaper.sh`, `status.sh`) |
 | `swaylock` | `~/.config/swaylock/config` |
 | `fuzzel` | `~/.config/fuzzel/fuzzel.ini` |
 | `alacritty` | `~/.config/alacritty/alacritty.toml` |
@@ -35,6 +35,7 @@ O `install-debian.sh` baixa o wallpaper do **Initial D** (AE86) da coleção [An
 
 | Para quê | Programa |
 |---|---|
+| Áudio | PipeWire (`pipewire-pulse`, `wireplumber`), `pavucontrol`, `pulsemixer`, `playerctl` |
 | Arquivos | `ranger` (com `highlight` e `atool` nas prévias) |
 | Sistema | `fastfetch`, `btop` |
 | Ricing | `cava` (visualizador de áudio), `cmatrix`, `tty-clock`, ícones `Papirus-Dark` |
@@ -49,6 +50,8 @@ O `install-debian.sh` baixa o wallpaper do **Initial D** (AE86) da coleção [An
 | `Super+D` | lançador (fuzzel) |
 | `Super+N` | arquivos (ranger) |
 | `Super+Shift+B` | monitor do sistema (btop) |
+| `Super+Shift+A` | mixer de áudio (pavucontrol) |
+| Teclas de volume / mídia | volume, mudo, microfone, play/pause, próxima, anterior |
 | `Super+Shift+Q` | fecha a janela |
 | `Super+H/J/K/L` ou setas | foco |
 | `Super+Shift+H/J/K/L` | move a janela |

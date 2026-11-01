@@ -83,6 +83,16 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
+# Midia (Spotify, mpv, navegador...)
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+# Mixer de audio (pavucontrol, flutuante)
+bindsym $mod+Shift+a exec pavucontrol
+for_window [app_id="(?i)pavucontrol"] floating enable, resize set 800 500
+
 # Brilho
 bindsym XF86MonBrightnessUp exec brightnessctl set +10%
 bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
@@ -201,14 +211,14 @@ mode "resize" {
     bindsym $mod+r mode "default"
 }
 
-### Barra (status simples com a data)
+### Barra (volume, bateria e data)
 bar {
     font Cascadia Mono 10
     position top
     strip_workspace_numbers yes
     height 25
-    # status simples (o bumblebee-status foi removido)
-    status_command while date +'%a %d/%m %H:%M'; do sleep 30; done
+    # volume, bateria e data (scripts/status.sh)
+    status_command ~/.config/sway/scripts/status.sh
 
     colors {
         background $bg

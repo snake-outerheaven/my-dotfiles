@@ -4,6 +4,7 @@
 set -eu
 
 PACOTES="sway swaybg swayidle swaylock xwayland
+pipewire pipewire-pulse pipewire-alsa wireplumber pavucontrol pulsemixer
 grim slurp wl-clipboard cliphist libnotify-bin
 fuzzel alacritty dunst tmux
 xdg-desktop-portal-wlr xdg-desktop-portal-gtk
@@ -16,6 +17,10 @@ echo "== pacotes"
 sudo apt update
 # shellcheck disable=SC2086
 sudo apt install -y $PACOTES
+
+echo "== audio (PipeWire)"
+systemctl --user enable --now pipewire pipewire-pulse wireplumber 2>/dev/null \
+    && echo "PipeWire ativo" || echo "aviso: ative o PipeWire depois do primeiro login (systemctl --user enable --now pipewire pipewire-pulse wireplumber)"
 
 echo "== utilidades e ricing (uma por vez: se alguma faltar, segue com as outras)"
 EXTRAS="ranger highlight atool fastfetch btop cava cmatrix tty-clock
