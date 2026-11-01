@@ -48,7 +48,7 @@ gaps outer 5
 ### Autostart
 exec dex --autostart --environment sway
 # nm-applet: o dex abre o do /etc/xdg/autostart; o override em ~/.config/autostart (pacote autostart) poe --indicator para a bandeja do swaybar
-exec /usr/bin/gnome-keyring-daemon --start --components=secrets,pkcs11
+exec '/usr/bin/gnome-keyring-daemon --start --components=secrets,pkcs11'
 exec dunst
 # Tema escuro para apps GTK (substitui o xsettingsd do X)
 exec gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
