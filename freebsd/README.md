@@ -14,6 +14,8 @@ Ordem: `steam-setup.sh` → (opcional) `debian-chroot.sh` → (opcional) `steam-
 
 ## Steam suportada (`steam-setup.sh`)
 
+Com `sudo PROTON=1 sh steam-setup.sh` o script também instala o Proton nativo (`wine-proton`, `libc6-shim`, `python3` e a parte de 32 bits pelo `pkg32.sh`). Na Steam, instale o Proton 8.0 (appid 2348590) ou 9.0 (appid 2805730) e, no jogo, escolha *FreeBSD Wine (emulators/wine-proton)* em Propriedades > Compatibilidade.
+
 Depois do script, abrir a Steam exige a sua sessão gráfica liberada para o usuário `steam`:
 
 ```sh

@@ -4,6 +4,7 @@
 #
 # Uso (como o seu usuario, com sudo):   sudo sh steam-setup.sh
 # Teste sem mudar nada:                 DRY_RUN=1 sh steam-setup.sh
+# Com Proton nativo (opcional):         sudo PROTON=1 sh steam-setup.sh
 # E idempotente: pode rodar de novo sem duplicar nada.
 set -eu
 
@@ -97,6 +98,16 @@ run pw groupmod video -m "$STEAM_USER" || true   # ja no grupo nao e erro
 # --- 4. bootstrap da Steam (como o usuario dedicado) --------------------
 say "4. bootstrap: baixando o executavel da Steam como $STEAM_USER"
 run su - "$STEAM_USER" -c "$LSU"
+
+# --- 4b. (opcional) Proton nativo: wine-proton + libs de 32 bits -----------
+# Semi-experimental. Ligue com:  sudo PROTON=1 sh steam-setup.sh
+if [ "${PROTON:-0}" = 1 ]; then
+    say "4b. Proton nativo: wine-proton, libc6-shim, python3 e a parte de 32 bits"
+    run pkg install -y wine-proton libc6-shim python3
+    run /usr/local/wine-proton/bin/pkg32.sh install wine-proton mesa-dri
+    echo "   Na Steam: instale o Proton 8.0 (appid 2348590) ou 9.0 (appid 2805730);"
+    echo "   no jogo: Propriedades > Compatibilidade > FreeBSD Wine (emulators/wine-proton)"
+fi
 
 # --- 5. falta so abrir a janela ----------------------------------------
 say "Pronto. Falta o passo grafico (o usuario $STEAM_USER precisa abrir janelas na sua sessao)."
