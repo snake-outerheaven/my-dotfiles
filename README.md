@@ -12,6 +12,10 @@ cd ~/my-dotfiles && sh install-debian.sh
 
 Depois, escolha **Sway** na tela de login (ou rode `sway` num TTY).
 
+## Wallpaper
+
+Coloque a imagem em `~/Imagens/wallpapers/wall.jpg` e rode `swaymsg reload`. Sem ela, o fundo fica na cor sólida `#282828`.
+
 ## Pacotes do stow
 
 | Pasta | Vai para |

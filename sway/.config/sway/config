@@ -38,9 +38,9 @@ client.unfocused        $bg_hard  $bg_hard  $grey     $bg_hard  $bg_hard
 client.urgent           $red      $red      $bg       $red      $red
 
 ### Wallpaper
-# Cor solida por padrao. Para imagem (ex.: um Van Gogh passado pelo gruvbox.sh):
-# output * bg ~/Imagens/wallpapers/wall.jpg fill
+# Cor solida como base; se existir ~/Imagens/wallpapers/wall.jpg, ele vira o fundo
 output * bg $bg solid_color
+exec_always [ -f ~/Imagens/wallpapers/wall.jpg ] && swaymsg 'output * bg ~/Imagens/wallpapers/wall.jpg fill'
 
 ### Aparencia
 # Sem barra de titulo: so uma borda de 2 px (a cor mostra a janela em foco)
