@@ -10,7 +10,7 @@ xdg-desktop-portal-wlr xdg-desktop-portal-gtk
 network-manager-gnome gnome-keyring dex
 bumblebee-status pulseaudio-utils brightnessctl playerctl
 fonts-noto-core fonts-noto-color-emoji fonts-cascadia-code
-libglib2.0-bin stow"
+libglib2.0-bin dconf-gsettings-backend stow"
 
 echo "== pacotes"
 sudo apt update

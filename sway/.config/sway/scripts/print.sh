@@ -11,5 +11,5 @@ if [ "${1:-}" = "area" ]; then
 else
     grim "$arq"
 fi
-command -v wl-copy >/dev/null && wl-copy < "$arq" || true
+command -v wl-copy >/dev/null && wl-copy --type image/png < "$arq" || true
 command -v notify-send >/dev/null && notify-send "Print salvo" "$arq" || true

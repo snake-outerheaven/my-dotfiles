@@ -11,6 +11,8 @@ font pango:Noto Sans, Noto Sans Color Emoji 12
 
 # Integracao com systemd/dbus e portais (arquivos do pacote sway do Debian)
 include /etc/sway/config.d/*
+# Portais (screenshare, seletor de arquivos) precisam disso quando o Sway e aberto pelo TTY
+exec dbus-update-activation-environment --systemd XDG_CURRENT_DESKTOP=sway
 
 ### Teclado (no Wayland o layout fica aqui, nao no X)
 input type:keyboard {
@@ -78,9 +80,8 @@ bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86MonBrightnessUp exec brightnessctl set +10%
 bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
 
-# Mouse + $mod arrasta janelas flutuantes; arrastar pela barra de titulo move janelas em tiling
+# Mouse + $mod arrasta janelas (arrastar pela barra de titulo ja vem ligado no Sway)
 floating_modifier $mod normal
-tiling_drag enable
 
 # Terminal
 bindsym $mod+Return exec $term
@@ -152,7 +153,7 @@ mode "resize" {
 
 ### Barra (swaybar fala o protocolo do i3bar: o bumblebee-status continua funcionando)
 bar {
-    font pango:Cascadia Mono 10
+    font Cascadia Mono 10
     position top
     height 25
     status_command bumblebee-status -m pasink pasource playerctl datetime battery -t gruvbox-powerline
