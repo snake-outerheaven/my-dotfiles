@@ -220,6 +220,12 @@ bar {
     # volume, bateria e data (scripts/status.sh)
     status_command ~/.config/sway/scripts/status.sh
 
+    # Mouse na barra: roda = volume, botao do meio = mudo, direito = mixer
+    bindsym button4 exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym button5 exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    bindsym button2 exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym button3 exec pavucontrol
+
     colors {
         background $bg
         statusline $fg

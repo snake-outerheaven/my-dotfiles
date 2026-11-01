@@ -52,6 +52,7 @@ O `install-debian.sh` baixa o wallpaper do **Initial D** (AE86) da coleção [An
 | `Super+Shift+B` | monitor do sistema (btop) |
 | `Super+Shift+A` | mixer de áudio (pavucontrol) |
 | Teclas de volume / mídia | volume, mudo, microfone, play/pause, próxima, anterior |
+| Mouse na barra | roda = volume, botão do meio = mudo, botão direito = mixer |
 | `Super+Shift+Q` | fecha a janela |
 | `Super+H/J/K/L` ou setas | foco |
 | `Super+Shift+H/J/K/L` | move a janela |
