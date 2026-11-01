@@ -11,7 +11,7 @@
     ### Estetica Gruvbox ###
     font = Cascadia Mono 10
     frame_width = 2
-    frame_color = "#fe8019"
+    frame_color = "#b8bb26"
     separator_color = frame
     corner_radius = 4
 

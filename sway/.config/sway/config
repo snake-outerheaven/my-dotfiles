@@ -32,7 +32,7 @@ set $blue    #83a598
 set $grey    #928374
 
 #                       borda     fundo     texto     indicador child_border
-client.focused          $orange   $bg       $fg       $yellow   $orange
+client.focused          $green    $bg       $fg       $yellow   $green
 client.focused_inactive $bg_hard  $bg_hard  $grey     $bg_hard  $bg_hard
 client.unfocused        $bg_hard  $bg_hard  $grey     $bg_hard  $bg_hard
 client.urgent           $red      $red      $bg       $red      $red
@@ -43,6 +43,9 @@ client.urgent           $red      $red      $bg       $red      $red
 output * bg $bg solid_color
 
 ### Aparencia
+# Sem barra de titulo: so uma borda de 2 px (a cor mostra a janela em foco)
+default_border pixel 2
+default_floating_border pixel 2
 hide_edge_borders smart
 gaps inner 10
 gaps outer 5
@@ -171,7 +174,7 @@ bar {
         statusline $fg
         separator  $grey
         #                  borda    fundo    texto
-        focused_workspace  $orange  $orange  $bg
+        focused_workspace  $green   $green   $bg
         active_workspace   $bg_hard $bg_hard $fg
         inactive_workspace $bg      $bg      $grey
         urgent_workspace   $red     $red     $bg
