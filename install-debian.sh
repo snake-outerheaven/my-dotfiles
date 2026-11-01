@@ -11,7 +11,7 @@ xdg-desktop-portal-wlr xdg-desktop-portal-gtk
 network-manager-gnome gnome-keyring dex
 pulseaudio-utils brightnessctl playerctl
 fonts-noto-core fonts-noto-color-emoji fonts-cascadia-code
-libglib2.0-bin dconf-gsettings-backend wget stow"
+libglib2.0-bin dconf-gsettings-backend wget jq stow"
 
 echo "== pacotes"
 sudo apt update
@@ -50,6 +50,9 @@ elif wget -q -O "$WALL.tmp" "$URL"; then
 else
     rm -f "$WALL.tmp"; echo "nao consegui baixar o wallpaper (fica a cor solida)"
 fi
+echo "== quadros do Courbet"
+sh "$(dirname "$0")/wallpapers/courbet.sh" || echo "aviso: nao consegui baixar os quadros do Courbet"
+
 # aplica na hora se o Sway ja estiver aberto
 if [ -f "$WALL" ] && command -v swaymsg >/dev/null && swaymsg -t get_version >/dev/null 2>&1; then
     swaymsg reload >/dev/null && echo "wallpaper aplicado (swaymsg reload)"

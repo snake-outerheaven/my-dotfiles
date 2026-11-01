@@ -16,11 +16,25 @@ Depois, escolha **Sway** na tela de login (ou rode `sway` num TTY).
 
 O `install-debian.sh` baixa o wallpaper do **Initial D** (AE86) da coleção [AngelJumbo/gruvbox-wallpapers](https://github.com/AngelJumbo/gruvbox-wallpapers) para `~/Imagens/wallpapers/wall.png`. Para trocar, substitua esse arquivo (ou use `wall.jpg`) e rode `swaymsg reload`. Sem imagem, o fundo fica na cor sólida `#282828`.
 
+### Trocar de wallpaper
+
+```sh
+~/.config/sway/scripts/wall.sh                        # lista as imagens e mostra a atual
+~/.config/sway/scripts/wall.sh /caminho/imagem.jpg    # preenche a tela
+~/.config/sway/scripts/wall.sh /caminho/imagem.jpg fit   # quadro inteiro, faixas #282828
+```
+
+A escolha fica salva em `~/.config/sway/wallpaper.atual` e volta sozinha no próximo login.
+
+### Quadros do Courbet
+
+`sh wallpapers/courbet.sh` (o install já roda) baixa 9 quadros do Gustave Courbet, em domínio público, do Wikimedia Commons para `~/Imagens/wallpapers/courbet/`: naturezas-mortas de 1871–72, riachos e florestas, e *A Onda*. Para as naturezas-mortas, que são quase quadradas, use o modo `fit`.
+
 ## Pacotes do stow
 
 | Pasta | Vai para |
 |---|---|
-| `sway` | `~/.config/sway/config` e `scripts/` (`print.sh`, `clipboard.sh`, `wallpaper.sh`, `status.sh`) |
+| `sway` | `~/.config/sway/config` e `scripts/` (`print.sh`, `clipboard.sh`, `wallpaper.sh`, `wall.sh`, `status.sh`) |
 | `swaylock` | `~/.config/swaylock/config` |
 | `fuzzel` | `~/.config/fuzzel/fuzzel.ini` |
 | `alacritty` | `~/.config/alacritty/alacritty.toml` |
