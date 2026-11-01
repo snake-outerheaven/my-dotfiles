@@ -26,7 +26,20 @@ O `install-debian.sh` baixa o wallpaper do **Initial D** (AE86) da coleção [An
 | `alacritty` | `~/.config/alacritty/alacritty.toml` |
 | `dunst` | `~/.config/dunst/dunstrc` |
 | `tmux` | `~/.tmux.conf` |
+| `ranger` | `~/.config/ranger/rc.conf` (preview, bordas) |
+| `btop` | `~/.config/btop/btop.conf` (tema `gruvbox_dark`) |
+| `cava` | `~/.config/cava/config` (gradiente Gruvbox) |
 | `autostart` | `~/.config/autostart/nm-applet.desktop` (bandeja no swaybar) |
+
+## Utilidades instaladas
+
+| Para quê | Programa |
+|---|---|
+| Arquivos | `ranger` (com `highlight` e `atool` nas prévias) |
+| Sistema | `fastfetch`, `btop` |
+| Ricing | `cava` (visualizador de áudio), `cmatrix`, `tty-clock`, ícones `Papirus-Dark` |
+| Mídia | `imv` (imagens), `mpv` (vídeo), `zathura` (PDF) |
+| Terminal | `bat`, `ripgrep`, `fd-find`, `fzf` |
 
 ## Atalhos (`Super`)
 
@@ -34,6 +47,8 @@ O `install-debian.sh` baixa o wallpaper do **Initial D** (AE86) da coleção [An
 |---|---|
 | `Super+Enter` | terminal (alacritty) |
 | `Super+D` | lançador (fuzzel) |
+| `Super+N` | arquivos (ranger) |
+| `Super+Shift+B` | monitor do sistema (btop) |
 | `Super+Shift+Q` | fecha a janela |
 | `Super+H/J/K/L` ou setas | foco |
 | `Super+Shift+H/J/K/L` | move a janela |

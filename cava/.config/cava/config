@@ -1,0 +1,14 @@
+# cava: visualizador de audio em Gruvbox
+[general]
+framerate = 60
+bars = 0
+bar_width = 2
+bar_spacing = 1
+
+[color]
+gradient = 1
+gradient_count = 4
+gradient_color_1 = '#b8bb26'
+gradient_color_2 = '#fabd2f'
+gradient_color_3 = '#fe8019'
+gradient_color_4 = '#fb4934'

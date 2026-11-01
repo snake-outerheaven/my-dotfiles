@@ -17,10 +17,17 @@ sudo apt update
 # shellcheck disable=SC2086
 sudo apt install -y $PACOTES
 
+echo "== utilidades e ricing (uma por vez: se alguma faltar, segue com as outras)"
+EXTRAS="ranger highlight atool fastfetch btop cava cmatrix tty-clock
+imv mpv zathura bat ripgrep fd-find fzf papirus-icon-theme"
+for x in $EXTRAS; do
+    sudo apt install -y "$x" >/dev/null 2>&1 && echo "ok: $x" || echo "nao instalou: $x"
+done
+
 echo "== dotfiles (stow)"
 cd "$(dirname "$0")"
 mkdir -p "$HOME/.config"
-for p in sway swaylock fuzzel alacritty dunst tmux autostart; do
+for p in sway swaylock fuzzel alacritty dunst tmux autostart ranger btop cava; do
     stow --no-folding -v -t "$HOME" "$p"
 done
 
