@@ -1,0 +1,204 @@
+# Sway config: port do i3 (my-dotfiles) para Wayland, paleta Gruvbox
+# Referencia: man 5 sway | man 5 sway-input | man 5 sway-bar
+
+set $mod Mod4
+set $term alacritty
+set $menu fuzzel
+set $scripts ~/.config/sway/scripts
+
+# Fonte dos titulos das janelas
+font pango:Noto Sans, Noto Sans Color Emoji 12
+
+# Integracao com systemd/dbus e portais (arquivos do pacote sway do Debian)
+include /etc/sway/config.d/*
+
+### Teclado (no Wayland o layout fica aqui, nao no X)
+input type:keyboard {
+    xkb_layout br
+    xkb_model abnt2
+}
+
+### Paleta Gruvbox (escuro)
+set $bg      #282828
+set $bg_hard #1d2021
+set $fg      #ebdbb2
+set $red     #fb4934
+set $orange  #fe8019
+set $yellow  #fabd2f
+set $green   #b8bb26
+set $blue    #83a598
+set $grey    #928374
+
+#                       borda     fundo     texto     indicador child_border
+client.focused          $orange   $bg       $fg       $yellow   $orange
+client.focused_inactive $bg_hard  $bg_hard  $grey     $bg_hard  $bg_hard
+client.unfocused        $bg_hard  $bg_hard  $grey     $bg_hard  $bg_hard
+client.urgent           $red      $red      $bg       $red      $red
+
+### Wallpaper
+# Cor solida por padrao. Para imagem (ex.: um Van Gogh passado pelo gruvbox.sh):
+# output * bg ~/Imagens/wallpapers/wall.jpg fill
+output * bg $bg solid_color
+
+### Aparencia
+hide_edge_borders smart
+gaps inner 10
+gaps outer 5
+
+### Autostart
+exec dex --autostart --environment sway
+# nm-applet: o dex abre o do /etc/xdg/autostart; o override em ~/.config/autostart (pacote autostart) poe --indicator para a bandeja do swaybar
+exec /usr/bin/gnome-keyring-daemon --start --components=secrets,pkcs11
+exec dunst
+# Tema escuro para apps GTK (substitui o xsettingsd do X)
+exec gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+exec gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+
+# Bloqueio apos 5 min e antes de suspender (substitui xautolock + i3lock-fancy)
+exec swayidle -w \
+    timeout 300 'swaylock -f' \
+    before-sleep 'swaylock -f' \
+    lock 'swaylock -f'
+
+### Atalhos
+# Bloquear a tela manualmente
+bindsym $mod+Shift+x exec swaylock -f
+
+# Print da tela inteira / de uma area (substitui o scrot)
+bindsym Print exec $scripts/print.sh
+bindsym $mod+Print exec $scripts/print.sh area
+
+# Volume (pactl funciona com PipeWire e PulseAudio)
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Brilho
+bindsym XF86MonBrightnessUp exec brightnessctl set +10%
+bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
+
+# Mouse + $mod arrasta janelas flutuantes; arrastar pela barra de titulo move janelas em tiling
+floating_modifier $mod normal
+tiling_drag enable
+
+# Terminal
+bindsym $mod+Return exec $term
+
+# Fechar janela
+bindsym $mod+Shift+q kill
+
+# Lancador (tecla D pelo codigo fisico, como no i3)
+bindcode $mod+40 exec $menu
+
+# Foco
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Mover janela
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Tela cheia
+bindsym $mod+f fullscreen toggle
+
+# Layouts
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Flutuante / tiling
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+# Container pai
+bindsym $mod+a focus parent
+
+# Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Recarregar a config (o Sway nao tem 'restart' como o i3)
+bindsym $mod+Shift+c reload
+
+# Sair do Sway
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Sair do Sway? Isso encerra a sessao Wayland.' -B 'Sim, sair' 'swaymsg exit'
+
+# Modo de redimensionar
+bindsym $mod+r mode "resize"
+mode "resize" {
+    bindsym h resize shrink width 10
+    bindsym j resize grow height 10
+    bindsym k resize shrink height 10
+    bindsym l resize grow width 10
+
+    bindsym Left resize shrink width 10
+    bindsym Down resize grow height 10
+    bindsym Up resize shrink height 10
+    bindsym Right resize grow width 10
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+
+### Barra (swaybar fala o protocolo do i3bar: o bumblebee-status continua funcionando)
+bar {
+    font pango:Cascadia Mono 10
+    position top
+    height 25
+    status_command bumblebee-status -m pasink pasource playerctl datetime battery -t gruvbox-powerline
+
+    colors {
+        background $bg
+        statusline $fg
+        separator  $grey
+        #                  borda    fundo    texto
+        focused_workspace  $orange  $orange  $bg
+        active_workspace   $bg_hard $bg_hard $fg
+        inactive_workspace $bg      $bg      $grey
+        urgent_workspace   $red     $red     $bg
+    }
+}
