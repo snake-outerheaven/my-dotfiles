@@ -1,0 +1,37 @@
+# ~/.config/i3status/config - i3status no OpenBSD (cores Gruvbox)
+
+general {
+        colors = true
+        color_good = "#b8bb26"
+        color_degraded = "#fabd2f"
+        color_bad = "#fb4934"
+        interval = 5
+}
+
+order += "volume master"
+order += "battery 0"
+order += "cpu_usage"
+order += "tztime local"
+
+volume master {
+        format = "vol %volume"
+        format_muted = "vol mudo"
+}
+
+battery 0 {
+        format = "%status %percentage %remaining"
+        format_down = "sem bateria"
+        status_chr = "carregando"
+        status_bat = "bat"
+        status_full = "cheia"
+        integer_battery_capacity = true
+        low_threshold = 15
+}
+
+cpu_usage {
+        format = "cpu %usage"
+}
+
+tztime local {
+        format = "%d/%m %H:%M"
+}

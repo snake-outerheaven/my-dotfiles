@@ -7,6 +7,9 @@
 
 # i3 config file (v4)
 #
+# Versao OpenBSD (branch openbsd): sndio no lugar do PulseAudio, xbacklight,
+# xidle + i3lock, i3status com apm/sndio e areas em algarismos romanos.
+#
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
@@ -21,7 +24,7 @@ font pango:Noto Sans, Noto Sans Color Emoji 12
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex --autostart --environment i3
+# OpenBSD: sem dex (autostart XDG); coloque o que precisar abaixo com exec
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -30,75 +33,81 @@ exec --no-startup-id dex --autostart --environment i3
 # screen before suspend. Use loginctl lock-session to lock your screen.
 #exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+# OpenBSD: sem NetworkManager/nm-applet; a rede fica em /etc/hostname.if
 
-exec --no-startup-id ~/.fehbg
+exec --no-startup-id sh -c '[ -x ~/.fehbg ] && ~/.fehbg || xsetroot -solid "#282828"'
 
 exec --no-startup-id picom
 
-exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh,secrets,pkcs
+# OpenBSD: sem gnome-keyring
 
 exec --no-startup-id dunst
 
-exec --no-startup-id xsettingsd &
+# OpenBSD: xsettingsd removido (tema GTK pelo ~/.config/gtk-3.0/settings.ini)
 
-exec --no-startup-id xautolock -time 5 -locker 'i3lock-fancy'
+# bloqueio automatico em 5 min: xidle (base do OpenBSD) + i3lock (pacote)
+exec --no-startup-id xidle -timeout 300 -program "/usr/local/bin/i3lock -c 282828"
 
 #exec --no-startup-id lxpolkit
 
 
 # Bloquear a tela manualmente
-bindsym $mod+Shift+x exec i3lock-fancy
+bindsym $mod+Shift+x exec i3lock -c 282828
 
 # Full screenshot (Print Screen key)
 bindsym Print exec --no-startup-id scrot '%Y-%m-%d-%T_$wx$h.png' -e 'mv $f ~/Imagens/Printscreens'
 
 # Selection screenshot (Mod + Print Screen)
 # This lets you click and drag to select a window or area
-bindsym $mod+Print exec --no-startup-id scrot -s '%Y-%m-%d-%T_$wx$h.png' -e 'mv $f ~/Pictures/Printscreens'
+bindsym $mod+Print exec --no-startup-id scrot -s '%Y-%m-%d-%T_$wx$h.png' -e 'mv $f ~/Imagens/Printscreens'
+
+# sem barra de titulo: so uma borda fina (amarela na janela com foco)
+default_border pixel 2
+default_floating_border pixel 2
+for_window [class=".*"] border pixel 2
 
 hide_edge_borders smart
 
 gaps inner 10
 gaps outer 5
 
-set $bg      #2d353b
-set $bg_hard #272e33
-set $fg      #d3c6aa
-set $red     #e67e80
-set $orange  #e69875
-set $yellow  #dbbc7f
-set $green   #a7c080
-set $blue    #7fbbb3
-set $grey    #859289
+# Paleta Gruvbox dark medium (fundo #282828; mesma do dwm e do fvwm)
+set $bg      #282828
+set $bg1     #3c3836
+set $fg      #ebdbb2
+set $red     #fb4934
+set $orange  #fe8019
+set $yellow  #d79921
+set $green   #98971a
+set $blue    #458588
+set $grey    #928374
+set $accent  #b57614
 
-client.focused          $green    $bg       $fg       $orange   $green
-client.focused_inactive $bg_hard  $bg_hard  $grey     $bg_hard  $bg_hard
-client.unfocused        $bg_hard  $bg_hard  $grey     $bg_hard  $bg_hard
+client.focused          $accent   $bg       $fg       $orange   $accent
+client.focused_inactive $bg1      $bg1      $grey     $bg1      $bg1
+client.unfocused        $bg1      $bg1      $grey     $bg1      $bg1
 client.urgent           $red      $red      $bg       $red      $red
 client.placeholder      $bg       $bg       $fg       $bg       $bg
 
 client.background       $bg
 
 
-# Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+# Volume pelo sndioctl (OpenBSD)
+set $refresh_i3status pkill -USR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id sndioctl -q output.level=+0.1 && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id sndioctl -q output.level=-0.1 && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id sndioctl -q output.mute=! && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id sndioctl -q input.mute=! && $refresh_i3status
 
-bindsym XF86MonBrightnessUp exec brightnessctl set +10%
-bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
+tiling_drag modifier
 
 # start a terminal
 bindsym $mod+Return exec alacritty
@@ -165,16 +174,16 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # Define names for default workspaces for which we configure key bindings later on.  # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1 "1:I"
+set $ws2 "2:II"
+set $ws3 "3:III"
+set $ws4 "4:IV"
+set $ws5 "5:V"
+set $ws6 "6:VI"
+set $ws7 "7:VII"
+set $ws8 "8:VIII"
+set $ws9 "9:IX"
+set $ws10 "10:X"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -207,7 +216,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-bindsym $mod + r mode "resize"
+bindsym $mod+r mode "resize"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -243,5 +252,18 @@ bar {
     font pango:Cascadia Mono 10
     position top
     height 25
-    status_command bumblebee-status -m pasink pasource playerctl datetime battery  -t gruvbox-powerline
+    # OpenBSD: i3status (pacote) le bateria pelo apm e volume pelo sndio
+    status_command i3status -c ~/.config/i3status/config
+    # mostra so o algarismo romano (esconde o "1:" do nome da area)
+    strip_workspace_numbers yes
+    colors {
+        background $bg
+        statusline $fg
+        separator  $grey
+        #                  borda     fundo     texto
+        focused_workspace  $accent   $accent   $bg
+        active_workspace   $bg       $bg       $fg
+        inactive_workspace $bg       $bg       $grey
+        urgent_workspace   $red      $red      $bg
+    }
 }
