@@ -5,16 +5,16 @@ padding.x = 10
 padding.y = 10
 blur = true
 
-# Paleta Gruvbox escura
+# Preto com amarelo vivo (cores ANSI do Gruvbox, fundo preto)
 [colors.primary]
-background = '#282828'
-foreground = '#ebdbb2'
+background = '#0a0a0a'
+foreground = '#e6e6e6'
 
 [colors.normal]
-black   = '#282828'
+black   = '#0a0a0a'
 red     = '#cc241d'
 green   = '#98971a'
-yellow  = '#d79921'
+yellow  = '#ffcc00'
 blue    = '#458588'
 magenta = '#b16286'
 cyan    = '#689d6a'
@@ -24,19 +24,19 @@ white   = '#a89984'
 black   = '#928374'
 red     = '#fb4934'
 green   = '#b8bb26'
-yellow  = '#fabd2f'
+yellow  = '#ffe066'
 blue    = '#83a598'
 magenta = '#d3869b'
 cyan    = '#8ec07c'
-white   = '#ebdbb2'
+white   = '#ffffff'
 
 [colors.cursor]
-text   = '#282828'
-cursor = '#ebdbb2'
+text   = '#0a0a0a'
+cursor = '#ffcc00'
 
 [colors.selection]
 text       = 'CellForeground'
-background = '#504945'
+background = '#3a3000'
 
 [font]
 size = 9.0

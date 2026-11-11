@@ -1,10 +1,10 @@
-# ~/.config/i3status/config - i3status no OpenBSD (cores Gruvbox)
+# ~/.config/i3status/config - i3status no OpenBSD (preto com amarelo vivo)
 
 general {
         colors = true
-        color_good = "#b8bb26"
-        color_degraded = "#fabd2f"
-        color_bad = "#fb4934"
+        color_good = "#ffcc00"
+        color_degraded = "#ff9f1c"
+        color_bad = "#ff5555"
         interval = 5
 }
 
