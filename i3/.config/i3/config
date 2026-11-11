@@ -35,7 +35,7 @@ font pango:Noto Sans, Noto Sans Color Emoji 12
 
 # OpenBSD: sem NetworkManager/nm-applet; a rede fica em /etc/hostname.if
 
-exec --no-startup-id sh -c '[ -x ~/.fehbg ] && ~/.fehbg || xsetroot -solid "#2d353b"'
+exec --no-startup-id sh -c '[ -x ~/.fehbg ] && ~/.fehbg || xsetroot -solid "#282828"'
 
 exec --no-startup-id picom
 
@@ -46,13 +46,13 @@ exec --no-startup-id dunst
 # OpenBSD: xsettingsd removido (tema GTK pelo ~/.config/gtk-3.0/settings.ini)
 
 # bloqueio automatico em 5 min: xidle (base do OpenBSD) + i3lock (pacote)
-exec --no-startup-id xidle -timeout 300 -program "/usr/local/bin/i3lock -c 2d353b"
+exec --no-startup-id xidle -timeout 300 -program "/usr/local/bin/i3lock -c 282828"
 
 #exec --no-startup-id lxpolkit
 
 
 # Bloquear a tela manualmente
-bindsym $mod+Shift+x exec i3lock -c 2d353b
+bindsym $mod+Shift+x exec i3lock -c 282828
 
 # Full screenshot (Print Screen key)
 bindsym Print exec --no-startup-id scrot '%Y-%m-%d-%T_$wx$h.png' -e 'mv $f ~/Imagens/Printscreens'
@@ -61,24 +61,32 @@ bindsym Print exec --no-startup-id scrot '%Y-%m-%d-%T_$wx$h.png' -e 'mv $f ~/Ima
 # This lets you click and drag to select a window or area
 bindsym $mod+Print exec --no-startup-id scrot -s '%Y-%m-%d-%T_$wx$h.png' -e 'mv $f ~/Imagens/Printscreens'
 
+# sem barra de titulo: so uma borda fina (amarela na janela com foco)
+default_border pixel 2
+default_floating_border pixel 2
+for_window [class=".*"] border pixel 2
+
 hide_edge_borders smart
 
 gaps inner 10
 gaps outer 5
 
-set $bg      #2d353b
-set $bg_hard #272e33
-set $fg      #d3c6aa
-set $red     #e67e80
-set $orange  #e69875
-set $yellow  #dbbc7f
-set $green   #a7c080
-set $blue    #7fbbb3
-set $grey    #859289
+# Paleta Gruvbox escura (mesma do dwm e do fvwm)
+set $bg      #282828
+set $bg_hard #1d2021
+set $bg1     #3c3836
+set $fg      #ebdbb2
+set $red     #fb4934
+set $orange  #fe8019
+set $yellow  #d79921
+set $green   #98971a
+set $blue    #458588
+set $grey    #928374
+set $accent  #b57614
 
-client.focused          $green    $bg       $fg       $orange   $green
-client.focused_inactive $bg_hard  $bg_hard  $grey     $bg_hard  $bg_hard
-client.unfocused        $bg_hard  $bg_hard  $grey     $bg_hard  $bg_hard
+client.focused          $accent   $bg       $fg       $orange   $accent
+client.focused_inactive $bg1      $bg1      $grey     $bg1      $bg1
+client.unfocused        $bg1      $bg1      $grey     $bg1      $bg1
 client.urgent           $red      $red      $bg       $red      $red
 client.placeholder      $bg       $bg       $fg       $bg       $bg
 
@@ -100,7 +108,7 @@ floating_modifier $mod
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
+tiling_drag modifier
 
 # start a terminal
 bindsym $mod+Return exec alacritty
@@ -254,7 +262,7 @@ bar {
         statusline $fg
         separator  $grey
         #                  borda     fundo     texto
-        focused_workspace  $green    $green    $bg_hard
+        focused_workspace  $accent   $accent   $bg_hard
         active_workspace   $bg       $bg       $fg
         inactive_workspace $bg_hard  $bg_hard  $grey
         urgent_workspace   $red      $red      $bg_hard

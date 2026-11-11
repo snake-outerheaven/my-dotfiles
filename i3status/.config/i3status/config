@@ -1,10 +1,10 @@
-# ~/.config/i3status/config - i3status no OpenBSD (cores Everforest do i3)
+# ~/.config/i3status/config - i3status no OpenBSD (cores Gruvbox)
 
 general {
         colors = true
-        color_good = "#a7c080"
-        color_degraded = "#dbbc7f"
-        color_bad = "#e67e80"
+        color_good = "#b8bb26"
+        color_degraded = "#fabd2f"
+        color_bad = "#fb4934"
         interval = 5
 }
 
