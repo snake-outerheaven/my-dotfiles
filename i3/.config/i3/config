@@ -43,6 +43,10 @@ exec --no-startup-id picom
 
 exec --no-startup-id dunst
 
+# historico do clipboard (pacote stow "clipboard": clipd + clip-rofi)
+exec --no-startup-id ~/.local/bin/clipd
+bindsym $mod+v exec --no-startup-id ~/.local/bin/clip-rofi
+
 # OpenBSD: xsettingsd removido (tema GTK pelo ~/.config/gtk-3.0/settings.ini)
 
 # bloqueio automatico em 5 min: xidle (base do OpenBSD) + i3lock (pacote)

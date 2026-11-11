@@ -15,8 +15,8 @@ SIMULAR=0
 REPO=$(cd "$(dirname "$0")" && pwd)
 BACKUP="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
 
-PACOTES="stow i3 i3status i3lock alacritty rofi dunst picom feh scrot"
-STOW_PACOTES="i3 i3status alacritty dunst picom rofi tmux x11"
+PACOTES="stow i3 i3status i3lock alacritty rofi dunst picom feh scrot xclip"
+STOW_PACOTES="i3 i3status alacritty dunst picom rofi tmux x11 clipboard"
 
 msg()  { printf '\033[32m==>\033[0m %s\n' "$*"; }
 aviso(){ printf '\033[31m!!\033[0m %s\n' "$*"; }
