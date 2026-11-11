@@ -71,9 +71,8 @@ hide_edge_borders smart
 gaps inner 10
 gaps outer 5
 
-# Paleta Gruvbox escura (mesma do dwm e do fvwm)
+# Paleta Gruvbox dark medium (fundo #282828; mesma do dwm e do fvwm)
 set $bg      #282828
-set $bg_hard #1d2021
 set $bg1     #3c3836
 set $fg      #ebdbb2
 set $red     #fb4934
@@ -258,13 +257,13 @@ bar {
     # mostra so o algarismo romano (esconde o "1:" do nome da area)
     strip_workspace_numbers yes
     colors {
-        background $bg_hard
+        background $bg
         statusline $fg
         separator  $grey
         #                  borda     fundo     texto
-        focused_workspace  $accent   $accent   $bg_hard
+        focused_workspace  $accent   $accent   $bg
         active_workspace   $bg       $bg       $fg
-        inactive_workspace $bg_hard  $bg_hard  $grey
-        urgent_workspace   $red      $red      $bg_hard
+        inactive_workspace $bg       $bg       $grey
+        urgent_workspace   $red      $red      $bg
     }
 }
