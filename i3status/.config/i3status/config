@@ -15,15 +15,15 @@ order += "tztime local"
 
 volume master {
         format = "vol %volume"
-        format_muted = "vol mudo"
+        format_muted = "vol %volume"
 }
 
 battery 0 {
         format = "%status %percentage %remaining"
-        format_down = "sem bateria"
-        status_chr = "carregando"
+        format_down = "no bat"
+        status_chr = "charging"
         status_bat = "bat"
-        status_full = "cheia"
+        status_full = "full"
         integer_battery_capacity = true
         low_threshold = 15
 }
