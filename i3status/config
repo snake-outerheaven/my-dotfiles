@@ -1,0 +1,37 @@
+# ~/.config/i3status/config - i3status no OpenBSD (cores Everforest do i3)
+
+general {
+        colors = true
+        color_good = "#a7c080"
+        color_degraded = "#dbbc7f"
+        color_bad = "#e67e80"
+        interval = 5
+}
+
+order += "volume master"
+order += "battery 0"
+order += "cpu_usage"
+order += "tztime local"
+
+volume master {
+        format = "vol %volume"
+        format_muted = "vol mudo"
+}
+
+battery 0 {
+        format = "%status %percentage %remaining"
+        format_down = "sem bateria"
+        status_chr = "carregando"
+        status_bat = "bat"
+        status_full = "cheia"
+        integer_battery_capacity = true
+        low_threshold = 15
+}
+
+cpu_usage {
+        format = "cpu %usage"
+}
+
+tztime local {
+        format = "%d/%m %H:%M"
+}
