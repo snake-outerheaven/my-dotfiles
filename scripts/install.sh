@@ -32,11 +32,13 @@ SISTEMA=$(uname -s)
 case "$SISTEMA" in
 OpenBSD)
 	PACOTES="stow i3 i3status i3lock alacritty rofi dunst picom feh scrot xclip copyq"
+	LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
 	instalado() { pkg_info -e "$1-*" >/dev/null 2>&1; }
 	instalar()  { rodar "$ROOT" pkg_add -I "$1"; }
 	;;
 FreeBSD)
 	PACOTES="stow i3 i3status i3lock alacritty rofi dunst picom feh scrot xclip copyq xautolock"
+	LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium fortune-mod-freebsd-classic"
 	instalado() { pkg info -e "$1" >/dev/null 2>&1; }
 	instalar()  { rodar "$ROOT" pkg install -y "$1"; }
 	;;
@@ -58,6 +60,15 @@ msg "Sistema: $SISTEMA | repositorio: $REPO | privilegio: $ROOT"
 
 msg "Pacotes: $PACOTES"
 for p in $PACOTES; do
+	if instalado "$p"; then
+		printf '    %s ja instalado\n' "$p"
+	else
+		instalar "$p" || aviso "Nao instalou: $p (seguindo)"
+	fi
+done
+
+msg "Lazer (opcional): $LAZER"
+for p in $LAZER; do
 	if instalado "$p"; then
 		printf '    %s ja instalado\n' "$p"
 	else

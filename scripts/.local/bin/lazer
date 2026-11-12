@@ -1,0 +1,41 @@
+#!/bin/sh
+# lazer - menu de brinquedos de terminal (no i3: Super+g abre pelo rofi)
+#
+# Uso:  lazer          escolhe pelo rofi (ou por numero, se nao tiver rofi)
+#       lazer aleatorio  sorteia um
+
+# nome|comando  (so aparecem os que estiverem instalados)
+BRINQUEDOS='matrix|cmatrix -b -C yellow
+relogio|tty-clock -c -C 3 -s
+aquario|asciiquarium
+trem|sl -e
+vaca|fortune 2>/dev/null | cowsay; read -r _
+letreiro|figlet -c "OpenBSD"; read -r _'
+
+disponiveis=$(printf '%s\n' "$BRINQUEDOS" | while IFS='|' read -r nome cmd; do
+	prog=${cmd%% *}
+	command -v "$prog" >/dev/null 2>&1 && printf '%s\n' "$nome"
+done)
+
+[ -n "$disponiveis" ] || { echo "nenhum brinquedo instalado (rode ~/install.sh)"; exit 1; }
+
+if [ "${1:-}" = "aleatorio" ]; then
+	n=$(printf '%s\n' "$disponiveis" | wc -l)
+	escolha=$(printf '%s\n' "$disponiveis" | sed -n "$(( $(od -An -N2 -tu2 /dev/urandom) % n + 1 ))p")
+elif [ -n "${DISPLAY:-}" ] && command -v rofi >/dev/null 2>&1; then
+	escolha=$(printf '%s\n' "$disponiveis" | rofi -dmenu -i -p "lazer")
+else
+	printf '%s\n' "$disponiveis" | nl -w2 -s') '
+	printf 'numero: '; read -r num
+	escolha=$(printf '%s\n' "$disponiveis" | sed -n "${num}p")
+fi
+
+[ -n "$escolha" ] || exit 0
+cmd=$(printf '%s\n' "$BRINQUEDOS" | grep "^$escolha|" | cut -d'|' -f2-)
+
+# abre num terminal novo se estiver no X, senao roda aqui
+if [ -n "${DISPLAY:-}" ] && [ ! -t 1 ]; then
+	exec alacritty --title "lazer: $escolha" -e sh -c "$cmd"
+else
+	exec sh -c "$cmd"
+fi

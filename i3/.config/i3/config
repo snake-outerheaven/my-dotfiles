@@ -49,6 +49,9 @@ exec --no-startup-id copyq
 exec --no-startup-id ~/.local/bin/clipd
 bindsym $mod+v exec --no-startup-id ~/.local/bin/clip-rofi
 
+# brinquedos de terminal (pacote stow "scripts": ~/.local/bin/lazer)
+bindsym $mod+g exec --no-startup-id ~/.local/bin/lazer
+
 # OpenBSD: xsettingsd removido (tema GTK pelo ~/.config/gtk-3.0/settings.ini)
 
 # bloqueio automatico em 5 min: xidle (base do OpenBSD) + i3lock (pacote)
