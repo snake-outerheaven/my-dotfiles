@@ -1,0 +1,60 @@
+#!/bin/sh
+# xfce-gruvbox - aplica o rice Gruvbox (destaque amarelo) no XFCE pelo xfconf-query
+#
+# Uso:  xfce-gruvbox                 aplica tudo, com o wallpaper do repositorio
+#       xfce-gruvbox ~/foto.jpg      aplica tudo, com o seu wallpaper
+#
+# O tema GTK e os icones voce escolhe em Configuracoes > Aparencia.
+# Rode com o XFCE aberto. Nada e apagado: para voltar, escolha outro tema nas Configuracoes.
+
+WALL=${1:-$HOME/.local/share/wallpapers/gruvbox.png}
+FONTE="Cascadia Code 10"
+PALETA="#282828;#cc241d;#98971a;#d79921;#458588;#b16286;#689d6a;#a89984;#928374;#fb4934;#b8bb26;#fabd2f;#83a598;#d3869b;#8ec07c;#ebdbb2"
+
+command -v xfconf-query >/dev/null || { echo "xfconf-query nao encontrado: o XFCE esta instalado?" >&2; exit 1; }
+
+# define (ou cria) uma propriedade: def canal propriedade tipo valor
+def() { xfconf-query -c "$1" -p "$2" -n -t "$3" -s "$4"; }
+
+echo "==> fontes do sistema: $FONTE"
+def xsettings /Gtk/FontName string "$FONTE"
+def xsettings /Gtk/MonospaceFontName string "$FONTE"
+
+echo "==> bordas das janelas: Gruvbox-Amarelo"
+def xfwm4 /general/theme string "Gruvbox-Amarelo"
+def xfwm4 /general/title_font string "Cascadia Code Bold 10"
+
+echo "==> terminal"
+def xfce4-terminal /font-use-system bool false
+def xfce4-terminal /font-name string "$FONTE"
+def xfce4-terminal /color-use-theme bool false
+def xfce4-terminal /color-foreground string "#ebdbb2"
+def xfce4-terminal /color-background string "#282828"
+def xfce4-terminal /color-cursor string "#fabd2f"
+def xfce4-terminal /color-cursor-use-default bool false
+def xfce4-terminal /color-bold string "#fabd2f"
+def xfce4-terminal /color-bold-use-default bool false
+def xfce4-terminal /color-palette string "$PALETA"
+
+echo "==> painel: fundo #282828"
+for painel in $(xfconf-query -c xfce4-panel -l 2>/dev/null | sed -n 's|^/panels/\(panel-[0-9]*\)/.*|\1|p' | sort -u); do
+	def xfce4-panel "/panels/$painel/background-style" uint 1
+	# #282828 em RGBA de 0 a 1: 40/255 = 0.157
+	xfconf-query -c xfce4-panel -p "/panels/$painel/background-rgba" -n --force-array \
+		-t double -s 0.157 -t double -s 0.157 -t double -s 0.157 -t double -s 1.0
+	echo "    $painel"
+done
+
+echo "==> wallpaper: $WALL"
+if [ -f "$WALL" ]; then
+	chaves=$(xfconf-query -c xfce4-desktop -l 2>/dev/null | grep '/last-image$')
+	[ -n "$chaves" ] || echo "    nenhuma area de trabalho encontrada: abra Configuracoes > Area de trabalho uma vez e rode de novo"
+	for k in $chaves; do
+		def xfce4-desktop "$k" string "$WALL"
+		def xfce4-desktop "${k%/last-image}/image-style" int 5
+	done
+else
+	echo "    arquivo nao encontrado (seguindo sem wallpaper)"
+fi
+
+echo "Pronto. O terminal muda nas janelas novas."

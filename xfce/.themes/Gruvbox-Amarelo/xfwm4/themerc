@@ -1,0 +1,14 @@
+# Gruvbox-Amarelo - tema do xfwm4 (bordas do XFCE)
+# Gruvbox dark medium: titulo #282828, borda ativa #fabd2f, inativa #3c3836
+active_text_color=#ebdbb2
+inactive_text_color=#928374
+title_alignment=center
+full_width_title=true
+title_horizontal_offset=8
+title_vertical_offset_active=2
+title_vertical_offset_inactive=2
+title_shadow_active=false
+title_shadow_inactive=false
+button_offset=4
+button_spacing=2
+show_app_icon=false

@@ -1,0 +1,7 @@
+/* XPM */
+static char * bottom_inactive[] = {
+"2 2 1 1",
+". c #3c3836",
+"..",
+".."
+};

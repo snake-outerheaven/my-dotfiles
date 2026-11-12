@@ -19,7 +19,7 @@ SCRIPT=$(readlink -f "$0")
 REPO=$(dirname "$(dirname "$SCRIPT")")
 BACKUP="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
 
-STOW_PACOTES="alacritty dunst rofi tmux x11 cwm scripts zathura mpv cmus vim"
+STOW_PACOTES="alacritty dunst rofi tmux x11 cwm scripts zathura mpv cmus vim xfce"
 
 msg()  { printf '\033[33m==>\033[0m %s\n' "$*"; }
 aviso(){ printf '\033[31m!!\033[0m %s\n' "$*"; }
@@ -105,4 +105,4 @@ done
 
 msg "Pronto."
 [ -d "$BACKUP" ] && msg "Arquivos antigos guardados em $BACKUP"
-msg "Rode: startx  (ou entre pelo login grafico, que usa o ~/.xsession)"
+msg "No XFCE: rode xfce-gruvbox (ou xfce-gruvbox ~/sua-imagem.jpg)"

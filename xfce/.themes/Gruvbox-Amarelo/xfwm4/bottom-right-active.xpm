@@ -1,0 +1,7 @@
+/* XPM */
+static char * bottom_right_active[] = {
+"2 2 1 1",
+". c #fabd2f",
+"..",
+".."
+};
