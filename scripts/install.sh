@@ -33,14 +33,14 @@ case "$SISTEMA" in
 OpenBSD)
 	PACOTES="stow i3 i3status i3lock alacritty rofi dunst picom feh scrot xclip copyq git bash sassc"
 	LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
-	FONTES="cascadia-code noto-emoji"
+	FONTES="cascadia-code noto-emoji noto-cjk"
 	instalado() { pkg_info -e "$1-*" >/dev/null 2>&1; }
 	instalar()  { rodar "$ROOT" pkg_add -I "$1"; }
 	;;
 FreeBSD)
 	PACOTES="stow i3 i3status i3lock alacritty rofi dunst picom feh scrot xclip copyq xautolock git bash sassc"
 	LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium fortune-mod-freebsd-classic"
-	FONTES="cascadia-code noto-emoji"
+	FONTES="cascadia-code noto-emoji noto-cjk"
 	instalado() { pkg info -e "$1" >/dev/null 2>&1; }
 	instalar()  { rodar "$ROOT" pkg install -y "$1"; }
 	;;
