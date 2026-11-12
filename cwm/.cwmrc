@@ -25,9 +25,6 @@ command firefox  firefox
 command copyq    "copyq toggle"
 command lazer    lazer
 
-# janelas que nao entram em grupo (ficam em todos)
-autogroup 0 "copyq"
-
 # --- atalhos (4 = Super, S = Shift, C = Ctrl) ---
 bind-key 4-Return    terminal
 bind-key 4-d         "rofi -show drun"
@@ -46,26 +43,6 @@ bind-key 4-g         lazer
 bind-key 4S-x        "i3lock -c 282828"
 bind-key 4S-r        restart
 bind-key 4S-e        quit
-
-# areas (grupos) I a IX
-bind-key 4-1 group-only-1
-bind-key 4-2 group-only-2
-bind-key 4-3 group-only-3
-bind-key 4-4 group-only-4
-bind-key 4-5 group-only-5
-bind-key 4-6 group-only-6
-bind-key 4-7 group-only-7
-bind-key 4-8 group-only-8
-bind-key 4-9 group-only-9
-bind-key 4S-1 window-movetogroup-1
-bind-key 4S-2 window-movetogroup-2
-bind-key 4S-3 window-movetogroup-3
-bind-key 4S-4 window-movetogroup-4
-bind-key 4S-5 window-movetogroup-5
-bind-key 4S-6 window-movetogroup-6
-bind-key 4S-7 window-movetogroup-7
-bind-key 4S-8 window-movetogroup-8
-bind-key 4S-9 window-movetogroup-9
 
 # volume, brilho e print (teclas do ThinkPad)
 bind-key XF86AudioRaiseVolume "sndioctl -q output.level=+0.1"
