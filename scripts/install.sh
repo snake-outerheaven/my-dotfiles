@@ -1,6 +1,6 @@
 #!/bin/sh
 # install.sh - instala o desktop completo com cwm (Gruvbox, amarelo) e GNU Stow
-# Funciona no OpenBSD e no FreeBSD.
+# Feito para o OpenBSD.
 #
 # Fica no pacote stow "scripts": depois do stow, vira ~/install.sh.
 # Uso:
@@ -27,39 +27,19 @@ rodar() {
 	if [ "$SIMULAR" -eq 1 ]; then printf '    [simulado] %s\n' "$*"; else "$@"; fi
 }
 
-# sistema, gerenciador de pacotes e pacotes de cada um
-SISTEMA=$(uname -s)
-case "$SISTEMA" in
-OpenBSD)
-	PACOTES="stow alacritty rofi dunst feh scrot xclip copyq git bash sassc"
-	APPS="lemonbar-xft firefox nnn zathura zathura-pdf-mupdf mpv vim--no_x11"
-	LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
-	FONTES="cascadia-code noto-emoji noto-cjk"
-	instalado() { pkg_info -e "${1%%--*}-*" >/dev/null 2>&1; }
-	instalar()  { rodar "$ROOT" pkg_add -I "$1"; }
-	;;
-FreeBSD)
-	PACOTES="stow cwm xlockmore alacritty rofi dunst feh scrot xclip copyq xautolock xprop git bash sassc"
-	APPS="lemonbar-xft firefox nnn zathura zathura-pdf-mupdf mpv vim"
-	LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium fortune-mod-freebsd-classic"
-	FONTES="cascadia-code noto-emoji noto-cjk"
-	instalado() { pkg info -e "$1" >/dev/null 2>&1; }
-	instalar()  { rodar "$ROOT" pkg install -y "$1"; }
-	;;
-*)
-	aviso "Sistema $SISTEMA nao suportado (so OpenBSD e FreeBSD)."
-	exit 1
-	;;
-esac
+[ "$(uname -s)" = OpenBSD ] || { aviso "Este script e para OpenBSD."; exit 1; }
+command -v doas >/dev/null || { aviso "doas nao encontrado. Configure o /etc/doas.conf."; exit 1; }
 
-# doas ou sudo, o que existir
-if command -v doas >/dev/null; then ROOT=doas
-elif command -v sudo >/dev/null; then ROOT=sudo
-else aviso "Nem doas nem sudo encontrados."; exit 1
-fi
+PACOTES="stow alacritty rofi dunst feh scrot xclip copyq git bash sassc"
+APPS="lemonbar-xft firefox nnn zathura zathura-pdf-mupdf mpv vim--no_x11"
+JOGOS="supertux supertuxkart"
+LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
+FONTES="cascadia-code noto-emoji noto-cjk"
+instalado() { pkg_info -e "${1%%--*}-*" >/dev/null 2>&1; }
+instalar()  { rodar doas pkg_add -I "$1"; }
 
 [ -d "$REPO/cwm" ] || { aviso "Repositorio nao encontrado em $REPO."; exit 1; }
-msg "Sistema: $SISTEMA | repositorio: $REPO | privilegio: $ROOT"
+msg "Repositorio: $REPO"
 [ "$SIMULAR" -eq 1 ] && msg "Modo simulacao: nada sera alterado."
 
 msg "Pacotes: $PACOTES"
@@ -89,8 +69,8 @@ for p in $FONTES; do
 	fi
 done
 
-msg "Lazer (opcional): $LAZER"
-for p in $LAZER; do
+msg "Lazer e jogos (opcional): $LAZER $JOGOS"
+for p in $LAZER $JOGOS; do
 	if instalado "$p"; then
 		printf '    %s ja instalado\n' "$p"
 	else
@@ -138,8 +118,4 @@ done
 
 msg "Pronto."
 [ -d "$BACKUP" ] && msg "Arquivos antigos guardados em $BACKUP"
-if [ "$SISTEMA" = FreeBSD ]; then
-	aviso "A config usa ferramentas do OpenBSD: sndioctl (volume) e xidle (bloqueio)."
-	aviso "No FreeBSD troque por mixer e xautolock."
-fi
 msg "Rode: startx  (ou entre pelo login grafico, que usa o ~/.xsession)"
