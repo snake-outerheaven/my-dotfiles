@@ -16,7 +16,7 @@ fi
 
 command -v dunst >/dev/null && dunst &
 command -v copyq >/dev/null && copyq &
-command -v xidle >/dev/null && xidle -timeout 300 -program "/usr/local/bin/i3lock -c 282828" &
+command -v xidle >/dev/null && xidle -timeout 300 -program "/usr/X11R6/bin/xlock -mode qix" &
 barra &
 
 exec cwm

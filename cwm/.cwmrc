@@ -44,7 +44,7 @@ bind-key 4-v         "copyq toggle"
 bind-key 4-g         lazer
 bind-key 4-e         "alacritty -e nnn"
 bind-key 4-w         firefox
-bind-key 4S-x        "i3lock -c 282828"
+bind-key 4S-x        "xlock -mode qix"
 bind-key 4S-r        restart
 bind-key 4S-e        quit
 

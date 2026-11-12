@@ -31,7 +31,7 @@ rodar() {
 SISTEMA=$(uname -s)
 case "$SISTEMA" in
 OpenBSD)
-	PACOTES="stow i3lock alacritty rofi dunst feh scrot xclip copyq git bash sassc"
+	PACOTES="stow alacritty rofi dunst feh scrot xclip copyq git bash sassc"
 	APPS="lemonbar-xft firefox nnn zathura zathura-pdf-mupdf mpv vim--no_x11"
 	LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
 	FONTES="cascadia-code noto-emoji noto-cjk"
@@ -39,7 +39,7 @@ OpenBSD)
 	instalar()  { rodar "$ROOT" pkg_add -I "$1"; }
 	;;
 FreeBSD)
-	PACOTES="stow cwm i3lock alacritty rofi dunst feh scrot xclip copyq xautolock xprop git bash sassc"
+	PACOTES="stow cwm xlockmore alacritty rofi dunst feh scrot xclip copyq xautolock xprop git bash sassc"
 	APPS="lemonbar-xft firefox nnn zathura zathura-pdf-mupdf mpv vim"
 	LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium fortune-mod-freebsd-classic"
 	FONTES="cascadia-code noto-emoji noto-cjk"
