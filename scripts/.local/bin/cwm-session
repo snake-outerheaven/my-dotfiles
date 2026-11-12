@@ -1,14 +1,22 @@
 #!/bin/sh
 # cwm-session - sessao do cwm (o cwm nao tem autostart proprio)
-# Uso: startx ~/.local/bin/cwm-session
+# Chamado pelo ~/.xinitrc (startx) e pelo ~/.xsession (xenodm).
 
-# deixa o lazer e outros scripts de ~/.local/bin acessiveis aos atalhos do cwm
+# deixa os scripts de ~/.local/bin acessiveis aos atalhos do cwm
 export PATH="$HOME/.local/bin:$PATH"
 
 xrdb -merge ~/.Xresources 2>/dev/null
-if [ -x ~/.fehbg ]; then ~/.fehbg; else xsetroot -solid "#282828"; fi
+
+# fundo: ~/.fehbg se voce escolheu outro; senao o wallpaper do repo; senao cor lisa
+WALL="$HOME/.local/share/wallpapers/gruvbox.png"
+if [ -x ~/.fehbg ]; then ~/.fehbg
+elif command -v feh >/dev/null && [ -f "$WALL" ]; then feh --no-fehbg --bg-fill "$WALL"
+else xsetroot -solid "#282828"
+fi
+
 command -v dunst >/dev/null && dunst &
 command -v copyq >/dev/null && copyq &
 command -v xidle >/dev/null && xidle -timeout 300 -program "/usr/local/bin/i3lock -c 282828" &
+barra &
 
 exec cwm

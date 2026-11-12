@@ -1,5 +1,5 @@
 #!/bin/sh
-# install.sh - instala o ambiente cwm (preto e amarelo) com GNU Stow
+# install.sh - instala o desktop completo com cwm (Gruvbox, amarelo) e GNU Stow
 # Funciona no OpenBSD e no FreeBSD.
 #
 # Fica no pacote stow "scripts": depois do stow, vira ~/install.sh.
@@ -19,7 +19,7 @@ SCRIPT=$(readlink -f "$0")
 REPO=$(dirname "$(dirname "$SCRIPT")")
 BACKUP="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
 
-STOW_PACOTES="alacritty dunst rofi tmux x11 gtk cwm scripts"
+STOW_PACOTES="alacritty dunst rofi tmux x11 gtk cwm scripts zathura mpv vim"
 
 msg()  { printf '\033[33m==>\033[0m %s\n' "$*"; }
 aviso(){ printf '\033[31m!!\033[0m %s\n' "$*"; }
@@ -31,14 +31,16 @@ rodar() {
 SISTEMA=$(uname -s)
 case "$SISTEMA" in
 OpenBSD)
-	PACOTES="stow i3lock alacritty rofi dunst picom feh scrot xclip copyq git bash sassc"
+	PACOTES="stow i3lock alacritty rofi dunst feh scrot xclip copyq git bash sassc"
+	APPS="lemonbar-xft firefox nnn zathura zathura-pdf-mupdf mpv vim--no_x11"
 	LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
 	FONTES="cascadia-code noto-emoji noto-cjk"
-	instalado() { pkg_info -e "$1-*" >/dev/null 2>&1; }
+	instalado() { pkg_info -e "${1%%--*}-*" >/dev/null 2>&1; }
 	instalar()  { rodar "$ROOT" pkg_add -I "$1"; }
 	;;
 FreeBSD)
-	PACOTES="stow i3lock alacritty rofi dunst picom feh scrot xclip copyq xautolock git bash sassc"
+	PACOTES="stow cwm i3lock alacritty rofi dunst feh scrot xclip copyq xautolock xprop git bash sassc"
+	APPS="lemonbar-xft firefox nnn zathura zathura-pdf-mupdf mpv vim"
 	LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium fortune-mod-freebsd-classic"
 	FONTES="cascadia-code noto-emoji noto-cjk"
 	instalado() { pkg info -e "$1" >/dev/null 2>&1; }
@@ -69,6 +71,15 @@ for p in $PACOTES; do
 	fi
 done
 
+msg "Programas: $APPS"
+for p in $APPS; do
+	if instalado "$p"; then
+		printf '    %s ja instalado\n' "$p"
+	else
+		instalar "$p" || aviso "Nao instalou: $p (seguindo)"
+	fi
+done
+
 msg "Fontes (opcional): $FONTES"
 for p in $FONTES; do
 	if instalado "$p"; then
@@ -87,7 +98,7 @@ for p in $LAZER; do
 	fi
 done
 
-rodar mkdir -p "$HOME/Downloads"
+rodar mkdir -p "$HOME/Downloads" "$HOME/Musica"
 
 # tema GTK da comunidade: Gruvbox-GTK-Theme, amarelo, escuro, contraste medio
 msg "Tema GTK: Gruvbox-Yellow-Dark-Medium"

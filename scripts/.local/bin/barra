@@ -1,0 +1,64 @@
+#!/bin/sh
+# barra - barra de status no rodape com lemonbar (KISS, Gruvbox amarelo)
+# Mostra: grupos do cwm em romano | CopyQ | volume | bateria | hora
+#
+# Uso:  barra       abre a barra (o cwm-session chama sozinho)
+#       barra -1    imprime uma linha e sai (para testar no terminal)
+
+BG="#282828"; BG1="#3c3836"; FG="#ebdbb2"; AM="#fabd2f"; CZ="#a89984"
+ROMANOS="I II III IV V VI VII VIII IX"
+
+grupos() {
+	atual=$(xprop -root _NET_CURRENT_DESKTOP 2>/dev/null | awk '{print $3}')
+	n=1
+	for r in $ROMANOS; do
+		if [ "$n" = "$atual" ]; then
+			printf '%%{B%s}%%{F%s} %s %%{B-}%%{F-}' "$AM" "$BG" "$r"
+		else
+			printf ' %s ' "$r"
+		fi
+		n=$((n + 1))
+	done
+}
+
+copyq_itens() {
+	command -v copyq >/dev/null || return
+	itens=$(copyq size 2>/dev/null) || return
+	printf '%%{A:copyq toggle:}%%{F%s}CopyQ%%{F-} %s%%{A}' "$AM" "$itens"
+}
+
+volume() {
+	nivel=$(sndioctl -n output.level 2>/dev/null) || return
+	mudo=$(sndioctl -n output.mute 2>/dev/null)
+	if [ "$mudo" = 1 ]; then
+		printf '%%{F%s}VOL%%{F-} mudo' "$AM"
+	else
+		printf '%%{F%s}VOL%%{F-} %s%%' "$AM" "$(echo "$nivel" | awk '{printf "%d", $1 * 100 + 0.5}')"
+	fi
+}
+
+bateria() {
+	carga=$(apm -l 2>/dev/null) || return
+	[ "$carga" -ge 0 ] 2>/dev/null || return
+	[ "$(apm -a 2>/dev/null)" = 1 ] && tomada="+" || tomada=""
+	printf '%%{F%s}BAT%%{F-} %s%%%s' "$AM" "$carga" "$tomada"
+}
+
+linha() {
+	printf '%%{l}%s%%{r}%s  %%{F%s}|%%{F-}  %s  %%{F%s}|%%{F-}  %s  %%{F%s}|%%{F-}  %s \n' \
+		"$(grupos)" "$(copyq_itens)" "$CZ" "$(volume)" "$CZ" "$(bateria)" "$CZ" \
+		"$(date '+%d/%m %H:%M')"
+}
+
+if [ "${1:-}" = "-1" ]; then
+	linha
+	exit 0
+fi
+
+# no OpenBSD o pacote lemonbar-xft (aceita fonte Xft); senao o lemonbar comum
+LB=$(command -v lemonbar-xft || command -v lemonbar) || { echo "barra: lemonbar nao instalado" >&2; exit 1; }
+
+while :; do
+	linha
+	sleep 2
+done | "$LB" -b -g x24 -B "$BG" -F "$FG" -U "$BG1" -f "Cascadia Code:size=10" -n barra | sh

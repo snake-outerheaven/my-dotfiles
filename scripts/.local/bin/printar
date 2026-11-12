@@ -1,0 +1,8 @@
+#!/bin/sh
+# printar - print da tela em ~/Downloads (Print = tela toda, Super+Print = area)
+mkdir -p "$HOME/Downloads"
+if [ "${1:-}" = "-s" ]; then
+	scrot -s "$HOME/Downloads/%Y%m%d-%H%M%S.png"
+else
+	scrot "$HOME/Downloads/%Y%m%d-%H%M%S.png"
+fi
