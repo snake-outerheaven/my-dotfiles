@@ -256,7 +256,7 @@ mode "resize" {
 # finds out, if available)
 bar {
     font pango:Cascadia Code 10
-    position top
+    position bottom
     height 25
     # OpenBSD: i3status (pacote) le bateria pelo apm e volume pelo sndio
     status_command i3status -c ~/.config/i3status/config
