@@ -19,7 +19,7 @@ SCRIPT=$(readlink -f "$0")
 REPO=$(dirname "$(dirname "$SCRIPT")")
 BACKUP="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
 
-STOW_PACOTES="i3 i3status alacritty dunst rofi tmux x11 clipboard scripts"
+STOW_PACOTES="i3 i3status alacritty dunst rofi tmux x11 scripts"
 
 msg()  { printf '\033[33m==>\033[0m %s\n' "$*"; }
 aviso(){ printf '\033[31m!!\033[0m %s\n' "$*"; }

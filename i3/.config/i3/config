@@ -45,9 +45,9 @@ exec --no-startup-id dunst
 
 exec --no-startup-id copyq
 
-# historico do clipboard (pacote stow "clipboard": clipd + clip-rofi)
-exec --no-startup-id ~/.local/bin/clipd
-bindsym $mod+v exec --no-startup-id ~/.local/bin/clip-rofi
+# historico do clipboard: CopyQ (Super+v abre a janela, que flutua)
+bindsym $mod+v exec --no-startup-id copyq toggle
+for_window [class="(?i)copyq"] floating enable, resize set 700 450, move position center
 
 # brinquedos de terminal (pacote stow "scripts": ~/.local/bin/lazer)
 bindsym $mod+g exec --no-startup-id ~/.local/bin/lazer
