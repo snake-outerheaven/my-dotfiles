@@ -19,7 +19,7 @@ SCRIPT=$(readlink -f "$0")
 REPO=$(dirname "$(dirname "$SCRIPT")")
 BACKUP="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
 
-STOW_PACOTES="alacritty dunst rofi tmux x11 gtk cwm scripts zathura mpv vim"
+STOW_PACOTES="alacritty dunst rofi tmux x11 cwm scripts zathura mpv vim"
 
 msg()  { printf '\033[33m==>\033[0m %s\n' "$*"; }
 aviso(){ printf '\033[31m!!\033[0m %s\n' "$*"; }
@@ -30,7 +30,7 @@ rodar() {
 [ "$(uname -s)" = OpenBSD ] || { aviso "Este script e para OpenBSD."; exit 1; }
 command -v doas >/dev/null || { aviso "doas nao encontrado. Configure o /etc/doas.conf."; exit 1; }
 
-PACOTES="stow alacritty rofi dunst feh scrot copyq lxappearance git bash sassc"
+PACOTES="stow alacritty rofi dunst feh scrot copyq lxappearance git"
 APPS="lemonbar-xft firefox nnn zathura zathura-pdf-mupdf mpv vim--no_x11"
 JOGOS="supertux supertuxkart"
 LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
@@ -80,20 +80,7 @@ done
 
 rodar mkdir -p "$HOME/Downloads" "$HOME/Musica"
 
-# tema GTK da comunidade: Gruvbox-GTK-Theme, amarelo, escuro, contraste medio
-msg "Tema GTK: Gruvbox-Yellow-Dark-Medium"
-TEMA_SRC="$HOME/.cache/Gruvbox-GTK-Theme"
-if command -v git >/dev/null && command -v bash >/dev/null && command -v sassc >/dev/null; then
-	if [ -d "$TEMA_SRC/.git" ]; then
-		rodar git -C "$TEMA_SRC" pull -q
-	else
-		rodar git clone -q --depth 1 https://github.com/Fausto-Korpsvart/Gruvbox-GTK-Theme "$TEMA_SRC"
-	fi
-	( cd "$TEMA_SRC/themes" 2>/dev/null && rodar bash install.sh -t yellow -c dark --tweaks medium -l ) ||
-		aviso "Tema GTK nao instalou (seguindo)"
-else
-	aviso "Tema GTK pulado: precisa de git, bash e sassc"
-fi
+# tema GTK: escolha pelo lxappearance (o tema voce baixa por conta propria)
 
 # tema do CopyQ (o CopyQ reescreve o copyq.conf, por isso fica fora do stow)
 if command -v copyq >/dev/null && [ -f "$REPO/copyq/gruvbox.ini" ]; then
