@@ -30,7 +30,7 @@ rodar() {
 [ "$(uname -s)" = OpenBSD ] || { aviso "Este script e para OpenBSD."; exit 1; }
 command -v doas >/dev/null || { aviso "doas nao encontrado. Configure o /etc/doas.conf."; exit 1; }
 
-PACOTES="stow alacritty rofi dunst feh scrot xclip copyq git bash sassc"
+PACOTES="stow alacritty rofi dunst feh scrot copyq lxappearance git bash sassc"
 APPS="lemonbar-xft firefox nnn zathura zathura-pdf-mupdf mpv vim--no_x11"
 JOGOS="supertux supertuxkart"
 LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
