@@ -1,0 +1,28 @@
+# ~/.config/cmus/rc - cmus em Gruvbox, destaque amarelo
+# Os numeros sao cores do terminal (alacritty em Gruvbox):
+#   -1 fundo do terminal, 0 #282828, 7 #a89984, 8 #928374, 11 #fabd2f, 15 #ebdbb2
+# Musicas: ':add ~/Musica' (uma vez) e depois 5 para ver os arquivos.
+
+set color_win_bg=-1
+set color_win_fg=15
+set color_win_dir=11
+set color_win_title_bg=-1
+set color_win_title_fg=11
+set color_win_cur=11
+set color_win_sel_bg=11
+set color_win_sel_fg=0
+set color_win_cur_sel_bg=11
+set color_win_cur_sel_fg=0
+set color_win_inactive_sel_bg=8
+set color_win_inactive_sel_fg=0
+set color_win_inactive_cur_sel_bg=8
+set color_win_inactive_cur_sel_fg=11
+set color_separator=8
+set color_titleline_bg=11
+set color_titleline_fg=0
+set color_statusline_bg=-1
+set color_statusline_fg=7
+set color_cmdline_bg=-1
+set color_cmdline_fg=15
+set color_error=9
+set color_info=11

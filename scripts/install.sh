@@ -19,7 +19,7 @@ SCRIPT=$(readlink -f "$0")
 REPO=$(dirname "$(dirname "$SCRIPT")")
 BACKUP="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
 
-STOW_PACOTES="alacritty dunst rofi tmux x11 cwm scripts zathura mpv vim"
+STOW_PACOTES="alacritty dunst rofi tmux x11 cwm scripts zathura mpv cmus vim"
 
 msg()  { printf '\033[33m==>\033[0m %s\n' "$*"; }
 aviso(){ printf '\033[31m!!\033[0m %s\n' "$*"; }
@@ -31,7 +31,7 @@ rodar() {
 command -v doas >/dev/null || { aviso "doas nao encontrado. Configure o /etc/doas.conf."; exit 1; }
 
 PACOTES="stow alacritty rofi dunst feh scrot copyq lxappearance git"
-APPS="lemonbar-xft firefox nnn zathura zathura-pdf-mupdf mpv vim--no_x11"
+APPS="lemonbar-xft firefox nnn zathura zathura-pdf-mupdf mpv cmus vim--no_x11"
 JOGOS="supertux supertuxkart"
 LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
 FONTES="cascadia-code noto-emoji noto-cjk"

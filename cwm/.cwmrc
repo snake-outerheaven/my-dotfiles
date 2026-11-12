@@ -23,7 +23,7 @@ color selfont        "#282828"
 command term     alacritty
 command firefox  firefox
 command arquivos "alacritty -e nnn"
-command musica   "alacritty -e mpv --no-video ~/Musica"
+command musica   "alacritty -e cmus"
 command copyq    "copyq toggle"
 command lazer    lazer
 
