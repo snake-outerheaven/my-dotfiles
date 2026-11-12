@@ -1,3 +1,3 @@
 #!/bin/sh
-# ~/.xinitrc - i3 no OpenBSD (iniciar com: startx)
-exec i3
+# ~/.xinitrc - sessao do cwm no OpenBSD (iniciar com: startx)
+exec "$HOME/.local/bin/cwm-session"

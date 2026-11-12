@@ -1,5 +1,5 @@
 # ~/.cwmrc - cwm (base do OpenBSD) em Gruvbox dark medium, destaque amarelo
-# Iniciar: startx ~/.local/bin/cwm-session   (o i3 continua sendo o padrao)
+# Iniciar: startx (o ~/.xinitrc chama ~/.local/bin/cwm-session)
 # Recarregar depois de editar: Super+Shift+r
 
 fontname "Cascadia Code:pixelsize=14"

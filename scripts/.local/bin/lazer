@@ -1,5 +1,5 @@
 #!/bin/sh
-# lazer - menu de brinquedos de terminal (no i3: Super+g abre pelo rofi)
+# lazer - menu de brinquedos de terminal (no cwm: Super+g abre pelo rofi)
 #
 # Uso:  lazer          escolhe pelo rofi (ou por numero, se nao tiver rofi)
 #       lazer aleatorio  sorteia um
