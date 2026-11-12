@@ -33,12 +33,14 @@ case "$SISTEMA" in
 OpenBSD)
 	PACOTES="stow i3 i3status i3lock alacritty rofi dunst picom feh scrot xclip copyq git bash sassc"
 	LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
+	FONTES="cascadia-code noto-emoji"
 	instalado() { pkg_info -e "$1-*" >/dev/null 2>&1; }
 	instalar()  { rodar "$ROOT" pkg_add -I "$1"; }
 	;;
 FreeBSD)
 	PACOTES="stow i3 i3status i3lock alacritty rofi dunst picom feh scrot xclip copyq xautolock git bash sassc"
 	LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium fortune-mod-freebsd-classic"
+	FONTES="cascadia-code noto-emoji"
 	instalado() { pkg info -e "$1" >/dev/null 2>&1; }
 	instalar()  { rodar "$ROOT" pkg install -y "$1"; }
 	;;
@@ -64,6 +66,15 @@ for p in $PACOTES; do
 		printf '    %s ja instalado\n' "$p"
 	else
 		instalar "$p" || aviso "Nao instalou: $p (seguindo)"
+	fi
+done
+
+msg "Fontes (opcional): $FONTES"
+for p in $FONTES; do
+	if instalado "$p"; then
+		printf '    %s ja instalado\n' "$p"
+	else
+		instalar "$p" || aviso "Nao instalou: $p (seguindo; coloque os .ttf em ~/.fonts)"
 	fi
 done
 
