@@ -35,7 +35,7 @@ font pango:Cascadia Code, Noto Sans Color Emoji 12
 
 # OpenBSD: sem NetworkManager/nm-applet; a rede fica em /etc/hostname.if
 
-exec --no-startup-id sh -c '[ -x ~/.fehbg ] && ~/.fehbg || xsetroot -solid "#0a0a0a"'
+exec --no-startup-id sh -c '[ -x ~/.fehbg ] && ~/.fehbg || xsetroot -solid "#282828"'
 
 exec --no-startup-id picom
 
@@ -55,13 +55,13 @@ bindsym $mod+g exec --no-startup-id ~/.local/bin/lazer
 # OpenBSD: xsettingsd removido (tema GTK pelo ~/.config/gtk-3.0/settings.ini)
 
 # bloqueio automatico em 5 min: xidle (base do OpenBSD) + i3lock (pacote)
-exec --no-startup-id xidle -timeout 300 -program "/usr/local/bin/i3lock -c 0a0a0a"
+exec --no-startup-id xidle -timeout 300 -program "/usr/local/bin/i3lock -c 282828"
 
 #exec --no-startup-id lxpolkit
 
 
 # Bloquear a tela manualmente
-bindsym $mod+Shift+x exec i3lock -c 0a0a0a
+bindsym $mod+Shift+x exec i3lock -c 282828
 
 # Full screenshot (Print Screen key)
 bindsym Print exec --no-startup-id scrot '%Y-%m-%d-%T_$wx$h.png' -e 'mv $f ~/Downloads'
@@ -79,17 +79,17 @@ hide_edge_borders smart
 gaps inner 10
 gaps outer 5
 
-# Paleta preto com amarelo vivo (inspirada no Gruvbox, sem seguir a risca)
-set $bg      #0a0a0a
-set $bg1     #1c1c1c
-set $fg      #e6e6e6
-set $red     #ff5555
-set $orange  #ff9f1c
-set $yellow  #ffcc00
+# Paleta Gruvbox dark medium, destaque amarelo Gruvbox (#fabd2f)
+set $bg      #282828
+set $bg1     #3c3836
+set $fg      #ebdbb2
+set $red     #fb4934
+set $orange  #fe8019
+set $yellow  #fabd2f
 set $green   #b8bb26
 set $blue    #83a598
-set $grey    #7a7a7a
-set $accent  #ffcc00
+set $grey    #928374
+set $accent  #fabd2f
 
 client.focused          $accent   $bg       $fg       $orange   $accent
 client.focused_inactive $bg1      $bg1      $grey     $bg1      $bg1

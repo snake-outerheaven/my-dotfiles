@@ -11,22 +11,22 @@
     ### Estética Everforest ###
     font = Cascadia Mono 10
     frame_width = 2
-    frame_color = "#ffcc00"
+    frame_color = "#fabd2f"
     separator_color = frame
     corner_radius = 4
 
 [urgency_low]
-    background = "#0a0a0a"
-    foreground = "#e6e6e6"
+    background = "#282828"
+    foreground = "#ebdbb2"
     timeout = 10
 
 [urgency_normal]
-    background = "#0a0a0a"
-    foreground = "#e6e6e6"
+    background = "#282828"
+    foreground = "#ebdbb2"
     timeout = 10
 
 [urgency_critical]
-    background = "#0a0a0a"
-    foreground = "#e6e6e6"
-    frame_color = "#ff5555"
+    background = "#282828"
+    foreground = "#ebdbb2"
+    frame_color = "#fb4934"
     timeout = 0# vim: ft=cfg
