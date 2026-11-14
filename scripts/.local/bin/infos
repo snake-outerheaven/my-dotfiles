@@ -1,0 +1,28 @@
+#!/bin/sh
+# infos - relogio, bateria e volume numa notificacao (Super+i no i3, ja que nao ha barra)
+# Uso: infos       mostra no dunst por 5 s
+#      infos -1    imprime no terminal
+
+volume() {
+	nivel=$(sndioctl -n output.level 2>/dev/null) || { echo "?"; return; }
+	if [ "$(sndioctl -n output.mute 2>/dev/null)" = 1 ]; then
+		echo mudo
+	else
+		echo "$nivel" | awk '{printf "%d%%", $1 * 100 + 0.5}'
+	fi
+}
+
+bateria() {
+	carga=$(apm -l 2>/dev/null)
+	[ "$carga" -ge 0 ] 2>/dev/null || { echo "?"; return; }
+	[ "$(apm -a 2>/dev/null)" = 1 ] && echo "$carga% (na tomada)" || echo "$carga%"
+}
+
+TITULO=$(date '+%H:%M  %d/%m/%Y')
+CORPO="BAT $(bateria)   VOL $(volume)"
+
+if [ "${1:-}" = "-1" ]; then
+	printf '%s\n%s\n' "$TITULO" "$CORPO"
+else
+	dunstify -r 4242 -t 5000 "$TITULO" "$CORPO"
+fi

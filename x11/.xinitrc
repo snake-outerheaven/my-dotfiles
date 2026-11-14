@@ -1,3 +1,4 @@
 #!/bin/sh
-# ~/.xinitrc - sessao do cwm no OpenBSD (iniciar com: startx)
-exec "$HOME/.local/bin/cwm-session"
+# ~/.xinitrc - sessao do i3 no OpenBSD (iniciar com: startx)
+export PATH="$HOME/.local/bin:$PATH"
+exec i3

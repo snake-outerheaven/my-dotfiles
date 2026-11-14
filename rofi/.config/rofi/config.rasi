@@ -12,12 +12,12 @@ configuration {
 @theme "/dev/null"
 
 * {
-    /* Gruvbox dark medium, destaque amarelo */
-    bg:      #282828;
-    bg-alt:  #3c3836;
-    fg:      #ebdbb2;
-    accent:  #fabd2f;
-    urgent:  #fb4934;
+    /* Tango, destaque amarelo */
+    bg:      #2e3436;
+    bg-alt:  #555753;
+    fg:      #eeeeec;
+    accent:  #edd400;
+    urgent:  #ef2929;
 
     background-color: @bg;
     text-color:       @fg;
@@ -52,7 +52,7 @@ entry {
     background-color:   @bg-alt;
     padding:            12px;
     placeholder:        "Search...";
-    placeholder-color:  #928374;
+    placeholder-color:  #888a85;
 }
 
 listview {

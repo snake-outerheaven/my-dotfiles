@@ -1,5 +1,5 @@
 #!/bin/sh
-# install.sh - instala o desktop completo com cwm (Gruvbox, amarelo) e GNU Stow
+# install.sh - instala o desktop completo com i3 (Tango, amarelo, sem barra) e GNU Stow
 # Feito para o OpenBSD.
 #
 # Fica no pacote stow "scripts": depois do stow, vira ~/install.sh.
@@ -19,7 +19,7 @@ SCRIPT=$(readlink -f "$0")
 REPO=$(dirname "$(dirname "$SCRIPT")")
 BACKUP="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
 
-STOW_PACOTES="alacritty dunst rofi tmux x11 cwm scripts zathura mpv cmus vim"
+STOW_PACOTES="alacritty dunst rofi tmux x11 i3 scripts zathura mpv cmus vim"
 
 msg()  { printf '\033[33m==>\033[0m %s\n' "$*"; }
 aviso(){ printf '\033[31m!!\033[0m %s\n' "$*"; }
@@ -30,15 +30,15 @@ rodar() {
 [ "$(uname -s)" = OpenBSD ] || { aviso "Este script e para OpenBSD."; exit 1; }
 command -v doas >/dev/null || { aviso "doas nao encontrado. Configure o /etc/doas.conf."; exit 1; }
 
-PACOTES="stow alacritty rofi dunst feh scrot copyq lxappearance git"
-APPS="lemonbar-xft firefox nnn zathura zathura-pdf-mupdf mpv cmus vim--no_x11"
+PACOTES="stow i3 alacritty rofi dunst feh scrot copyq lxappearance git"
+APPS="firefox nnn zathura zathura-pdf-mupdf mpv cmus vim--no_x11"
 JOGOS="supertux supertuxkart"
 LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
 FONTES="cascadia-code noto-emoji noto-cjk"
 instalado() { pkg_info -e "${1%%--*}-*" >/dev/null 2>&1; }
 instalar()  { rodar doas pkg_add -I "$1"; }
 
-[ -d "$REPO/cwm" ] || { aviso "Repositorio nao encontrado em $REPO."; exit 1; }
+[ -d "$REPO/i3" ] || { aviso "Repositorio nao encontrado em $REPO."; exit 1; }
 msg "Repositorio: $REPO"
 [ "$SIMULAR" -eq 1 ] && msg "Modo simulacao: nada sera alterado."
 
@@ -102,6 +102,11 @@ for pac in $STOW_PACOTES; do
 	done
 	rodar stow --no-folding -d "$REPO" -t "$HOME" "$pac" || aviso "stow falhou em $pac"
 done
+
+if [ ! -f "$HOME/.local/share/wallpapers/flores-amarelas.jpg" ]; then
+	msg "Wallpaper: flores amarelas (Unsplash)"
+	rodar "$REPO/scripts/.local/bin/pega-wallpaper" || aviso "Nao baixou o wallpaper (seguindo; fica a cor lisa)"
+fi
 
 msg "Pronto."
 [ -d "$BACKUP" ] && msg "Arquivos antigos guardados em $BACKUP"

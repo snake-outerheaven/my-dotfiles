@@ -1,0 +1,7 @@
+#!/bin/sh
+# fundo - wallpaper: ~/.fehbg se existir; senao as flores amarelas; senao cor lisa Tango
+WALL="$HOME/.local/share/wallpapers/flores-amarelas.jpg"
+if [ -x "$HOME/.fehbg" ]; then "$HOME/.fehbg"
+elif command -v feh >/dev/null && [ -f "$WALL" ]; then feh --no-fehbg --bg-fill "$WALL"
+else xsetroot -solid "#2e3436"
+fi
