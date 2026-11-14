@@ -83,9 +83,9 @@ rodar mkdir -p "$HOME/Downloads" "$HOME/Musica"
 # tema GTK: escolha pelo lxappearance (o tema voce baixa por conta propria)
 
 # tema do CopyQ (o CopyQ reescreve o copyq.conf, por isso fica fora do stow)
-if command -v copyq >/dev/null && [ -f "$REPO/copyq/gruvbox.ini" ]; then
-	msg "Tema do CopyQ: Gruvbox amarelo"
-	rodar copyq loadTheme "$REPO/copyq/gruvbox.ini" || aviso "CopyQ precisa estar rodando para receber o tema"
+if command -v copyq >/dev/null && [ -f "$REPO/copyq/tango.ini" ]; then
+	msg "Tema do CopyQ: Tango amarelo"
+	rodar copyq loadTheme "$REPO/copyq/tango.ini" || aviso "CopyQ precisa estar rodando para receber o tema"
 fi
 
 msg "Dotfiles (stow): $STOW_PACOTES"
