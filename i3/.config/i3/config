@@ -35,8 +35,11 @@ exec --no-startup-id xrdb -merge ~/.Xresources
 exec_always --no-startup-id ~/.local/bin/fundo
 exec --no-startup-id dunst
 exec_always --no-startup-id volume mostra
-exec --no-startup-id copyq
-exec --no-startup-id sh -c 'sleep 3; copyq loadTheme ~/.local/share/copyq-temas/tango.ini'
+# CopyQ sempre em segundo plano: --start-server sobe o servidor sem janela se ele
+# nao estiver rodando; hide_main_window evita a janela quando nao ha bandeja.
+# exec_always: vale tambem depois de Super+Shift+r.
+exec_always --no-startup-id copyq --start-server config hide_main_window true
+exec_always --no-startup-id sh -c 'sleep 3; copyq loadTheme ~/.local/share/copyq-temas/tango.ini'
 exec --no-startup-id xidle -timeout 300 -program "/usr/X11R6/bin/xlock -mode qix"
 
 # --- volume, brilho, print, bloqueio (extra: OpenBSD) ---
