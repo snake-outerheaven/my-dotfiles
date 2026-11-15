@@ -1,17 +1,148 @@
-# ~/.config/i3/config - i3 sem barra, paleta Tango, destaque amarelo
-# Modular: cada assunto num arquivo de config.d/, carregados em ordem.
-# Ajustes so desta maquina: ~/.config/i3/local.conf (fora do git; o install.sh cria vazio).
-# Variaveis usadas pelos modulos ficam aqui: o i3 nao deixa um arquivo
-# usar variavel definida em outro arquivo incluido.
+# ~/.config/i3/config - i3 no OpenBSD, paleta Tango, destaque amarelo, sem barra
+# Binds: os padroes do i3, com Super (Mod4). Extras marcados com "extra".
 # Recarregar: Super+Shift+c   Reiniciar: Super+Shift+r   Sair: Super+Shift+e
+# Relogio, bateria e volume: Super+i (notificacao por 5 s)
 
 set $mod Mod4
+font pango:Cascadia Code 9
+
+# --- Tango ---
+set $butter1   #fce94f
+set $butter2   #edd400
+set $alu1      #eeeeec
+set $alu3      #babdb6
+set $alu4      #888a85
+set $alu5      #555753
+set $alu6      #2e3436
+set $scarlet   #cc0000
+
+# classe                borda     fundo     texto     indicador indicador-filho
+client.focused          $butter2  $butter2  $alu6     $butter1  $butter2
+client.focused_inactive $alu5     $alu5     $alu1     $alu5     $alu5
+client.unfocused        $alu6     $alu6     $alu4     $alu6     $alu6
+client.urgent           $scarlet  $scarlet  $alu1     $scarlet  $scarlet
+client.placeholder      $alu6     $alu6     $alu1     $alu6     $alu6
+client.background       $alu6
+
+default_border pixel 2
+default_floating_border pixel 2
+hide_edge_borders none
+gaps inner 6
+gaps outer 0
+
+# --- sessao (o i3 faz o papel do antigo cwm-session) ---
+exec --no-startup-id xrdb -merge ~/.Xresources
+exec_always --no-startup-id ~/.local/bin/fundo
+exec --no-startup-id dunst
+exec --no-startup-id copyq
+exec --no-startup-id sh -c 'sleep 3; copyq loadTheme ~/.local/share/copyq-temas/tango.ini'
+exec --no-startup-id xidle -timeout 300 -program "/usr/X11R6/bin/xlock -mode qix"
+
+# --- volume, brilho, print, bloqueio, infos (extra: OpenBSD) ---
+# --release: scrot -s e xlock precisam pegar o teclado, entao rodam ao soltar a tecla
+bindsym XF86AudioRaiseVolume exec --no-startup-id sndioctl -q output.level=+0.1
+bindsym XF86AudioLowerVolume exec --no-startup-id sndioctl -q output.level=-0.1
+bindsym XF86AudioMute        exec --no-startup-id sndioctl -q output.mute=!
+bindsym XF86MonBrightnessUp   exec --no-startup-id xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
+bindsym Print      exec --no-startup-id printar
+bindsym --release $mod+Print exec --no-startup-id printar -s
+bindsym --release $mod+Shift+x exec --no-startup-id xlock -mode qix
+bindsym $mod+i     exec --no-startup-id infos
+
+# --- padroes do i3 ---
 set $up l
 set $down k
 set $left j
 set $right semicolon
 
-font pango:Cascadia Code 9
+floating_modifier $mod
+tiling_drag modifier titlebar
 
-include ~/.config/i3/config.d/*.conf
-include ~/.config/i3/local.conf
+bindsym $mod+Return exec alacritty
+bindsym $mod+Shift+q kill
+bindsym $mod+d exec --no-startup-id rofi -show drun
+
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+h split h
+bindsym $mod+v split v
+bindsym $mod+f fullscreen toggle
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Sair do i3?' -B 'Sim, sair' 'i3-msg exit'"
+
+mode "resize" {
+	bindsym $left  resize shrink width 10 px or 10 ppt
+	bindsym $down  resize grow height 10 px or 10 ppt
+	bindsym $up    resize shrink height 10 px or 10 ppt
+	bindsym $right resize grow width 10 px or 10 ppt
+	bindsym Left   resize shrink width 10 px or 10 ppt
+	bindsym Down   resize grow height 10 px or 10 ppt
+	bindsym Up     resize shrink height 10 px or 10 ppt
+	bindsym Right  resize grow width 10 px or 10 ppt
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# sem bloco "bar": nenhuma barra

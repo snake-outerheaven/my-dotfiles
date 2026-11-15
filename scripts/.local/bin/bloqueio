@@ -1,5 +1,0 @@
-#!/bin/sh
-# bloqueio - trava a tela com o xlock no modo qix
-# OpenBSD: xlock vem no base (/usr/X11R6/bin). NetBSD: pacote xlockmore (/usr/pkg/bin).
-PATH="$PATH:/usr/X11R6/bin:/usr/pkg/bin"
-exec xlock -mode qix

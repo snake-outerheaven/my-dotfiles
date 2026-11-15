@@ -1,3 +1,0 @@
-cascadia-code
-noto-emoji
-noto-cjk

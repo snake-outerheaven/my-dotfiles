@@ -1,9 +1,0 @@
-fastfetch
-cmatrix
-tty-clock
-cowsay
-figlet
-sl
-asciiquarium
-supertux
-supertuxkart
