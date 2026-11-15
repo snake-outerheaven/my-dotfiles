@@ -40,10 +40,10 @@ exec_always --no-startup-id volume mostra
 # exec_always: vale tambem depois de Super+Shift+r.
 exec_always --no-startup-id copyq --start-server config hide_main_window true
 exec_always --no-startup-id sh -c 'sleep 3; copyq loadTheme ~/.local/share/copyq-temas/tango.ini'
-exec --no-startup-id xidle -timeout 300 -program "/usr/X11R6/bin/xlock -mode qix"
+exec --no-startup-id xidle -timeout 300 -program ~/.local/bin/bloqueio
 
 # --- volume, brilho, print, bloqueio (extra: OpenBSD) ---
-# --release: scrot -s e xlock precisam pegar o teclado, entao rodam ao soltar a tecla
+# --release: scrot -s e i3lock precisam pegar o teclado, entao rodam ao soltar a tecla
 bindsym XF86AudioRaiseVolume exec --no-startup-id volume +
 bindsym XF86AudioLowerVolume exec --no-startup-id volume -
 bindsym XF86AudioMute        exec --no-startup-id volume mudo
@@ -51,7 +51,7 @@ bindsym XF86MonBrightnessUp   exec --no-startup-id xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 bindsym Print      exec --no-startup-id printar
 bindsym --release $mod+Print exec --no-startup-id printar -s
-bindsym --release $mod+Shift+x exec --no-startup-id xlock -mode qix
+bindsym --release $mod+Shift+x exec --no-startup-id bloqueio
 
 # --- padroes do i3 ---
 set $up l

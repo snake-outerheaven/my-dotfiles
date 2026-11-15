@@ -39,7 +39,7 @@ falta() { aviso "$1"; aviso "Isso e do sistema: arrume e rode de novo."; exit 1;
 doas true 2>/dev/null || falta "doas nao funciona para $(id -un). Veja doas.conf(5)."
 pkg_info -Q i3 >/dev/null 2>&1 || falta "nao achei pacotes no mirror ($(cat /etc/installurl 2>/dev/null)). Veja installurl(5)."
 
-PACOTES="stow i3 i3status alacritty rofi dunst feh scrot copyq lxappearance xdg-user-dirs"
+PACOTES="stow i3 i3status i3lock alacritty rofi dunst feh scrot copyq lxappearance xdg-user-dirs"
 APPS="firefox nnn zathura zathura-pdf-mupdf mpv cmus vim--no_x11"
 JOGOS="supertux supertuxkart"
 LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
