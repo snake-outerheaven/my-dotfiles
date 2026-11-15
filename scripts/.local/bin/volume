@@ -10,10 +10,13 @@ mudo) sndioctl -q output.mute=! ;;
 esac
 
 mkdir -p "$HOME/.cache"
-if [ "$(sndioctl -n output.mute 2>/dev/null)" = 1 ]; then
+nivel=$(sndioctl -n output.level 2>/dev/null)
+if [ -z "$nivel" ]; then
+	echo "?"			# sndioctl falhou: a barra mostra VOL ?
+elif [ "$(sndioctl -n output.mute 2>/dev/null)" = 1 ]; then
 	echo mudo
 else
-	sndioctl -n output.level 2>/dev/null | awk '{printf "%d%%\n", $1 * 100 + 0.5}'
+	echo "$nivel" | awk '{printf "%d%%\n", $1 * 100 + 0.5}'
 fi > "$HOME/.cache/volume"
 
 pkill -USR1 -x i3status 2>/dev/null
