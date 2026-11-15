@@ -1,4 +1,4 @@
-# ~/.config/i3/config - i3 no OpenBSD, paleta Tango, destaque amarelo, sem barra
+# ~/.config/i3/config - i3 no OpenBSD, paleta Tango, destaque amarelo, barra embaixo
 # Binds: os padroes do i3, com Super (Mod4). Extras marcados com "extra".
 # Recarregar: Super+Shift+c   Reiniciar: Super+Shift+r   Sair: Super+Shift+e
 # Relogio, bateria e volume: Super+i (notificacao por 5 s)
@@ -34,21 +34,21 @@ gaps outer 0
 exec --no-startup-id xrdb -merge ~/.Xresources
 exec_always --no-startup-id ~/.local/bin/fundo
 exec --no-startup-id dunst
+exec --no-startup-id volume mostra
 exec --no-startup-id copyq
 exec --no-startup-id sh -c 'sleep 3; copyq loadTheme ~/.local/share/copyq-temas/tango.ini'
 exec --no-startup-id xidle -timeout 300 -program "/usr/X11R6/bin/xlock -mode qix"
 
-# --- volume, brilho, print, bloqueio, infos (extra: OpenBSD) ---
+# --- volume, brilho, print, bloqueio (extra: OpenBSD) ---
 # --release: scrot -s e xlock precisam pegar o teclado, entao rodam ao soltar a tecla
-bindsym XF86AudioRaiseVolume exec --no-startup-id sndioctl -q output.level=+0.1
-bindsym XF86AudioLowerVolume exec --no-startup-id sndioctl -q output.level=-0.1
-bindsym XF86AudioMute        exec --no-startup-id sndioctl -q output.mute=!
+bindsym XF86AudioRaiseVolume exec --no-startup-id volume +
+bindsym XF86AudioLowerVolume exec --no-startup-id volume -
+bindsym XF86AudioMute        exec --no-startup-id volume mudo
 bindsym XF86MonBrightnessUp   exec --no-startup-id xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
 bindsym Print      exec --no-startup-id printar
 bindsym --release $mod+Print exec --no-startup-id printar -s
 bindsym --release $mod+Shift+x exec --no-startup-id xlock -mode qix
-bindsym $mod+i     exec --no-startup-id infos
 
 # --- padroes do i3 ---
 set $up l
@@ -93,16 +93,16 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1 "1:I"
+set $ws2 "2:II"
+set $ws3 "3:III"
+set $ws4 "4:IV"
+set $ws5 "5:V"
+set $ws6 "6:VI"
+set $ws7 "7:VII"
+set $ws8 "8:VIII"
+set $ws9 "9:IX"
+set $ws10 "10:X"
 
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
@@ -145,4 +145,22 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-# sem bloco "bar": nenhuma barra
+# --- barra (i3bar + i3status), Tango ---
+# Areas com nome "N:ROMANO": o i3bar mostra so o romano (strip_workspace_numbers).
+bar {
+	position bottom
+	status_command i3status
+	strip_workspace_numbers yes
+	font pango:Cascadia Code 9
+	colors {
+		background #2e3436
+		statusline #eeeeec
+		separator  #555753
+		#                  borda    fundo    texto
+		focused_workspace  #edd400  #edd400  #2e3436
+		active_workspace   #555753  #555753  #eeeeec
+		inactive_workspace #2e3436  #2e3436  #888a85
+		urgent_workspace   #cc0000  #cc0000  #eeeeec
+		binding_mode       #c4a000  #c4a000  #2e3436
+	}
+}
