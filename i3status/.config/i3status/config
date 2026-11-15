@@ -21,6 +21,8 @@ read_file VOL {
 	path = "~/.cache/volume"
 	format = "VOL %content"
 	format_bad = ""
+	# mesma cor do resto da barra (sem isto o read_file sai verde, color_good)
+	color_good = "#eeeeec"
 }
 
 # OpenBSD: le o apm(4). format_down vazio esconde quando nao ha bateria.
