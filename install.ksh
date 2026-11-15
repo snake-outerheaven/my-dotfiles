@@ -15,7 +15,8 @@
 #   ksh install.ksh base          so esta
 #   ksh install.ksh -n [listas]   so mostra o que faria
 #
-# Nada e apagado: arquivos que atrapalham o stow vao para ~/.dotfiles-backup-DATA.
+# Nada e apagado: arquivos (e links de outros setups, como o bsd-i3) que
+# atrapalham o stow vao para ~/.dotfiles-backup-DATA.
 
 set -u
 
@@ -75,7 +76,9 @@ msg "Dotfiles (stow): $STOW_PACOTES"
 for pac in $STOW_PACOTES; do
 	(cd "$REPO/$pac" && find . -type f) | while read -r f; do
 		alvo="$HOME/${f#./}"
-		if [[ -e $alvo && ! -L $alvo ]]; then
+		# arquivo comum, ou link de outro setup (ex.: bsd-i3): guarda no backup
+		if [[ -L $alvo && $(readlink -f "$alvo" 2>/dev/null) != "$REPO"/* ]] ||
+		   [[ -e $alvo && ! -L $alvo ]]; then
 			destino="$BACKUP/${f#./}"
 			print -- "    backup: $alvo -> $destino"
 			rodar mkdir -p "$(dirname "$destino")"
