@@ -41,7 +41,7 @@ pkg_info -Q i3 >/dev/null 2>&1 || falta "nao achei pacotes no mirror ($(cat /etc
 
 PACOTES="stow i3 i3status i3lock alacritty rofi dunst feh scrot copyq lxappearance xdg-user-dirs"
 APPS="firefox nnn zathura zathura-pdf-mupdf mpv cmus vim--no_x11"
-JOGOS="supertux supertuxkart"
+JOGOS="supertux supertuxkart openttd"
 LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
 FONTES="cascadia-code noto-emoji noto-cjk"
 instalado() { pkg_info -e "${1%%--*}-*" >/dev/null 2>&1; }
