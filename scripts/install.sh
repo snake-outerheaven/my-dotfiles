@@ -1,6 +1,13 @@
 #!/bin/sh
 # install.sh - instala o desktop completo com i3 (Tango, amarelo, sem barra) e GNU Stow
-# Feito para o OpenBSD.
+# Feito para o OpenBSD. Faz uma coisa so: monta o desktop.
+# Nao mexe no sistema (doas.conf, login.conf, installurl, firmware, servicos)
+# e segue o idioma do sistema (pastas XDG).
+#
+# Pre-requisitos (por sua conta, antes de rodar):
+#   - doas configurado para o seu usuario   (doas.conf(5))
+#   - mirror valido em /etc/installurl       (installurl(5))
+#   - git instalado e este repositorio clonado
 #
 # Fica no pacote stow "scripts": depois do stow, vira ~/install.sh.
 # Uso:
@@ -19,7 +26,7 @@ SCRIPT=$(readlink -f "$0")
 REPO=$(dirname "$(dirname "$SCRIPT")")
 BACKUP="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
 
-STOW_PACOTES="alacritty dunst rofi tmux x11 i3 scripts zathura mpv cmus vim"
+STOW_PACOTES="alacritty dunst rofi tmux x11 i3 scripts zathura mpv cmus vim copyq"
 
 msg()  { printf '\033[33m==>\033[0m %s\n' "$*"; }
 aviso(){ printf '\033[31m!!\033[0m %s\n' "$*"; }
@@ -28,9 +35,11 @@ rodar() {
 }
 
 [ "$(uname -s)" = OpenBSD ] || { aviso "Este script e para OpenBSD."; exit 1; }
-command -v doas >/dev/null || { aviso "doas nao encontrado. Configure o /etc/doas.conf."; exit 1; }
+falta() { aviso "$1"; aviso "Isso e do sistema: arrume e rode de novo."; exit 1; }
+doas true 2>/dev/null || falta "doas nao funciona para $(id -un). Veja doas.conf(5)."
+pkg_info -Q i3 >/dev/null 2>&1 || falta "nao achei pacotes no mirror ($(cat /etc/installurl 2>/dev/null)). Veja installurl(5)."
 
-PACOTES="stow i3 alacritty rofi dunst feh scrot copyq lxappearance git"
+PACOTES="stow i3 alacritty rofi dunst feh scrot copyq lxappearance xdg-user-dirs"
 APPS="firefox nnn zathura zathura-pdf-mupdf mpv cmus vim--no_x11"
 JOGOS="supertux supertuxkart"
 LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
@@ -78,15 +87,11 @@ for p in $LAZER $JOGOS; do
 	fi
 done
 
-rodar mkdir -p "$HOME/Downloads" "$HOME/Musica"
+# pastas do usuario (Downloads, Musica...) no idioma do sistema
+msg "Pastas do usuario: xdg-user-dirs-update"
+rodar xdg-user-dirs-update || aviso "xdg-user-dirs-update falhou (seguindo)"
 
 # tema GTK: escolha pelo lxappearance (o tema voce baixa por conta propria)
-
-# tema do CopyQ (o CopyQ reescreve o copyq.conf, por isso fica fora do stow)
-if command -v copyq >/dev/null && [ -f "$REPO/copyq/tango.ini" ]; then
-	msg "Tema do CopyQ: Tango amarelo"
-	rodar copyq loadTheme "$REPO/copyq/tango.ini" || aviso "CopyQ precisa estar rodando para receber o tema"
-fi
 
 msg "Dotfiles (stow): $STOW_PACOTES"
 for pac in $STOW_PACOTES; do

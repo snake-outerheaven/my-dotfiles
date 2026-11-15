@@ -1,7 +1,7 @@
 # ~/.config/cmus/rc - cmus em Tango, destaque amarelo
 # Os numeros sao cores do terminal (alacritty em Tango):
 #   -1 fundo do terminal, 0 #2e3436, 7 #d3d7cf, 8 #555753, 11 #fce94f, 15 #eeeeec
-# Musicas: ':add ~/Musica' (uma vez) e depois 5 para ver os arquivos.
+# Musicas: ':add' na sua pasta de musica (veja: xdg-user-dir MUSIC), depois 5.
 
 set color_win_bg=-1
 set color_win_fg=15
