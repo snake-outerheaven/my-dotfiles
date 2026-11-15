@@ -1,3 +1,9 @@
 # base do desktop. ctwm, uxterm, xclock, xrdb, xsetroot, ksh e tmux ja vem no NetBSD.
 stow
 feh
+# bloqueio de tela (xidle trava apos 5 min), print, bateria, area de transferencia
+xlockmore
+xidle
+scrot
+xbattbar
+copyq

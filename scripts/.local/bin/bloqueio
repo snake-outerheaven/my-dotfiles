@@ -1,0 +1,4 @@
+#!/bin/sh
+# bloqueio - trava a tela com o xlock (pacote xlockmore) no modo qix
+PATH="$PATH:/usr/pkg/bin"
+exec xlock -mode qix

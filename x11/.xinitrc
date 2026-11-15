@@ -20,5 +20,14 @@ fundo &
 # relogio no canto inferior esquerdo (o ctwmrc deixa ele em todas as areas)
 xclock -geometry 100x100+4-4 &
 
+# bateria: barrinha fina no topo da tela (xbattbar, via ACPI/envsys)
+command -v xbattbar >/dev/null 2>&1 && xbattbar top &
+
+# area de transferencia com historico
+command -v copyq >/dev/null 2>&1 && copyq &
+
+# trava a tela sozinho depois de 5 min parado
+command -v xidle >/dev/null 2>&1 && xidle -timeout 300 -program "$HOME/.local/bin/bloqueio" &
+
 uxterm &
 exec ctwm

@@ -468,7 +468,12 @@ Button3 = mod4	: window 	: f.resize
 
 "XF86AudioRaiseVolume" = : all : !"mixerctl -w outputs.master+=5"
 "XF86AudioLowerVolume" = : all : !"mixerctl -w outputs.master-=5"
-#"XF86AudioMute"        = : all : !"mixerctl -w outputs.master=0"
+"XF86AudioMute"        = : all : !"mixerctl -w outputs.master.mute++"
+
+# print, bloqueio (scrot -s e xlock pegam o teclado: o sleep espera a tecla soltar)
+"Print"  =        : all : !"printar &"
+"Print"  = mod4   : all : !"sleep 0.3; printar -s &"
+"x"      = mod4 | s : all : !"sleep 0.3; bloqueio &"
 
 #
 # "Windows" style keyboard shortcuts

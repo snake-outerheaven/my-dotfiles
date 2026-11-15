@@ -1,0 +1,5 @@
+# aplicativos graficos
+firefox
+zathura
+zathura-pdf-mupdf
+mpv

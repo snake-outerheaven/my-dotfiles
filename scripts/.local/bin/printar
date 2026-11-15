@@ -1,0 +1,10 @@
+#!/bin/sh
+# printar - print da tela (Print = tela toda, Super+Print = area)
+DIR=$(xdg-user-dir PICTURES 2>/dev/null)
+[ -n "$DIR" ] && [ "$DIR" != "$HOME" ] || DIR="$HOME/Imagens"
+mkdir -p "$DIR"
+if [ "${1:-}" = "-s" ]; then
+	scrot -s "$DIR/%Y%m%d-%H%M%S.png"
+else
+	scrot "$DIR/%Y%m%d-%H%M%S.png"
+fi

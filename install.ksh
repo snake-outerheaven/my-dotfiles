@@ -21,7 +21,7 @@ set -u
 
 REPO=$(cd "$(dirname "$0")" && pwd)
 BACKUP="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
-TODAS="base fontes dev dia mcu lazer"
+TODAS="base fontes apps dev dia mcu lazer"
 STOW_PACOTES="ctwm x11 scripts"
 
 SIMULAR=0
