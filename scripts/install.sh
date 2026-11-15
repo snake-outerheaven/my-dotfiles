@@ -1,18 +1,21 @@
 #!/bin/sh
-# install.sh - instala o desktop completo com i3 (Tango, amarelo, sem barra) e GNU Stow
-# Feito para o OpenBSD. Faz uma coisa so: monta o desktop.
-# Nao mexe no sistema (doas.conf, login.conf, installurl, firmware, servicos)
+# install.sh - monta o desktop com i3 (Tango, amarelo, sem barra) e GNU Stow
+# Faz uma coisa so: monta o desktop. Funciona no OpenBSD e no NetBSD.
+# Nao mexe no sistema (doas.conf, login.conf, mirror, firmware, servicos)
 # e segue o idioma do sistema (pastas XDG).
 #
 # Pre-requisitos (por sua conta, antes de rodar):
-#   - doas configurado para o seu usuario   (doas.conf(5))
-#   - mirror valido em /etc/installurl       (installurl(5))
+#   - doas (ou sudo, no NetBSD) funcionando para o seu usuario
+#   - repositorio de pacotes valido
+#       OpenBSD: /etc/installurl   (installurl(5))
+#       NetBSD:  pkgin configurado e "pkgin update" ja rodado
 #   - git instalado e este repositorio clonado
 #
-# Fica no pacote stow "scripts": depois do stow, vira ~/install.sh.
+# Os pacotes ficam em listas/<sistema>/*.txt: um por linha, # comenta.
+#
 # Uso:
-#   sh ~/install.sh       (ou: sh scripts/install.sh, de dentro do repositorio)
-#   sh ~/install.sh -n    so mostra o que faria
+#   sh scripts/install.sh       (ou: sh ~/install.sh, depois do stow)
+#   sh scripts/install.sh -n    so mostra o que faria
 #
 # Nada e apagado: arquivos que atrapalham o stow vao para ~/.dotfiles-backup-DATA.
 
@@ -27,72 +30,65 @@ REPO=$(dirname "$(dirname "$SCRIPT")")
 BACKUP="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
 
 STOW_PACOTES="alacritty dunst rofi tmux x11 i3 scripts zathura mpv cmus vim copyq"
+LISTAS="base apps fontes lazer"
 
 msg()  { printf '\033[33m==>\033[0m %s\n' "$*"; }
 aviso(){ printf '\033[31m!!\033[0m %s\n' "$*"; }
+falta(){ aviso "$1"; aviso "Isso e do sistema: arrume e rode de novo."; exit 1; }
 rodar() {
 	if [ "$SIMULAR" -eq 1 ]; then printf '    [simulado] %s\n' "$*"; else "$@"; fi
 }
 
-[ "$(uname -s)" = OpenBSD ] || { aviso "Este script e para OpenBSD."; exit 1; }
-falta() { aviso "$1"; aviso "Isso e do sistema: arrume e rode de novo."; exit 1; }
-doas true 2>/dev/null || falta "doas nao funciona para $(id -un). Veja doas.conf(5)."
-pkg_info -Q i3 >/dev/null 2>&1 || falta "nao achei pacotes no mirror ($(cat /etc/installurl 2>/dev/null)). Veja installurl(5)."
+# --- sistema: so confere, nunca altera ---
+SO=$(uname -s)
+case "$SO" in
+OpenBSD)
+	PRIV=doas
+	doas true 2>/dev/null || falta "doas nao funciona para $(id -un). Veja doas.conf(5)."
+	pkg_info -Q i3 >/dev/null 2>&1 ||
+		falta "nao achei pacotes no mirror ($(cat /etc/installurl 2>/dev/null)). Veja installurl(5)."
+	instalar() { rodar "$PRIV" pkg_add -I "$1"; } ;;
+NetBSD)
+	if command -v doas >/dev/null 2>&1; then PRIV=doas
+	elif command -v sudo >/dev/null 2>&1; then PRIV=sudo
+	else falta "nem doas nem sudo instalados."; fi
+	"$PRIV" true 2>/dev/null || falta "$PRIV nao funciona para $(id -un)."
+	command -v pkgin >/dev/null 2>&1 || falta "pkgin nao encontrado."
+	pkgin avail 2>/dev/null | grep -q '^i3-' ||
+		falta "pkgin nao lista pacotes. Confira o repositorio e rode: $PRIV pkgin update"
+	instalar() { rodar "$PRIV" pkgin -y install "$1"; } ;;
+*)
+	aviso "Este script e para OpenBSD ou NetBSD (este e $SO)."; exit 1 ;;
+esac
 
-PACOTES="stow i3 alacritty rofi dunst feh scrot copyq lxappearance xdg-user-dirs"
-APPS="firefox nnn zathura zathura-pdf-mupdf mpv cmus vim--no_x11"
-JOGOS="supertux supertuxkart"
-LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
-FONTES="cascadia-code noto-emoji noto-cjk"
-instalado() { pkg_info -e "${1%%--*}-*" >/dev/null 2>&1; }
-instalar()  { rodar doas pkg_add -I "$1"; }
-
-[ -d "$REPO/i3" ] || { aviso "Repositorio nao encontrado em $REPO."; exit 1; }
-msg "Repositorio: $REPO"
+LISTA_DIR="$REPO/listas/$(echo "$SO" | tr '[:upper:]' '[:lower:]')"
+[ -d "$REPO/i3" ] && [ -d "$LISTA_DIR" ] || { aviso "Repositorio incompleto em $REPO."; exit 1; }
+msg "Sistema: $SO   Repositorio: $REPO"
 [ "$SIMULAR" -eq 1 ] && msg "Modo simulacao: nada sera alterado."
 
-msg "Pacotes: $PACOTES"
-for p in $PACOTES; do
-	if instalado "$p"; then
-		printf '    %s ja instalado\n' "$p"
-	else
-		instalar "$p" || aviso "Nao instalou: $p (seguindo)"
-	fi
+# pkg_info -e funciona nos dois; tira o flavor do OpenBSD (vim--no_x11 -> vim)
+instalado() { pkg_info -e "${1%%--*}-*" >/dev/null 2>&1; }
+
+# --- pacotes, lista por lista ---
+for lista in $LISTAS; do
+	arq="$LISTA_DIR/$lista.txt"
+	[ -f "$arq" ] || continue
+	pacotes=$(sed -e 's/#.*//' -e 's/[[:space:]]//g' -e '/^$/d' "$arq" | tr '\n' ' ')
+	msg "Pacotes ($lista): $pacotes"
+	for p in $pacotes; do
+		if instalado "$p"; then
+			printf '    %s ja instalado\n' "$p"
+		else
+			instalar "$p" || aviso "Nao instalou: $p (seguindo)"
+		fi
+	done
 done
 
-msg "Programas: $APPS"
-for p in $APPS; do
-	if instalado "$p"; then
-		printf '    %s ja instalado\n' "$p"
-	else
-		instalar "$p" || aviso "Nao instalou: $p (seguindo)"
-	fi
-done
-
-msg "Fontes (opcional): $FONTES"
-for p in $FONTES; do
-	if instalado "$p"; then
-		printf '    %s ja instalado\n' "$p"
-	else
-		instalar "$p" || aviso "Nao instalou: $p (seguindo; coloque os .ttf em ~/.fonts)"
-	fi
-done
-
-msg "Lazer e jogos (opcional): $LAZER $JOGOS"
-for p in $LAZER $JOGOS; do
-	if instalado "$p"; then
-		printf '    %s ja instalado\n' "$p"
-	else
-		instalar "$p" || aviso "Nao instalou: $p (seguindo)"
-	fi
-done
-
-# pastas do usuario (Downloads, Musica...) no idioma do sistema
+# --- pastas do usuario (Downloads, Musica...) no idioma do sistema ---
 msg "Pastas do usuario: xdg-user-dirs-update"
 rodar xdg-user-dirs-update || aviso "xdg-user-dirs-update falhou (seguindo)"
 
-# tema GTK: escolha pelo lxappearance (o tema voce baixa por conta propria)
-
+# --- dotfiles ---
 msg "Dotfiles (stow): $STOW_PACOTES"
 for pac in $STOW_PACOTES; do
 	[ -d "$REPO/$pac" ] || continue
@@ -108,6 +104,15 @@ for pac in $STOW_PACOTES; do
 	rodar stow --no-folding -d "$REPO" -t "$HOME" "$pac" || aviso "stow falhou em $pac"
 done
 
+# --- ajustes por maquina: arquivo vazio, fora do git (o i3 exige que exista) ---
+if [ ! -e "$HOME/.config/i3/local.conf" ]; then
+	msg "Ajustes desta maquina: ~/.config/i3/local.conf (vazio)"
+	rodar mkdir -p "$HOME/.config/i3"
+	if [ "$SIMULAR" -eq 1 ]; then printf '    [simulado] criar %s\n' "$HOME/.config/i3/local.conf"
+	else printf '# ajustes so desta maquina (fora do git)\n' > "$HOME/.config/i3/local.conf"; fi
+fi
+
+# --- wallpaper ---
 if [ ! -f "$HOME/.local/share/wallpapers/flores-amarelas.jpg" ]; then
 	msg "Wallpaper: flores amarelas (Unsplash)"
 	rodar "$REPO/scripts/.local/bin/pega-wallpaper" || aviso "Nao baixou o wallpaper (seguindo; fica a cor lisa)"

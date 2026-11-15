@@ -1,0 +1,29 @@
+#!/bin/sh
+# volume - sobe, desce, muta ou mostra o volume, no OpenBSD ou no NetBSD
+# Uso: volume +|-|mudo|mostra
+#   OpenBSD: sndioctl(1)  output.level (0 a 1), output.mute
+#   NetBSD:  mixerctl(1)  outputs.master (0 a 255), outputs.master.mute
+#            (o nome do controle depende da placa: mude com MIXER_VOLUME=...)
+MIXER_VOLUME=${MIXER_VOLUME:-outputs.master}
+
+case "$(uname -s)" in
+OpenBSD)
+	case "${1:-mostra}" in
+	+)    sndioctl -q output.level=+0.1 ;;
+	-)    sndioctl -q output.level=-0.1 ;;
+	mudo) sndioctl -q output.mute=! ;;
+	mostra)
+		[ "$(sndioctl -n output.mute 2>/dev/null)" = 1 ] && { echo mudo; exit; }
+		sndioctl -n output.level 2>/dev/null | awk '{printf "%d%%\n", $1 * 100 + 0.5}' ;;
+	esac ;;
+NetBSD)
+	case "${1:-mostra}" in
+	+)    mixerctl -n -w "$MIXER_VOLUME++" >/dev/null ;;
+	-)    mixerctl -n -w "$MIXER_VOLUME--" >/dev/null ;;
+	mudo) mixerctl -n -w "$MIXER_VOLUME.mute++" >/dev/null ;;
+	mostra)
+		[ "$(mixerctl -n "$MIXER_VOLUME.mute" 2>/dev/null)" = on ] && { echo mudo; exit; }
+		mixerctl -n "$MIXER_VOLUME" 2>/dev/null | awk -F, '{printf "%d%%\n", $1 * 100 / 255 + 0.5}' ;;
+	esac ;;
+*)	echo "?" ;;
+esac

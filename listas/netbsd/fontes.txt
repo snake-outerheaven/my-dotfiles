@@ -1,0 +1,3 @@
+cascadia-ttf
+noto-emoji-ttf
+noto-cjk-fonts

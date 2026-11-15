@@ -1,42 +1,15 @@
+# alacritty.toml - modular
+# cores.toml: paleta Tango. local.toml: ajustes desta maquina (fora do git; pode nao existir).
+# O alacritty pula imports que nao existem (alacritty(5), [general] import).
+[general]
+import = ["~/.config/alacritty/cores.toml", "~/.config/alacritty/local.toml"]
+
 [window]
 
 opacity = 1
 padding.x = 10
 padding.y = 10
 blur = true
-
-# Tango
-[colors.primary]
-background = '#2e3436'
-foreground = '#eeeeec'
-
-[colors.normal]
-black   = '#2e3436'
-red     = '#cc0000'
-green   = '#4e9a06'
-yellow  = '#c4a000'
-blue    = '#3465a4'
-magenta = '#75507b'
-cyan    = '#06989a'
-white   = '#d3d7cf'
-
-[colors.bright]
-black   = '#555753'
-red     = '#ef2929'
-green   = '#8ae234'
-yellow  = '#fce94f'
-blue    = '#729fcf'
-magenta = '#ad7fa8'
-cyan    = '#34e2e2'
-white   = '#eeeeec'
-
-[colors.cursor]
-text   = '#2e3436'
-cursor = '#edd400'
-
-[colors.selection]
-text       = 'CellForeground'
-background = '#555753'
 
 [font]
 size = 9.0

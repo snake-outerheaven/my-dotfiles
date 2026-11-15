@@ -1,3 +1,5 @@
+# dunstrc - base; cores em dunstrc.d/10-cores.conf (drop-in, dunst(1))
+# Ajustes desta maquina: dunstrc.d/99-local.conf (fora do git; pode nao existir).
 [global]
     monitor = 0
     follow = mouse
@@ -7,26 +9,18 @@
     offset = 10x10
     scale = 0
     notification_limit = 0
-
-    ### Estética Tango, destaque amarelo ###
     font = Cascadia Mono 10
     frame_width = 2
-    frame_color = "#edd400"
     separator_color = frame
     corner_radius = 4
 
 [urgency_low]
-    background = "#2e3436"
-    foreground = "#eeeeec"
     timeout = 10
 
 [urgency_normal]
-    background = "#2e3436"
-    foreground = "#eeeeec"
     timeout = 10
 
 [urgency_critical]
-    background = "#2e3436"
-    foreground = "#eeeeec"
-    frame_color = "#ef2929"
-    timeout = 0# vim: ft=cfg
+    timeout = 0
+
+# vim: ft=cfg

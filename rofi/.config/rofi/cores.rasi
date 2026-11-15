@@ -1,0 +1,9 @@
+/* cores.rasi - Tango, destaque amarelo (referencia: paleta/tango.txt) */
+* {
+    bg:      #2e3436;
+    bg-alt:  #555753;
+    fg:      #eeeeec;
+    muted:   #888a85;
+    accent:  #edd400;
+    urgent:  #ef2929;
+}

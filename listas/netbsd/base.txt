@@ -1,0 +1,15 @@
+# base do desktop (NetBSD: pkgin). Nomes conferidos no pkgsrc.
+# xidle, xlockmore e xbacklight sao pacotes aqui (no OpenBSD vem no base).
+stow
+i3
+alacritty
+rofi
+dunst
+feh
+scrot
+copyq
+lxappearance
+xdg-user-dirs
+xidle
+xlockmore
+xbacklight

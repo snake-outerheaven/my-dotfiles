@@ -1,0 +1,7 @@
+firefox
+nnn
+zathura
+zathura-pdf-mupdf
+mpv
+cmus
+vim

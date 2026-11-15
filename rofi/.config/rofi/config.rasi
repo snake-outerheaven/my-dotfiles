@@ -11,14 +11,9 @@ configuration {
 
 @theme "/dev/null"
 
-* {
-    /* Tango, destaque amarelo */
-    bg:      #2e3436;
-    bg-alt:  #555753;
-    fg:      #eeeeec;
-    accent:  #edd400;
-    urgent:  #ef2929;
+@import "cores.rasi"
 
+* {
     background-color: @bg;
     text-color:       @fg;
 }
@@ -52,7 +47,7 @@ entry {
     background-color:   @bg-alt;
     padding:            12px;
     placeholder:        "Search...";
-    placeholder-color:  #888a85;
+    placeholder-color:  @muted;
 }
 
 listview {
