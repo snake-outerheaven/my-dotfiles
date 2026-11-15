@@ -1,0 +1,8 @@
+#!/bin/sh
+# pega-wallpaper - baixa o wallpaper de flores amarelas do Unsplash (Unsplash License)
+# Foto: "A field of yellow flowers with trees in the background", por Aurora K (@dawnoftime)
+# Pagina: https://unsplash.com/photos/1jy3inuHOgM
+DIR="$HOME/.local/share/wallpapers"
+mkdir -p "$DIR"
+ftp -o "$DIR/flores-amarelas.jpg" "https://unsplash.com/photos/1jy3inuHOgM/download?force=true" &&
+	echo "ok: $DIR/flores-amarelas.jpg"

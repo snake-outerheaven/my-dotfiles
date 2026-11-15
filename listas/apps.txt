@@ -1,0 +1,7 @@
+# programas do menu "Programas"
+firefox
+nnn
+cmus
+vim--no_x11
+htop
+fastfetch

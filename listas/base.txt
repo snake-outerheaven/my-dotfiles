@@ -1,0 +1,3 @@
+# base do desktop. fvwm, xterm, xclock, xlock, xmag e xcalc ja vem no OpenBSD.
+stow
+feh

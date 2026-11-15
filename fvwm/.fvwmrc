@@ -1,0 +1,134 @@
+# ~/.fvwmrc - fvwm 2.2.5 do base do OpenBSD, paleta Tango, destaque amarelo
+# Referencia: fvwm(1) e o system.fvwm2rc do Xenocara.
+# 9 paginas (3x3) no lugar das areas do i3: Super+1..9 vai, Super+Shift+1..9 leva a janela.
+# Super = Mod4 (no fvwm, o modificador "4").
+
+# --- comportamento ---
+EdgeResistance 250 10
+EdgeScroll 0 0
+ClickTime 750
+DeskTopSize 3x3
+ColormapFocus FollowsFocus
+
+# --- fontes (as XLFD do X do base) ---
+WindowFont -misc-fixed-bold-r-normal--13-*-*-*-*-*-iso10646-1
+IconFont   -misc-fixed-medium-r-normal--13-*-*-*-*-*-iso10646-1
+
+# --- Tango ---
+# janela em foco: texto escuro sobre amarelo
+HilightColor #2e3436 #edd400
+# menus: texto, fundo, sombra, fonte, estilo
+MenuStyle #eeeeec #2e3436 #555753 -misc-fixed-medium-r-normal--13-*-*-*-*-*-iso10646-1 fvwm
+
+Style "*"       Color #babdb6/#2e3436
+Style "*"       BorderWidth 2, HandleWidth 2
+Style "*"       MWMFunctions, MWMDecor, HintOverride
+Style "*"       DecorateTransient, NoPPosition
+Style "*"       SloppyFocus
+Style "*"       SmartPlacement, RandomPlacement
+Style "*"       IconBox 0 -10 -280 -1
+
+Style "Fvwm*"       NoTitle, Sticky, WindowListSkip, CirculateSkip
+Style "FvwmPager"   StaysOnTop, BorderWidth 1
+Style "XClock"      NoTitle, Sticky, WindowListSkip, StaysOnTop
+Style "*lock"       NoTitle, NoHandles, Sticky, WindowListSkip
+
+# --- inicio ---
+AddToFunc InitFunction
++ "I" Module FvwmPager 0 0
++ "I" Exec exec fundo
+AddToFunc RestartFunction
++ "I" Module FvwmPager 0 0
++ "I" Exec exec fundo
+
+# --- pager (miniatura das 9 paginas, canto inferior direito) ---
+*FvwmPagerBack #2e3436
+*FvwmPagerFore #555753
+*FvwmPagerHilight #edd400
+*FvwmPagerWindowColors #babdb6 #555753 #2e3436 #edd400
+*FvwmPagerGeometry 180x120-4-4
+*FvwmPagerFont none
+*FvwmPagerSmallFont -misc-fixed-medium-r-normal--8-*-*-*-*-*-iso10646-1
+*FvwmPagerDeskTopScale 32
+
+# --- menus ---
+AddToMenu RootMenu "OpenBSD" Title
++ "Terminal"          Exec exec xterm
++ ""                  Nop
++ "Programas"         Popup Programas
++ "Utilitarios"       Popup Utilitarios
++ ""                  Nop
++ "Janela"            Popup Window-Ops
++ ""                  Nop
++ "Reiniciar fvwm"    Restart fvwm
++ "Sair"              Popup Quit-Verify
+
+AddToMenu Programas "Programas" Title
++ "Firefox"           Exec exec firefox
++ "nnn (arquivos)"    Exec exec xterm -e nnn
++ "cmus (musica)"     Exec exec xterm -e cmus
++ "vim"               Exec exec xterm -e vim
++ "htop"              Exec exec xterm -e htop
++ "fastfetch"         Exec exec xterm -hold -e fastfetch
+
+AddToMenu Utilitarios "Utilitarios" Title
++ "Calculadora"       Exec exec xcalc
++ "Relogio"           Exec exec xclock -geometry 100x100-4+4
++ "Lupa"              Exec exec xmag
++ "Travar tela"       Exec exec xlock -mode qix
++ ""                  Nop
++ "top"               Exec exec xterm -e top
+
+AddToMenu Window-Ops "Janela" Title
++ "Mover"             Move
++ "Redimensionar"     Resize
++ "Maximizar"         Maximize
++ "Minimizar"         Iconify
++ "Fixar (todas)"     Stick
++ ""                  Nop
++ "Fechar"            Close
++ "Destruir"          Destroy
+
+AddToMenu Quit-Verify "Sair do fvwm?" Title
++ "Sim, sair"         Quit
++ "Nao"               Nop
+
+# --- mouse ---
+Mouse 1 R A Menu RootMenu Nop
+Mouse 3 R A WindowList
+Mouse 1 T A Move
+Mouse 1 FS A Resize
+Mouse 3 T A Menu Window-Ops Nop
+Mouse 0 1 A Menu Window-Ops Close
+Mouse 0 2 A Maximize
+Mouse 0 4 A Iconify
+
+# --- teclado estilo i3 (Super = 4) ---
+Key Return A 4  Exec exec xterm
+Key d      A 4  Menu RootMenu Nop
+Key q      A 4S Close
+Key f      A 4  Maximize
+Key Tab    A 4  Next [*] Focus
+Key r      A 4S Restart fvwm
+Key e      A 4S Popup Quit-Verify
+Key x      A 4S Exec exec xlock -mode qix
+
+Key 1 A 4  GotoPage 0 0
+Key 2 A 4  GotoPage 1 0
+Key 3 A 4  GotoPage 2 0
+Key 4 A 4  GotoPage 0 1
+Key 5 A 4  GotoPage 1 1
+Key 6 A 4  GotoPage 2 1
+Key 7 A 4  GotoPage 0 2
+Key 8 A 4  GotoPage 1 2
+Key 9 A 4  GotoPage 2 2
+
+Key 1 A 4S MoveToPage 0 0
+Key 2 A 4S MoveToPage 1 0
+Key 3 A 4S MoveToPage 2 0
+Key 4 A 4S MoveToPage 0 1
+Key 5 A 4S MoveToPage 1 1
+Key 6 A 4S MoveToPage 2 1
+Key 7 A 4S MoveToPage 0 2
+Key 8 A 4S MoveToPage 1 2
+Key 9 A 4S MoveToPage 2 2

@@ -1,0 +1,8 @@
+#!/bin/sh
+# fundo - wallpaper de flores amarelas (feh); sem a foto, cor lisa Tango
+WALL="$HOME/.local/share/wallpapers/flores-amarelas.jpg"
+if command -v feh >/dev/null 2>&1 && [ -f "$WALL" ]; then
+	feh --no-fehbg --bg-fill "$WALL"
+else
+	xsetroot -solid "#2e3436"
+fi
