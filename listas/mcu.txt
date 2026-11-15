@@ -1,0 +1,4 @@
+# microcontroladores AVR (C puro no ATmega328P)
+avr-gcc
+avr-libc
+avrdude

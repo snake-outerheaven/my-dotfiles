@@ -1,0 +1,4 @@
+# dev C. gcc, gdb, make e ctags (BSD) ja vem no base.
+git
+gmake
+exctags

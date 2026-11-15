@@ -1,0 +1,5 @@
+cmatrix
+tty-clock
+cowsay
+figlet
+sl

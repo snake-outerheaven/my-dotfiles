@@ -1,0 +1,4 @@
+# a fonte spleen do ctwm ja vem no X do NetBSD
+cascadia-ttf
+noto-emoji-ttf
+noto-cjk-fonts

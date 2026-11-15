@@ -1,0 +1,6 @@
+# dia a dia
+nnn
+cmus
+htop
+fastfetch
+curl

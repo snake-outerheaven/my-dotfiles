@@ -1,0 +1,3 @@
+# base do desktop. ctwm, uxterm, xclock, xrdb, xsetroot, ksh e tmux ja vem no NetBSD.
+stow
+feh

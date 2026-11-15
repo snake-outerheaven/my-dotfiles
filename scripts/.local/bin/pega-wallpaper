@@ -1,0 +1,8 @@
+#!/bin/sh
+# pega-wallpaper - baixa o wallpaper de flores laranjas do Unsplash (Unsplash License)
+# Foto: "a close up of two orange flowers in a garden", por Janvier Snead (@jan_v_ier_)
+# Pagina: https://unsplash.com/photos/6JZ1hV998l0
+DIR="$HOME/.local/share/wallpapers"
+mkdir -p "$DIR"
+ftp -o "$DIR/flores-laranjas.jpg" "https://unsplash.com/photos/6JZ1hV998l0/download?force=true" &&
+	echo "ok: $DIR/flores-laranjas.jpg"
