@@ -4,7 +4,10 @@
 # ctwmrc by nia
 #
 # Copia do system.ctwmrc do NetBSD com as cores trocadas para Tango
-# (destaque laranja #f57900, a cor do NetBSD). Todo o resto e o original da nia.
+# (destaque laranja #f57900, a cor do NetBSD) e o submenu "Meus apps"
+# (programas de terminal sem arquivo .desktop). Todo o resto e o original da nia.
+# O menu "Applications" so lista programas com .desktop e e montado quando o
+# ctwm inicia: depois de instalar algo, use "Restart CTWM".
 #
 # An attempt to strike a usability balance that makes keys and buttons
 # do the thing users of various operating systems expect them to do.
@@ -312,12 +315,29 @@ menu "termutils"
     " Disk usage"		!"xterm -class UXTerm -e 'sysstat df' &"
 }
 
+menu "meusapps"
+{
+    "Meus apps"			f.title
+    " nnn (arquivos)"		!"xterm -class UXTerm -e nnn &"
+    " cmus (musica)"		!"xterm -class UXTerm -e cmus &"
+    " htop (processos)"		!"xterm -class UXTerm -e htop &"
+    " fastfetch"		!"xterm -class UXTerm -hold -e fastfetch &"
+    " tmux"			!"xterm -class UXTerm -e tmux &"
+    ""				f.separator
+    " gdb"			!"xterm -class UXTerm -e gdb &"
+    ""				f.separator
+    " cmatrix"			!"xterm -class UXTerm -e cmatrix -C yellow &"
+    " tty-clock"		!"xterm -class UXTerm -e tty-clock -c -C 3 &"
+    " sl"			!"xterm -class UXTerm -e sl &"
+}
+
 menu "NetBSD"
 {
     "NetBSD"			f.title
     ""				f.separator
     " Terminal"			!"uxterm &"
     ""				f.separator
+    " Meus apps"		f.menu "meusapps"
     " Applications"		f.menu "appmenu"
     " Desktop utilities"	f.menu "deskutils"
     " Terminal utilities"	f.menu "termutils"
