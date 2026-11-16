@@ -1,4 +1,4 @@
-! ~/.Xresources - Gruvbox dark, destaque amarelo, para o xterm e programas X da base
+! ~/.Xresources - Tango, destaque amarelo (#edd400), para o xterm e programas X da base
 ! Carregado pelo cwm-session (xrdb -merge). Testar mudanças: xrdb -merge ~/.Xresources
 
 ! --- xterm ---
@@ -16,32 +16,32 @@ XTerm*selectToClipboard: true
 XTerm*metaSendsEscape: true
 XTerm*cursorBlink:     false
 
-! --- cores (Gruvbox dark medium) ---
-*.background:  #282828
-*.foreground:  #ebdbb2
-*.cursorColor: #fabd2f
-XTerm*background:  #282828
-XTerm*foreground:  #ebdbb2
-XTerm*cursorColor: #fabd2f
-*.color0:  #282828
-*.color1:  #cc241d
-*.color2:  #98971a
-*.color3:  #d79921
-*.color4:  #458588
-*.color5:  #b16286
-*.color6:  #689d6a
-*.color7:  #a89984
-*.color8:  #928374
-*.color9:  #fb4934
-*.color10: #b8bb26
-*.color11: #fabd2f
-*.color12: #83a598
-*.color13: #d3869b
-*.color14: #8ec07c
-*.color15: #ebdbb2
+! --- cores (Tango) ---
+*.background:  #2e3436
+*.foreground:  #eeeeec
+*.cursorColor: #edd400
+XTerm*background:  #2e3436
+XTerm*foreground:  #eeeeec
+XTerm*cursorColor: #edd400
+*.color0:   #2e3436
+*.color1:   #cc0000
+*.color2:   #4e9a06
+*.color3:   #c4a000
+*.color4:   #3465a4
+*.color5:   #75507b
+*.color6:   #06989a
+*.color7:   #d3d7cf
+*.color8:   #555753
+*.color9:   #ef2929
+*.color10:  #8ae234
+*.color11:  #fce94f
+*.color12:  #729fcf
+*.color13:  #ad7fa8
+*.color14:  #34e2e2
+*.color15:  #eeeeec
 
 ! --- xclock (relógio da base) ---
-XClock*background: #282828
-XClock*foreground: #fabd2f
-XClock*hands:      #fabd2f
-XClock*highlight:  #ebdbb2
+XClock*background: #2e3436
+XClock*foreground: #edd400
+XClock*hands:      #edd400
+XClock*highlight:  #eeeeec

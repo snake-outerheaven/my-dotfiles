@@ -1,6 +1,6 @@
-# ~/.config/cmus/rc - cmus em Gruvbox, destaque amarelo
-# Os numeros sao cores do terminal (xterm em Gruvbox, pelo ~/.Xresources):
-#   -1 fundo do terminal, 0 #282828, 7 #a89984, 8 #928374, 11 #fabd2f, 15 #ebdbb2
+# ~/.config/cmus/rc - cmus em Tango, destaque amarelo
+# Os numeros sao cores do terminal (xterm em Tango, pelo ~/.Xresources):
+#   -1 fundo do terminal, 0 #2e3436, 7 #d3d7cf, 8 #555753, 11 #fce94f, 15 #eeeeec
 # Musicas: ':add ~/Musica' (uma vez) e depois 5 para ver os arquivos.
 
 set color_win_bg=-1

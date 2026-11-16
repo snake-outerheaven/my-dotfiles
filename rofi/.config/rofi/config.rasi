@@ -1,0 +1,80 @@
+/* ~/.config/rofi/config.rasi - lançador dinâmico (Super+d), Tango amarelo, sem compositor */
+configuration {
+    modi:                       "drun,run,window";
+    font:                       "NotoSansM Nerd Font Mono 10";
+    show-icons:                 false;
+    display-drun:               "apps";
+    display-run:                "run";
+    display-window:             "window";
+    drun-display-format:        "{name}";
+    window-format:              "{w} · {c} · {t}";
+}
+
+@theme "/dev/null"
+
+@import "cores.rasi"
+
+* {
+    background-color: @bg;
+    text-color:       @fg;
+}
+
+window {
+    transparency:       "none";
+    width:              480px;
+    border:             2px;
+    border-color:       @accent;
+    border-radius:      0px;
+}
+
+mainbox {
+    children:           [ inputbar, listview ];
+    padding:            0px;
+}
+
+inputbar {
+    children:           [ prompt, entry ];
+    background-color:   @bg-alt;
+}
+
+prompt {
+    background-color:   @accent;
+    text-color:         @bg;
+    padding:            12px;
+    font:               "NotoSansM Nerd Font Mono 10";
+}
+
+entry {
+    background-color:   @bg-alt;
+    padding:            12px;
+    placeholder:        "buscar...";
+    placeholder-color:  @muted;
+}
+
+listview {
+    lines:              8;
+    columns:            1;
+    fixed-height:       true;
+    cycle:              true;
+    scrollbar:          false;
+    border:             0px;
+}
+
+element {
+    padding:            8px 12px;
+    spacing:            8px;
+}
+
+element normal.normal {
+    background-color:   @bg;
+}
+
+element selected.normal {
+    background-color:   @bg-alt;
+    text-color:         @accent;
+}
+
+element-text {
+    background-color:   inherit;
+    text-color:         inherit;
+}

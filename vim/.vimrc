@@ -1,4 +1,4 @@
-" ~/.vimrc - Vim sem plugins, Gruvbox (retrobox, que vem no Vim 9)
+" ~/.vimrc - Vim sem plugins, cores Tango com destaque amarelo
 " Tudo daqui está no :help. Recarregar: :source ~/.vimrc
 
 " ------------------------------------------------------------ básico
@@ -15,13 +15,22 @@ set splitbelow splitright       " :split embaixo, :vsplit à direita
 set wildmenu wildmode=longest:full,full
 set path+=**                    " :find busca nos subdiretórios
 
-" ------------------------------------------------------------ cores (Gruvbox)
-" o xterm precisa de TERM=xterm-256color (XTerm*termName no .Xresources)
+" ------------------------------------------------------------ cores (Tango)
+" sem colorscheme: o Vim usa as 16 cores do terminal, que o ~/.Xresources
+" deixa em Tango. Aqui só o destaque amarelo (3 = #c4a000, 11 = #fce94f).
 set background=dark
-silent! colorscheme retrobox
-hi StatusLine   ctermfg=235 ctermbg=214 cterm=bold
-hi StatusLineNC ctermfg=246 ctermbg=237 cterm=NONE
-hi CursorLineNr ctermfg=214 cterm=bold
+hi LineNr       ctermfg=8
+hi CursorLineNr ctermfg=11 cterm=bold
+hi CursorLine   cterm=NONE ctermbg=NONE
+hi Search       ctermfg=0  ctermbg=3
+hi IncSearch    ctermfg=0  ctermbg=11 cterm=NONE
+hi Visual       ctermfg=NONE ctermbg=8
+hi StatusLine   ctermfg=0  ctermbg=11 cterm=bold
+hi StatusLineNC ctermfg=7  ctermbg=8  cterm=NONE
+hi VertSplit    ctermfg=8  ctermbg=NONE cterm=NONE
+hi ColorColumn  ctermbg=0
+hi NonText      ctermfg=8
+hi SpecialKey   ctermfg=8
 
 " ------------------------------------------------------------ tela
 set number relativenumber

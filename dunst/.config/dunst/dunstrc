@@ -8,25 +8,25 @@
     scale = 0
     notification_limit = 0
 
-    ### Estética Gruvbox, destaque amarelo ###
+    ### Estética Tango, destaque amarelo ###
     font = NotoSansM Nerd Font Mono 10
     frame_width = 2
-    frame_color = "#fabd2f"
+    frame_color = "#edd400"
     separator_color = frame
     corner_radius = 4
 
 [urgency_low]
-    background = "#282828"
-    foreground = "#ebdbb2"
+    background = "#2e3436"
+    foreground = "#eeeeec"
     timeout = 10
 
 [urgency_normal]
-    background = "#282828"
-    foreground = "#ebdbb2"
+    background = "#2e3436"
+    foreground = "#eeeeec"
     timeout = 10
 
 [urgency_critical]
-    background = "#282828"
-    foreground = "#ebdbb2"
-    frame_color = "#fb4934"
+    background = "#2e3436"
+    foreground = "#eeeeec"
+    frame_color = "#ef2929"
     timeout = 0# vim: ft=cfg

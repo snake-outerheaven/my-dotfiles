@@ -10,16 +10,12 @@ export LC_CTYPE="${LC_CTYPE:-en_US.UTF-8}"
 
 xrdb -merge ~/.Xresources 2>/dev/null
 
-# fundo: ~/.fehbg se voce escolheu outro; senao o wallpaper do repo; senao cor lisa
-WALL="$HOME/.local/share/wallpapers/gruvbox.png"
-if [ -x ~/.fehbg ]; then ~/.fehbg
-elif command -v feh >/dev/null && [ -f "$WALL" ]; then feh --no-fehbg --bg-fill "$WALL"
-else xsetroot -solid "#282828"
-fi
+# fundo: ~/.fehbg, ou as flores amarelas (pega-wallpaper), ou cor lisa Tango
+fundo
 
 command -v dunst >/dev/null && dunst &
 command -v copyq >/dev/null && copyq &
-command -v xidle >/dev/null && xidle -timeout 300 -program "/usr/X11R6/bin/xlock -mode qix" &
-barra &
+# bloqueio após 5 min parado: i3lock na cor de fundo Tango
+command -v i3lock >/dev/null && xidle -timeout 300 -program "/usr/local/bin/i3lock -c 2e3436" &
 
 exec cwm
