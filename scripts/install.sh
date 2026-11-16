@@ -144,7 +144,7 @@ rodar mkdir -p "$HOME/Imagens/Capturas"
 # wallpaper das flores amarelas (Unsplash): baixado, não versionado
 if [ ! -f "$HOME/.local/share/wallpapers/flores-amarelas.jpg" ]; then
 	msg "Wallpaper: flores amarelas (Unsplash)"
-	rodar "$REPO/scripts/.local/bin/pega-wallpaper" || aviso "Sem wallpaper: o fundo fica na cor lisa Tango"
+	rodar "$REPO/scripts/bin/pega-wallpaper" || aviso "Sem wallpaper: o fundo fica na cor lisa Tango"
 fi
 
 msg "Pronto."

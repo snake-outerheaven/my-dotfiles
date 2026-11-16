@@ -28,6 +28,9 @@ O `install.sh` monta o desktop inteiro, em etapas:
 | Dotfiles | `stow` de cada pacote, com backup do que atrapalhar |
 | Pastas | Cria as pastas do `xdg-user-dirs` (abaixo) |
 
+Scripts (`cwm-session`, `infos`, `fundo`, `pega-wallpaper`, `printar`, `lazer`) ficam em
+**`~/bin`**, o lugar padrão do OpenBSD: o `~/.profile` do sistema já o põe no `PATH`.
+
 Pastas do usuário (`xdg/.config/user-dirs.dirs`), em português, sem acento:
 `Desktop`, `Documentos`, `Downloads`, `Musica`, `Imagens`, `Videos`, `Modelos`, `Publico`.
 O `printar` salva em `Imagens/Capturas`.

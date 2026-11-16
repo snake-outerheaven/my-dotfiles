@@ -2,8 +2,9 @@
 # cwm-session - sessao do cwm (o cwm nao tem autostart proprio)
 # Chamado pelo ~/.xinitrc (startx) e pelo ~/.xsession (xenodm).
 
-# deixa os scripts de ~/.local/bin acessiveis aos atalhos do cwm
-export PATH="$HOME/.local/bin:$PATH"
+# ~/bin: lugar padrao do OpenBSD para scripts do usuario (o ~/.profile do
+# sistema ja o coloca no PATH); exportado aqui porque o xenodm nao le o .profile
+export PATH="$HOME/bin:$PATH"
 
 # UTF-8 nos programas do X (xterm, vim, ranger); no OpenBSD basta o LC_CTYPE
 export LC_CTYPE="${LC_CTYPE:-en_US.UTF-8}"
