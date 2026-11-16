@@ -1,5 +1,6 @@
 #!/bin/sh
-# install.sh - instala o desktop completo com cwm (Gruvbox, amarelo) e GNU Stow
+# install.sh - instala o desktop com cwm flutuante (Gruvbox, amarelo) e GNU Stow
+# Xenocara primeiro: xterm, menus do cwm, xidle e xlock vem na base.
 # Feito para o OpenBSD.
 #
 # Fica no pacote stow "scripts": depois do stow, vira ~/install.sh.
@@ -19,7 +20,7 @@ SCRIPT=$(readlink -f "$0")
 REPO=$(dirname "$(dirname "$SCRIPT")")
 BACKUP="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
 
-STOW_PACOTES="alacritty dunst rofi tmux x11 cwm scripts zathura mpv cmus vim"
+STOW_PACOTES="dunst tmux x11 cwm scripts zathura mpv cmus vim"
 
 msg()  { printf '\033[33m==>\033[0m %s\n' "$*"; }
 aviso(){ printf '\033[31m!!\033[0m %s\n' "$*"; }
@@ -30,7 +31,7 @@ rodar() {
 [ "$(uname -s)" = OpenBSD ] || { aviso "Este script e para OpenBSD."; exit 1; }
 command -v doas >/dev/null || { aviso "doas nao encontrado. Configure o /etc/doas.conf."; exit 1; }
 
-PACOTES="stow alacritty rofi dunst feh scrot copyq lxappearance git"
+PACOTES="stow dunst feh scrot copyq git"
 APPS="lemonbar-xft firefox nnn zathura zathura-pdf-mupdf mpv cmus vim--no_x11"
 JOGOS="supertux supertuxkart"
 LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
@@ -79,8 +80,6 @@ for p in $LAZER $JOGOS; do
 done
 
 rodar mkdir -p "$HOME/Downloads" "$HOME/Musica"
-
-# tema GTK: escolha pelo lxappearance (o tema voce baixa por conta propria)
 
 # tema do CopyQ (o CopyQ reescreve o copyq.conf, por isso fica fora do stow)
 if command -v copyq >/dev/null && [ -f "$REPO/copyq/gruvbox.ini" ]; then

@@ -1,7 +1,7 @@
 #!/bin/sh
-# lazer - menu de brinquedos de terminal (no cwm: Super+g abre pelo rofi)
+# lazer - menu de brinquedos de terminal (no cwm: Super+/ e escolha "lazer")
 #
-# Uso:  lazer          escolhe pelo rofi (ou por numero, se nao tiver rofi)
+# Uso:  lazer          escolhe por numero (pelo rofi, se estiver instalado)
 #       lazer aleatorio  sorteia um
 
 # nome|comando  (so aparecem os que estiverem instalados)
@@ -19,6 +19,11 @@ done)
 
 [ -n "$disponiveis" ] || { echo "nenhum brinquedo instalado (rode ~/install.sh)"; exit 1; }
 
+# chamado pelo menu do cwm (sem terminal) e sem rofi: abre o menu num xterm
+if [ -n "${DISPLAY:-}" ] && [ ! -t 0 ] && [ "${1:-}" != "aleatorio" ] && ! command -v rofi >/dev/null 2>&1; then
+	exec xterm -T lazer -e "$0"
+fi
+
 if [ "${1:-}" = "aleatorio" ]; then
 	n=$(printf '%s\n' "$disponiveis" | wc -l)
 	escolha=$(printf '%s\n' "$disponiveis" | sed -n "$(( $(od -An -N2 -tu2 /dev/urandom) % n + 1 ))p")
@@ -35,7 +40,7 @@ cmd=$(printf '%s\n' "$BRINQUEDOS" | grep "^$escolha|" | cut -d'|' -f2-)
 
 # abre num terminal novo se estiver no X, senao roda aqui
 if [ -n "${DISPLAY:-}" ] && [ ! -t 1 ]; then
-	exec alacritty --title "lazer: $escolha" -e sh -c "$cmd"
+	exec xterm -T "lazer: $escolha" -e sh -c "$cmd"
 else
 	exec sh -c "$cmd"
 fi

@@ -1,0 +1,47 @@
+! ~/.Xresources - Gruvbox dark, destaque amarelo, para o xterm e programas X da base
+! Carregado pelo cwm-session (xrdb -merge). Testar mudanças: xrdb -merge ~/.Xresources
+
+! --- xterm ---
+XTerm*termName:        xterm-256color
+XTerm*locale:          true
+XTerm*utf8:            1
+XTerm*renderFont:      true
+XTerm*faceName:        Cascadia Code
+XTerm*faceSize:        10
+XTerm*internalBorder:  8
+XTerm*scrollBar:       false
+XTerm*saveLines:       5000
+XTerm*bellIsUrgent:    true
+XTerm*selectToClipboard: true
+XTerm*metaSendsEscape: true
+XTerm*cursorBlink:     false
+
+! --- cores (Gruvbox dark medium) ---
+*.background:  #282828
+*.foreground:  #ebdbb2
+*.cursorColor: #fabd2f
+XTerm*background:  #282828
+XTerm*foreground:  #ebdbb2
+XTerm*cursorColor: #fabd2f
+*.color0:  #282828
+*.color1:  #cc241d
+*.color2:  #98971a
+*.color3:  #d79921
+*.color4:  #458588
+*.color5:  #b16286
+*.color6:  #689d6a
+*.color7:  #a89984
+*.color8:  #928374
+*.color9:  #fb4934
+*.color10: #b8bb26
+*.color11: #fabd2f
+*.color12: #83a598
+*.color13: #d3869b
+*.color14: #8ec07c
+*.color15: #ebdbb2
+
+! --- xclock (relógio da base) ---
+XClock*background: #282828
+XClock*foreground: #fabd2f
+XClock*hands:      #fabd2f
+XClock*highlight:  #ebdbb2

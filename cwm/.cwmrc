@@ -1,14 +1,16 @@
-# ~/.cwmrc - cwm (base do OpenBSD) em Gruvbox dark medium, destaque amarelo
-# Iniciar: startx (o ~/.xinitrc chama ~/.local/bin/cwm-session)
+# ~/.cwmrc - cwm completo e flutuante, Gruvbox dark com destaque amarelo
+# Base: branch openbsd do my-dotfiles. Referência: cwmrc(5).
+# Teclas: 4 = Super, S = Shift, C = Ctrl, M = Alt
 # Recarregar depois de editar: Super+Shift+r
 
+# ---------------------------------------------------------------- aparência
 fontname "Cascadia Code:pixelsize=14"
 borderwidth 2
-gap 6 30 6 6        # cima baixo esquerda direita (30 embaixo = barra)
+gap 6 30 6 6            # cima baixo esquerda direita (30 embaixo = barra)
 snapdist 8
-sticky yes
+sticky yes              # janela nova nasce no grupo atual
+moveamount 20           # passo (px) de mover/redimensionar pelo teclado
 
-# cores
 color activeborder   "#fabd2f"
 color inactiveborder "#3c3836"
 color urgencyborder  "#fb4934"
@@ -19,36 +21,63 @@ color menufg         "#fabd2f"
 color font           "#ebdbb2"
 color selfont        "#282828"
 
-# programas do menu (Super+botao direito no fundo, ou Super+/)
-command term     alacritty
+# ---------------------------------------------------------------- regras
+ignore barra                    # a barra não recebe borda nem foco
+autogroup 0 "barra"             # grupo 0 = visível em todos
+autogroup 0 "copyq"
+autogroup 3 "firefox"           # navegador sempre no grupo III
+autogroup 4 "cmus,XTerm"        # música no grupo IV (xterm -name cmus)
+
+# ---------------------------------------------------------------- menu de programas
+# Super+/  ou  botão do meio no fundo
+command xterm    xterm
 command firefox  firefox
-command arquivos "alacritty -e nnn"
-command musica   "alacritty -e cmus"
-command copyq    "copyq toggle"
+command arquivos "xterm -e nnn"
+command musica   "xterm -name cmus -e cmus"
+command top      "xterm -e top"
 command lazer    lazer
 
-# --- atalhos (4 = Super, S = Shift, C = Ctrl) ---
-bind-key 4-Return    terminal
-bind-key 4-d         "rofi -show drun"
-bind-key 4-slash     menu-exec
-bind-key 4S-q        window-close
-bind-key 4-f         window-fullscreen
-bind-key 4-m         window-maximize
-bind-key 4-h         window-snap-left
-bind-key 4-l         window-snap-right
-bind-key 4-k         window-snap-up
-bind-key 4-j         window-snap-down
-bind-key 4-Tab       window-cycle
-bind-key 4S-Tab      window-rcycle
-bind-key 4-v         "copyq toggle"
-bind-key 4-g         lazer
-bind-key 4-e         "alacritty -e nnn"
-bind-key 4-w         firefox
-bind-key 4S-x        "xlock -mode qix"
-bind-key 4S-r        restart
-bind-key 4S-e        quit
+# ---------------------------------------------------------------- teclado
+unbind-key all          # começa do zero: só vale o que está abaixo
 
-# grupos I a IX (a barra mostra o atual em amarelo)
+# programas
+bind-key 4-Return       terminal
+bind-key 4-d            menu-exec           # lançador embutido (sem rofi)
+bind-key 4-slash        menu-cmd            # menu "command" acima
+bind-key 4-w            menu-window         # busca janela pelo nome
+bind-key 4S-w           menu-window-hidden  # janelas escondidas
+bind-key 4-s            menu-ssh            # hosts do ~/.ssh/known_hosts
+bind-key 4-v            "copyq toggle"
+
+# janela
+bind-key 4S-q           window-close
+bind-key 4-f            window-fullscreen
+bind-key 4-m            window-maximize
+bind-key 4S-m           window-vmaximize
+bind-key 4-minus        window-hide
+bind-key 4-p            window-stick        # fixa em todos os grupos
+bind-key 4-n            window-menu-label   # dá um nome para achar no Super+w
+bind-key 4-Tab          window-cycle
+bind-key 4S-Tab         window-rcycle
+
+# encaixar nas bordas (Super+h/j/k/l)
+bind-key 4-h            window-snap-left
+bind-key 4-j            window-snap-down
+bind-key 4-k            window-snap-up
+bind-key 4-l            window-snap-right
+bind-key 4-c            window-center
+
+# mover (Super+Shift+h/j/k/l) e redimensionar (Super+Ctrl+h/j/k/l)
+bind-key 4S-h           window-move-left-big
+bind-key 4S-j           window-move-down-big
+bind-key 4S-k           window-move-up-big
+bind-key 4S-l           window-move-right-big
+bind-key 4C-h           window-resize-left-big
+bind-key 4C-j           window-resize-down-big
+bind-key 4C-k           window-resize-up-big
+bind-key 4C-l           window-resize-right-big
+
+# grupos I a IX (equivalem às áreas do i3)
 bind-key 4-1 group-only-1
 bind-key 4-2 group-only-2
 bind-key 4-3 group-only-3
@@ -67,20 +96,29 @@ bind-key 4S-6 window-movetogroup-6
 bind-key 4S-7 window-movetogroup-7
 bind-key 4S-8 window-movetogroup-8
 bind-key 4S-9 window-movetogroup-9
+bind-key 4-grave        group-last          # volta ao grupo anterior (Super+`)
+bind-key 4-Right        group-cycle
+bind-key 4-Left         group-rcycle
 
-# a barra e o copyq ficam em todos os grupos
-autogroup 0 "barra"
-autogroup 0 "copyq"
+# sessão
+bind-key 4S-x           "xlock -mode qix"
+bind-key 4S-r           restart
+bind-key 4S-e           quit
 
-# volume, brilho e print (teclas do ThinkPad)
-bind-key XF86AudioRaiseVolume "sndioctl -q output.level=+0.1"
-bind-key XF86AudioLowerVolume "sndioctl -q output.level=-0.1"
-bind-key XF86AudioMute        "sndioctl -q output.mute=!"
+# teclas do ThinkPad
+bind-key XF86AudioRaiseVolume  "sndioctl -q output.level=+0.1"
+bind-key XF86AudioLowerVolume  "sndioctl -q output.level=-0.1"
+bind-key XF86AudioMute         "sndioctl -q output.mute=!"
 bind-key XF86MonBrightnessUp   "xbacklight -inc 10"
 bind-key XF86MonBrightnessDown "xbacklight -dec 10"
-bind-key Print                printar
-bind-key 4-Print              "printar -s"
+bind-key Print                 printar
+bind-key 4-Print               "printar -s"
 
-# mouse: Super + botao esquerdo move, Super + direito redimensiona
-bind-mouse 4-1 window-move
-bind-mouse 4-3 window-resize
+# ---------------------------------------------------------------- mouse
+unbind-mouse all
+bind-mouse 4-1          window-move         # Super + esquerdo: move
+bind-mouse 4-3          window-resize       # Super + direito: redimensiona
+bind-mouse 4-2          window-lower        # Super + meio: manda para trás
+bind-mouse 1            menu-window         # clique esquerdo no fundo: janelas
+bind-mouse 2            menu-cmd            # botão do meio no fundo: programas
+bind-mouse 3            menu-group          # botão direito no fundo: grupos
