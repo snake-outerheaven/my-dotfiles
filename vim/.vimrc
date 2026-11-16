@@ -5,7 +5,6 @@
 set nocompatible
 filetype plugin indent on
 syntax on
-set encoding=utf-8
 set hidden                      " troca de buffer sem salvar
 set mouse=a                     " mouse no xterm
 set backspace=indent,eol,start
