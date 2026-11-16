@@ -33,7 +33,7 @@ Scripts (`cwm-session`, `infos`, `fundo`, `pega-wallpaper`, `printar`, `lazer`) 
 
 Pastas do usuário (`xdg/.config/user-dirs.dirs`), em português, sem acento:
 `Desktop`, `Documentos`, `Downloads`, `Musica`, `Imagens`, `Videos`, `Modelos`, `Publico`.
-O `printar` salva em `Imagens/Capturas`.
+O `printar` salva os prints direto em `Downloads` (`print-AAAAMMDD-HHMMSS.png`).
 
 Depois de editar o `.cwmrc`: `cwm -n -c ~/.cwmrc` testa, `Super+Shift+r` recarrega.
 

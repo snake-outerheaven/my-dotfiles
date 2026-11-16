@@ -139,7 +139,6 @@ for d in DESKTOP DOCUMENTS DOWNLOAD MUSIC PICTURES VIDEOS TEMPLATES PUBLICSHARE;
 		[ "$pasta" != "$HOME" ] && mkdir -p "$pasta" && printf '    %s\n' "$pasta"
 	fi
 done
-rodar mkdir -p "$HOME/Imagens/Capturas"
 
 # wallpaper das flores amarelas (Unsplash): baixado, não versionado
 if [ ! -f "$HOME/.local/share/wallpapers/flores-amarelas.jpg" ]; then

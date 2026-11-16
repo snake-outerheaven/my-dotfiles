@@ -1,11 +1,11 @@
 #!/bin/sh
-# printar - print da tela em Imagens/Capturas (Print = tela toda, Super+Print = area)
-# A pasta Imagens vem do xdg-user-dirs (~/.config/user-dirs.dirs).
-IMAGENS=$(xdg-user-dir PICTURES 2>/dev/null) || IMAGENS="$HOME/Imagens"
-DESTINO="$IMAGENS/Capturas"
+# printar - print da tela direto em Downloads (Print = tela toda, Super+Print = area)
+# A pasta Downloads vem do xdg-user-dirs (~/.config/user-dirs.dirs).
+DESTINO=$(xdg-user-dir DOWNLOAD 2>/dev/null) || DESTINO="$HOME/Downloads"
+[ "$DESTINO" = "$HOME" ] && DESTINO="$HOME/Downloads"
 mkdir -p "$DESTINO"
 if [ "${1:-}" = "-s" ]; then
-	scrot -s "$DESTINO/%Y%m%d-%H%M%S.png"
+	scrot -s "$DESTINO/print-%Y%m%d-%H%M%S.png"
 else
-	scrot "$DESTINO/%Y%m%d-%H%M%S.png"
+	scrot "$DESTINO/print-%Y%m%d-%H%M%S.png"
 fi
