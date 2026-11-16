@@ -1,0 +1,12 @@
+# ~/.config/user-dirs.dirs - pastas do usuário (xdg-user-dirs)
+# Nomes em português, sem acento e sem espaço, para o terminal.
+# O Firefox e outros programas gráficos usam estas pastas.
+# Consultar: xdg-user-dir DOWNLOAD   (ou DESKTOP, DOCUMENTS, PICTURES...)
+XDG_DESKTOP_DIR="$HOME/Desktop"
+XDG_DOCUMENTS_DIR="$HOME/Documentos"
+XDG_DOWNLOAD_DIR="$HOME/Downloads"
+XDG_MUSIC_DIR="$HOME/Musica"
+XDG_PICTURES_DIR="$HOME/Imagens"
+XDG_VIDEOS_DIR="$HOME/Videos"
+XDG_TEMPLATES_DIR="$HOME/Modelos"
+XDG_PUBLICSHARE_DIR="$HOME/Publico"

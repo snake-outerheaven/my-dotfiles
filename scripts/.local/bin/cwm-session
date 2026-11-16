@@ -5,6 +5,9 @@
 # deixa os scripts de ~/.local/bin acessiveis aos atalhos do cwm
 export PATH="$HOME/.local/bin:$PATH"
 
+# UTF-8 nos programas do X (xterm, vim, ranger); no OpenBSD basta o LC_CTYPE
+export LC_CTYPE="${LC_CTYPE:-en_US.UTF-8}"
+
 xrdb -merge ~/.Xresources 2>/dev/null
 
 # fundo: ~/.fehbg se voce escolheu outro; senao o wallpaper do repo; senao cor lisa

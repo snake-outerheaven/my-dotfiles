@@ -16,6 +16,21 @@ sh ~/my-dotfiles/scripts/install.sh      # instala (pacotes + stow)
 startx                                   # ou entre pelo xenodm
 ```
 
+O `install.sh` monta o desktop inteiro, em etapas:
+
+| Etapa | O que faz |
+|---|---|
+| Pacotes e programas | Instala o que falta (pula o que já existe) |
+| Fontes, lazer e jogos | Opcionais: seguem mesmo se algum falhar |
+| Sistema | Pergunta antes: `xenodm` no boot, `apmd -A`, classe `staff` para o usuário |
+| Tema do CopyQ | Gruvbox amarelo |
+| Dotfiles | `stow` de cada pacote, com backup do que atrapalhar |
+| Pastas | Cria as pastas do `xdg-user-dirs` (abaixo) |
+
+Pastas do usuário (`xdg/.config/user-dirs.dirs`), em português, sem acento:
+`Desktop`, `Documentos`, `Downloads`, `Musica`, `Imagens`, `Videos`, `Modelos`, `Publico`.
+O `printar` salva em `Imagens/Capturas`.
+
 Depois de editar o `.cwmrc`: `cwm -n -c ~/.cwmrc` testa, `Super+Shift+r` recarrega.
 
 ## Peças
