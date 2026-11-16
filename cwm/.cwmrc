@@ -4,7 +4,7 @@
 # Recarregar depois de editar: Super+Shift+r
 
 # ---------------------------------------------------------------- aparência
-fontname "Cascadia Code:pixelsize=14"
+fontname "NotoSansM Nerd Font Mono:pixelsize=14"
 borderwidth 2
 gap 6 30 6 6            # cima baixo esquerda direita (30 embaixo = barra)
 snapdist 8
@@ -32,9 +32,9 @@ autogroup 4 "cmus,XTerm"        # música no grupo IV (xterm -name cmus)
 # Super+/  ou  botão do meio no fundo
 command xterm    xterm
 command firefox  firefox
-command arquivos "xterm -e nnn"
+command arquivos "xterm -e ranger"
 command musica   "xterm -name cmus -e cmus"
-command top      "xterm -e top"
+command htop     "xterm -e htop"
 command lazer    lazer
 
 # ---------------------------------------------------------------- teclado

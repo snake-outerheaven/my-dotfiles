@@ -1,5 +1,5 @@
 # zathurarc - leitor de PDF em Gruvbox dark medium, destaque amarelo
-set font                   "Cascadia Code 10"
+set font                   "NotoSansM Nerd Font Mono 10"
 set selection-clipboard    clipboard
 set recolor                true
 set recolor-keephue        true

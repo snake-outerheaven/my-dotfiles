@@ -6,7 +6,7 @@ XTerm*termName:        xterm-256color
 XTerm*locale:          true
 XTerm*utf8:            1
 XTerm*renderFont:      true
-XTerm*faceName:        Cascadia Code
+XTerm*faceName:        NotoSansM Nerd Font Mono
 XTerm*faceSize:        10
 XTerm*internalBorder:  8
 XTerm*scrollBar:       false

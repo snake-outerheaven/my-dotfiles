@@ -61,4 +61,4 @@ LB=$(command -v lemonbar-xft || command -v lemonbar) || { echo "barra: lemonbar 
 while :; do
 	linha
 	sleep 2
-done | "$LB" -b -g x24 -B "$BG" -F "$FG" -U "$BG1" -f "Cascadia Code:size=10" -n barra | sh
+done | "$LB" -b -g x24 -B "$BG" -F "$FG" -U "$BG1" -f "NotoSansM Nerd Font Mono:size=10" -n barra | sh

@@ -32,10 +32,10 @@ rodar() {
 command -v doas >/dev/null || { aviso "doas nao encontrado. Configure o /etc/doas.conf."; exit 1; }
 
 PACOTES="stow dunst feh scrot copyq git"
-APPS="lemonbar-xft firefox nnn zathura zathura-pdf-mupdf mpv cmus vim--no_x11"
-JOGOS="supertux supertuxkart"
+APPS="lemonbar-xft firefox ranger htop zathura zathura-pdf-mupdf mpv cmus vim--no_x11"
+JOGOS="supertux supertuxkart openttd"
 LAZER="cmatrix tty-clock cowsay figlet sl asciiquarium"
-FONTES="cascadia-code noto-emoji noto-cjk"
+FONTES="noto-nerd-fonts noto-emoji noto-cjk"
 instalado() { pkg_info -e "${1%%--*}-*" >/dev/null 2>&1; }
 instalar()  { rodar doas pkg_add -I "$1"; }
 

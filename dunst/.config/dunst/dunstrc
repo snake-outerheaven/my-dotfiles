@@ -9,7 +9,7 @@
     notification_limit = 0
 
     ### Estética Gruvbox, destaque amarelo ###
-    font = Cascadia Mono 10
+    font = NotoSansM Nerd Font Mono 10
     frame_width = 2
     frame_color = "#fabd2f"
     separator_color = frame

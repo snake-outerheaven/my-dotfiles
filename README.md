@@ -31,7 +31,10 @@ Depois de editar o `.cwmrc`: `cwm -n -c ~/.cwmrc` testa, `Super+Shift+r` recarre
 | Área de transferência | `copyq` | pacote |
 | Wallpaper | `feh` (ou `xsetroot`) | pacote |
 | Editor | `vim` sem plugins, tema `retrobox` | pacote |
-| Arquivos, música, PDF, vídeo | `nnn`, `cmus`, `zathura`, `mpv` | pacotes |
+| Arquivos, música, PDF, vídeo | `ranger`, `cmus`, `zathura`, `mpv` | pacotes |
+| Navegador, monitor | `firefox`, `htop` | pacotes |
+| Fonte | Noto Nerd Font (`NotoSansM Nerd Font Mono`) | pacote |
+| Lazer | `supertux`, `supertuxkart`, `openttd` e os brinquedos do `lazer` | pacotes |
 
 ## Atalhos (Super = tecla Windows)
 
