@@ -6,9 +6,6 @@
 # sistema ja o coloca no PATH); exportado aqui porque o xenodm nao le o .profile
 export PATH="$HOME/bin:$PATH"
 
-# UTF-8 nos programas do X (xterm, vim, ranger); no OpenBSD basta o LC_CTYPE
-export LC_CTYPE="${LC_CTYPE:-en_US.UTF-8}"
-
 xrdb -merge ~/.Xresources 2>/dev/null
 
 # fundo: ~/.fehbg, ou as flores amarelas (pega-wallpaper), ou cor lisa Tango

@@ -38,7 +38,7 @@ set cursorline
 set showcmd
 set laststatus=2
 set noshowmode                  " o modo aparece na barra de status
-set list listchars=tab:»\ ,trail:·,nbsp:␣
+set list listchars=tab:>\ ,trail:-,nbsp:+   " ASCII: funciona no locale C
 set colorcolumn=80
 
 " barra de status sem plugin: modo | arquivo [+] | tipo | linha:coluna

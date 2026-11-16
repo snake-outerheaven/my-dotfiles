@@ -3,8 +3,6 @@
 
 ! --- xterm ---
 XTerm*termName:        xterm-256color
-XTerm*locale:          true
-XTerm*utf8:            1
 XTerm*renderFont:      true
 XTerm*faceName:        NotoSansM Nerd Font Mono
 XTerm*faceSize:        10
