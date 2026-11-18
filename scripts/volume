@@ -1,0 +1,35 @@
+#!/bin/sh
+# volume - sobe, desce ou muta o volume (sndioctl) e atualiza a barra
+# Uso: volume +|-|mudo|mostra
+#
+# O i3status nao le o sndiod no OpenBSD: este script grava o valor num
+# arquivo em /tmp/bsd-i3-UID/ (pasta so sua, modo 700) e manda SIGUSR1
+# ao seu i3status, que relê na hora. Nada e gravado no seu $HOME.
+
+DIR=/tmp/bsd-i3-$(id -u)
+umask 077
+[ -d "$DIR" ] || mkdir -m 700 "$DIR" 2>/dev/null
+if [ -L "$DIR" ] || [ ! -d "$DIR" ] || [ ! -O "$DIR" ]; then
+	echo "volume: $DIR nao e uma pasta sua" >&2
+	exit 1
+fi
+
+case "${1:-mostra}" in
++)      sndioctl -q output.level=+0.1 ;;
+-)      sndioctl -q output.level=-0.1 ;;
+mudo)   sndioctl -q output.mute=! ;;
+mostra) ;;
+*)      echo "uso: volume +|-|mudo|mostra" >&2; exit 2 ;;
+esac
+
+nivel=$(sndioctl -n output.level 2>/dev/null)
+if [ -z "$nivel" ]; then
+	echo "?"			# sndioctl falhou: a barra mostra VOL ?
+elif [ "$(sndioctl -n output.mute 2>/dev/null)" = 1 ]; then
+	echo mudo
+else
+	echo "$nivel" | awk '{printf "%d%%\n", $1 * 100 + 0.5}'
+fi > "$DIR/volume.$$" && mv -f "$DIR/volume.$$" "$DIR/volume"
+
+pkill -USR1 -u "$(id -u)" -x i3status 2>/dev/null
+exit 0

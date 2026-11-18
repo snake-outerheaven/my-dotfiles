@@ -1,5 +1,7 @@
 #!/bin/sh
-# printar - print da tela na pasta de Downloads do usuario (Print = tela toda, Super+Print = area)
+# printar - print da tela na sua pasta de Downloads
+#   printar      tela toda   (tecla Print)
+#   printar -s   uma area    (Super+Print)
 DIR=$(xdg-user-dir DOWNLOAD 2>/dev/null)
 [ -n "$DIR" ] && [ "$DIR" != "$HOME" ] || DIR="$HOME/Downloads"
 mkdir -p "$DIR"

@@ -29,4 +29,5 @@
     background = "#2e3436"
     foreground = "#eeeeec"
     frame_color = "#ef2929"
-    timeout = 0# vim: ft=cfg
+    timeout = 0
+# vim: ft=cfg

@@ -1,4 +1,5 @@
-! ~/.Xresources - Tango para programas X classicos (xterm e afins)
+! /usr/local/share/bsd-i3/Xresources - Tango para programas X classicos (xterm e afins)
+! Carregado pelo ~/.xinitrc; um ~/.Xresources seu vem por cima.
 *.background: #2e3436
 *.foreground: #eeeeec
 *.cursorColor: #edd400

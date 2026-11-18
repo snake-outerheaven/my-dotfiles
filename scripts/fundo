@@ -1,0 +1,7 @@
+#!/bin/sh
+# fundo - fundo da tela: o seu ~/.fehbg, se existir; senao cor lisa Tango
+if [ -f "$HOME/.fehbg" ]; then
+	sh "$HOME/.fehbg"
+else
+	xsetroot -solid "#2e3436"
+fi

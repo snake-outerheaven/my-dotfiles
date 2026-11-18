@@ -1,0 +1,30 @@
+#!/bin/sh
+# barra - status_command do i3bar: escolhe o modelo do i3status pelo perfil
+#   notebook  volume | bateria | data e hora
+#   desktop   volume | data e hora (sem bateria: nada de alerta falso)
+# O modelo traz @VOLUME@; aqui ele vira o arquivo que o script volume grava.
+# A configuracao gerada fica em /tmp/bsd-i3-UID/ (modo 600), fora do $HOME.
+
+LIBEXEC=/usr/local/libexec/bsd-i3
+SHARE=/usr/local/share/bsd-i3
+DIR=/tmp/bsd-i3-$(id -u)
+
+umask 077
+[ -d "$DIR" ] || mkdir -m 700 "$DIR" 2>/dev/null
+if [ -L "$DIR" ] || [ ! -d "$DIR" ] || [ ! -O "$DIR" ]; then
+	echo "barra: $DIR nao e uma pasta sua" >&2
+	exit 1
+fi
+
+case "$("$LIBEXEC/perfil-maquina")" in
+notebook) MODELO=$SHARE/i3status-notebook.conf ;;
+*)        MODELO=$SHARE/i3status-desktop.conf ;;
+esac
+
+CONF=$DIR/i3status.conf
+sed "s|@VOLUME@|$DIR/volume|" "$MODELO" > "$CONF.$$" && mv -f "$CONF.$$" "$CONF" || exit 1
+
+# valor inicial do volume, para a barra nao comecar vazia
+"$LIBEXEC/volume" mostra >/dev/null 2>&1
+
+exec i3status -c "$CONF"

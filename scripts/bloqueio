@@ -3,5 +3,5 @@
 #   -c 2e3436  cor de fundo (rrggbb, sem #)
 #   -e         nao valida senha vazia (Enter sem querer nao gera espera)
 #   -f         mostra o numero de tentativas erradas
-# O i3lock vai para o fundo sozinho (sem -n), entao serve para o xidle e para a tecla.
-exec i3lock -c 2e3436 -e -f
+# O i3lock vai para o fundo sozinho (sem -n): serve para o xidle e para a tecla.
+exec /usr/local/bin/i3lock -c 2e3436 -e -f
