@@ -2,7 +2,7 @@
 # Base: branch openbsd do my-dotfiles. Referência: cwmrc(5).
 # Teclas: 4 = Super, S = Shift, C = Ctrl, M = Alt
 # Recarregar depois de editar: Super+Shift+r  (testar antes: cwm -n -c ~/.cwmrc)
-# Scripts do projeto: /usr/local/libexec/openbsd-cwm/ (install.sh). Nada no ~/bin.
+# Sem scripts: tudo aqui e comando direto (pacotes: rofi dunst libnotify copyq scrot i3lock).
 
 # ---------------------------------------------------------------- aparência
 fontname "NotoSansM Nerd Font Mono:pixelsize=14"
@@ -34,22 +34,21 @@ command firefox  firefox
 command arquivos "xterm -e ranger"
 command musica   "xterm -name cmus -e cmus"
 command htop     "xterm -e htop"
-command lazer    /usr/local/libexec/openbsd-cwm/lazer
 
 # ---------------------------------------------------------------- teclado
 unbind-key all          # começa do zero: só vale o que está abaixo
 
 # programas
 bind-key 4-Return       terminal
-bind-key 4-d            "rofi -config /usr/local/share/openbsd-cwm/rofi.rasi -show drun"   # lançador dinâmico (apps instalados)
-bind-key 4S-d           "rofi -config /usr/local/share/openbsd-cwm/rofi.rasi -show run"    # qualquer comando do PATH
-bind-key 4-Tab          "rofi -config /usr/local/share/openbsd-cwm/rofi.rasi -show window" # janelas abertas, com busca
+bind-key 4-d            "rofi -show drun"   # lançador dinâmico (apps instalados)
+bind-key 4S-d           "rofi -show run"    # qualquer comando do PATH
+bind-key 4-Tab          "rofi -show window" # janelas abertas, com busca
 bind-key 4-slash        menu-cmd            # menu "command" acima
 bind-key 4-w            menu-window         # busca janela pelo nome
 bind-key 4S-w           menu-window-hidden  # janelas escondidas
 bind-key 4-s            menu-ssh            # hosts do ~/.ssh/known_hosts
 bind-key 4-v            "copyq toggle"
-bind-key 4-i            /usr/local/libexec/openbsd-cwm/infos               # hora, grupo, bateria e volume (sem barra)
+bind-key 4-i            "sh -c 'notify-send -t 5000 \"$(date +%H:%M)\" \"$(date +%d/%m) | vol $(sndioctl -n output.level 2>/dev/null) | bat $(apm -l 2>/dev/null)%\"'"               # hora, data, volume e bateria (sem barra)
 
 # janela
 bind-key 4S-q           window-close
@@ -108,11 +107,11 @@ bind-key 4S-r           restart
 bind-key 4S-e           quit
 
 # teclas do ThinkPad
-bind-key XF86AudioRaiseVolume  "/usr/local/libexec/openbsd-cwm/midia vol+"
-bind-key XF86AudioLowerVolume  "/usr/local/libexec/openbsd-cwm/midia vol-"
-bind-key XF86AudioMute         "/usr/local/libexec/openbsd-cwm/midia mudo"
-bind-key XF86MonBrightnessUp   "/usr/local/libexec/openbsd-cwm/midia luz+"
-bind-key XF86MonBrightnessDown "/usr/local/libexec/openbsd-cwm/midia luz-"
+bind-key XF86AudioRaiseVolume  "sndioctl -q output.level=+0.1"
+bind-key XF86AudioLowerVolume  "sndioctl -q output.level=-0.1"
+bind-key XF86AudioMute         "sndioctl -q output.mute=!"
+bind-key XF86MonBrightnessUp   "xbacklight -inc 10"
+bind-key XF86MonBrightnessDown "xbacklight -dec 10"
 bind-key Print                 "scrot -e 'mkdir -p ~/Downloads && mv $f ~/Downloads/'"
 bind-key 4-Print               "scrot -s -e 'mkdir -p ~/Downloads && mv $f ~/Downloads/'"
 

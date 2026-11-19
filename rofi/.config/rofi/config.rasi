@@ -1,4 +1,4 @@
-/* /usr/local/share/openbsd-cwm/rofi.rasi - lançador dinâmico (Super+d), Tango amarelo, sem compositor */
+/* ~/.config/rofi/config.rasi - lançador dinâmico (Super+d), Tango amarelo, sem compositor */
 configuration {
     modi:                       "drun,run,window";
     font:                       "NotoSansM Nerd Font Mono 10";
