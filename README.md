@@ -30,7 +30,7 @@ stow cwm            # aplica; repita para cada pacote que quiser
 | `dunst` | `~/.config/dunst/dunstrc` | Notificações |
 | `rofi` | `~/.config/rofi/config.rasi` | Lançador (`Super+d`) |
 | `copyq` | `~/.config/copyq/tango.ini` | Tema; aplicar uma vez com `copyq loadTheme ~/.config/copyq/tango.ini` |
-| `tmux`, `cmus`, `mpv`, `zathura`, `xdg` | Cada um no seu lugar em `~/` ou `~/.config/` | Opcionais |
+| `tmux`, `cmus`, `mpv`, `zathura` | Cada um no seu lugar em `~/` ou `~/.config/` | Opcionais |
 
 Se um arquivo seu já existir no lugar, o `stow` avisa e não mexe nele: mova o seu primeiro.
 Desfazer um pacote: `stow -D cwm`.
