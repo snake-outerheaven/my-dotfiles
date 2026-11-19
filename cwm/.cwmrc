@@ -67,7 +67,7 @@ bind-key 4-h            window-snap-left
 bind-key 4-j            window-snap-down
 bind-key 4-k            window-snap-up
 bind-key 4-l            window-snap-right
-bind-key 4-c            window-center
+bind-key 4-c            window-snap-center
 
 # mover (Super+Shift+h/j/k/l) e redimensionar (Super+Ctrl+h/j/k/l)
 bind-key 4S-h           window-move-left-big
@@ -113,8 +113,8 @@ bind-key XF86AudioLowerVolume  "/usr/local/libexec/openbsd-cwm/midia vol-"
 bind-key XF86AudioMute         "/usr/local/libexec/openbsd-cwm/midia mudo"
 bind-key XF86MonBrightnessUp   "/usr/local/libexec/openbsd-cwm/midia luz+"
 bind-key XF86MonBrightnessDown "/usr/local/libexec/openbsd-cwm/midia luz-"
-bind-key Print                 /usr/local/libexec/openbsd-cwm/printar
-bind-key 4-Print               "/usr/local/libexec/openbsd-cwm/printar -s"
+bind-key Print                 "scrot -e 'mkdir -p ~/Downloads && mv $f ~/Downloads/'"
+bind-key 4-Print               "scrot -s -e 'mkdir -p ~/Downloads && mv $f ~/Downloads/'"
 
 # ---------------------------------------------------------------- mouse
 unbind-mouse all

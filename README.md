@@ -45,7 +45,7 @@ Grupos extras (todos por padrão; escolha com `GRUPOS`, por exemplo `GRUPOS="app
 
 | Repositório | Instalado em | Conteúdo |
 |---|---|---|
-| `scripts/` | `/usr/local/libexec/openbsd-cwm/` | `cwm-session`, `fundo`, `infos`, `midia`, `printar`, `lazer`, `perfil-maquina` |
+| `scripts/` | `/usr/local/libexec/openbsd-cwm/` | `cwm-session`, `fundo`, `infos`, `midia`, `lazer`, `perfil-maquina` |
 | `share/` | `/usr/local/share/openbsd-cwm/` | `dunstrc`, `rofi.rasi`, `copyq-tango.ini` |
 | — | `/etc/openbsd-cwm/perfil` | `desktop` ou `notebook` |
 | `x11/` | `~/` (stow) | `.xinitrc`, `.xsession`, `.Xresources` |
@@ -91,7 +91,7 @@ Forçar: `PERFIL=desktop sh install.sh`.
 | Área de transferência | `copyq`, tema Tango | pacote |
 | Fundo | o seu `~/.fehbg`, ou a cor lisa Tango | base |
 | Volume e brilho | `midia`: `sndioctl` / `xbacklight`, com o valor no dunst | base + pacote |
-| Print | `printar` (`scrot`) em `~/Downloads` | pacote |
+| Print | `scrot` direto no `.cwmrc`, salva em `~/Downloads` | pacote |
 | Fonte | Noto Nerd Font (`NotoSansM Nerd Font Mono`) | pacote |
 
 ## Atalhos (Super = tecla Windows)
