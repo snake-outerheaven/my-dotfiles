@@ -1,5 +1,5 @@
 ! ~/.Xresources - Tango, destaque amarelo (#edd400), para o xterm e programas X da base
-! Carregado pelo cwm-session (xrdb -merge). Testar mudanças: xrdb -merge ~/.Xresources
+! Carregado pelo cwm-session (xrdb -merge). O arquivo e seu: edite a vontade. Testar mudanças: xrdb -merge ~/.Xresources
 
 ! --- xterm ---
 XTerm*termName:        xterm-256color

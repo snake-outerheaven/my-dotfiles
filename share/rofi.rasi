@@ -1,4 +1,4 @@
-/* ~/.config/rofi/config.rasi - lançador dinâmico (Super+d), Tango amarelo, sem compositor */
+/* /usr/local/share/openbsd-cwm/rofi.rasi - lançador dinâmico (Super+d), Tango amarelo, sem compositor */
 configuration {
     modi:                       "drun,run,window";
     font:                       "NotoSansM Nerd Font Mono 10";
@@ -12,7 +12,15 @@ configuration {
 
 @theme "/dev/null"
 
-@import "cores.rasi"
+/* cores.rasi - Tango, destaque amarelo (referencia: paleta/tango.txt) */
+* {
+    bg:      #2e3436;
+    bg-alt:  #555753;
+    fg:      #eeeeec;
+    muted:   #888a85;
+    accent:  #edd400;
+    urgent:  #ef2929;
+}
 
 * {
     background-color: @bg;

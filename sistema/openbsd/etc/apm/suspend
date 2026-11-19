@@ -1,0 +1,13 @@
+#!/bin/sh
+# /etc/apm/suspend - bloqueia a tela antes de suspender (tampa fechada, zzz)
+# O apmd(8) roda este arquivo como root antes de dormir. O xidle, que a sessao
+# sobe ao iniciar, chama o bloqueio (i3lock) ao receber SIGUSR1.
+#
+# Instalar (como root):
+#   install -o root -g wheel -m 755 suspend /etc/apm/suspend
+#   ln -sf suspend /etc/apm/hibernate
+#   rcctl enable apmd && rcctl start apmd
+
+pkill -USR1 -x xidle
+sleep 1		# da tempo do i3lock cobrir a tela antes de dormir
+exit 0

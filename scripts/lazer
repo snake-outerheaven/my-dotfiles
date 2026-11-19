@@ -1,5 +1,6 @@
 #!/bin/sh
 # lazer - menu de brinquedos de terminal (no cwm: Super+/ e escolha "lazer")
+# Instalado em /usr/local/libexec/openbsd-cwm/ pelo install.sh.
 #
 # Uso:  lazer          escolhe por numero (pelo rofi, se estiver instalado)
 #       lazer aleatorio  sorteia um
@@ -17,7 +18,7 @@ disponiveis=$(printf '%s\n' "$BRINQUEDOS" | while IFS='|' read -r nome cmd; do
 	command -v "$prog" >/dev/null 2>&1 && printf '%s\n' "$nome"
 done)
 
-[ -n "$disponiveis" ] || { echo "nenhum brinquedo instalado (rode ~/install.sh)"; exit 1; }
+[ -n "$disponiveis" ] || { echo "nenhum brinquedo instalado (GRUPOS=lazer sh install.sh)"; exit 1; }
 
 # chamado pelo menu do cwm (sem terminal) e sem rofi: abre o menu num xterm
 if [ -n "${DISPLAY:-}" ] && [ ! -t 0 ] && [ "${1:-}" != "aleatorio" ] && ! command -v rofi >/dev/null 2>&1; then

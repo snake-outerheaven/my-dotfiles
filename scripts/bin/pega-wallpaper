@@ -1,9 +1,0 @@
-#!/bin/sh
-# pega-wallpaper - baixa o wallpaper de flores amarelas do Unsplash (Unsplash License)
-# Foto: "A field of yellow flowers with trees in the background", por Aurora K (@dawnoftime)
-# Página: https://unsplash.com/photos/1jy3inuHOgM
-# Usa o ftp(1) da base do OpenBSD, que baixa por https e segue redirecionamentos.
-DIR="$HOME/.local/share/wallpapers"
-mkdir -p "$DIR"
-ftp -o "$DIR/flores-amarelas.jpg" "https://unsplash.com/photos/1jy3inuHOgM/download?force=true" &&
-	echo "ok: $DIR/flores-amarelas.jpg" && { [ -z "${DISPLAY:-}" ] || "$HOME/bin/fundo"; }

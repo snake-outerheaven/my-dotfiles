@@ -1,0 +1,55 @@
+#!/bin/sh
+# midia - volume (sndioctl) e brilho (xbacklight), com o valor novo no dunst
+#
+# Uso: midia vol+ | vol- | mudo | luz+ | luz-
+# O cwm chama pelas teclas de volume e brilho (/usr/local/libexec/openbsd-cwm/midia).
+
+PASSO_VOL=0.1	# 10%
+PASSO_LUZ=10	# 10%
+
+avisar() {	# $1 = titulo, $2 = valor 0-100 (vazio = sem barra)
+	command -v notify-send >/dev/null || return 0
+	if [ -n "$2" ]; then
+		notify-send -t 1500 -h string:x-dunst-stack-tag:midia \
+		    -h "int:value:$2" "$1" "$2%"
+	else
+		notify-send -t 1500 -h string:x-dunst-stack-tag:midia "$1"
+	fi
+}
+
+pct() {	# 0.700 -> 70
+	awk -v n="$1" 'BEGIN { printf "%d", n * 100 + 0.5 }'
+}
+
+# --- som ----------------------------------------------------------------------
+vol_mudar() {	# $1 = + ou -
+	sndioctl -q output.mute=0 "output.level=$1$PASSO_VOL"
+}
+vol_alternar_mudo() {
+	sndioctl -q output.mute=!
+}
+vol_nivel() {	# 0-1
+	sndioctl -n output.level
+}
+vol_mudo() {
+	[ "$(sndioctl -n output.mute)" = 1 ]
+}
+
+# --- brilho -------------------------------------------------------------------
+luz_mudar() {	# $1 = + ou -
+	if [ "$1" = + ]; then xbacklight -inc "$PASSO_LUZ"; else xbacklight -dec "$PASSO_LUZ"; fi
+}
+luz_nivel() {	# 0-100
+	xbacklight -get | cut -d. -f1
+}
+
+case "${1:-}" in
+vol+)	vol_mudar +; avisar "Volume" "$(pct "$(vol_nivel)")" ;;
+vol-)	vol_mudar -; avisar "Volume" "$(pct "$(vol_nivel)")" ;;
+mudo)	vol_alternar_mudo
+	if vol_mudo; then avisar "Volume: mudo"; else avisar "Volume" "$(pct "$(vol_nivel)")"; fi ;;
+luz+)	luz_mudar +; avisar "Brilho" "$(luz_nivel)" ;;
+luz-)	luz_mudar -; avisar "Brilho" "$(luz_nivel)" ;;
+*)	echo "uso: midia vol+ | vol- | mudo | luz+ | luz-" >&2
+	exit 1 ;;
+esac
